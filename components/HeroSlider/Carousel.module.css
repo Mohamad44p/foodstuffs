@@ -1,0 +1,249 @@
+/* Carousel.module.css */
+.wrapper {
+  height: 320vh;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  height: 40px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+  font-weight: bold;
+  font-size: large;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.header ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.carousel {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.carousel.fixed {
+  position: fixed;
+}
+
+.progressLine {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background-color: #fff;
+  z-index: 3;
+  transition: width 0.3s ease-out;
+}
+
+.list {
+  width: 100%;
+  height: 100%;
+}
+
+.item {
+  width: 100%;
+  height: 100%;
+  background-color: var(--background);
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  transition-delay: var(--delay);
+}
+
+.item .fruit {
+  width: 90%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  z-index: 15;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  transition-delay: var(--delay);
+}
+
+.item .content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 12rem;
+  color: #eee;
+  font-weight: bold;
+  font-family: "Arial", sans-serif;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  transition-delay: var(--delay);
+}
+
+.item .description {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #fff;
+  font-family: "Arial", sans-serif;
+  max-width: 400px;
+  opacity: 0;
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  transition-delay: calc(var(--delay) + 0.3s);
+}
+
+.item .description p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.seeProduct {
+  background-color: #fff;
+  color: var(--background);
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.seeProduct:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05);
+}
+
+.item.active {
+  opacity: 1;
+}
+
+.item.active .fruit {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.item.active .content {
+  opacity: 1;
+}
+
+.item.active .description {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.item.active .content {
+  animation: toActive 0.8s ease-in-out 1;
+}
+
+.item.hidden .content {
+  opacity: 0;
+}
+
+.carousel.right .item.active .fruit {
+  animation: toActivePrev 0.5s ease-in-out 1;
+}
+
+.carousel.right .item.hidden .fruit {
+  animation: toOut 0.8s ease-in-out 1;
+  top: 100%;
+  opacity: 0;
+}
+
+.carousel.right .item.active .content {
+  animation: toActivePrev 0.8s ease-in-out 1;
+}
+
+@keyframes toActivePrev {
+  from {
+    top: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes toActive {
+  from {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes toOut {
+  from {
+    top: 50%;
+    opacity: 1;
+  }
+}
+
+.mockup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  --left: 0%;
+  transform: translate(-50%, -50%);
+  height: var(--height-mockup);
+  width: var(--width-mockup);
+  background: url(/img/mockup.png) 0 0 no-repeat,
+    url(/img/listSoda.jpg) var(--left) 0;
+  background-size: auto 100%;
+  background-blend-mode: multiply;
+  -webkit-mask-image: url(/img/mockup.png);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: auto 100%;
+  transition: background 0.5s;
+}
+
+.leaves {
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  background-image: url(/img/leaves.png);
+  background-size: 100%;
+  top: calc((50% - (var(--height-mockup) / 1.7)));
+  left: calc((50% + (var(--width-mockup) / 5)));
+}
+
+.shadow {
+  width: var(--width-mockup);
+  height: 100px;
+  background-color: #0008;
+  border-radius: 50%;
+  position: absolute;
+  top: calc((50% + (var(--height-mockup) / 2)));
+  left: 50%;
+  transform: translateX(-50%);
+  filter: blur(20px);
+}
+
+@media screen and (max-width: 768px) {
+  .item .content {
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  .item .fruit {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
