@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import styles from "./Carousel.module.css";
 import { ArrowRightIcon, MenuIcon } from "lucide-react";
@@ -36,30 +36,36 @@ export default function Hero({ children }: { children?: React.ReactNode }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const handleScroll = useCallback(() => {
+    const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const wrapperHeight = wrapperRef.current?.offsetHeight || 0;
+    const progress = Math.min(
+      scrollPosition / (wrapperHeight - windowHeight),
+      1
+    );
+    setScrollProgress(progress);
+
+    const newActive = Math.floor(progress * items.length);
+    if (newActive !== active && newActive < items.length) {
+      setActive(newActive);
+    }
+
+    const shouldFix = scrollPosition < wrapperHeight - windowHeight;
+    setIsFixed(shouldFix);
+
+    if (carouselRef.current) {
+      const translateY = shouldFix
+        ? 0
+        : Math.min(scrollPosition - (wrapperHeight - windowHeight), 0);
+      carouselRef.current.style.transform = `translateY(-${translateY}px)`;
+    }
+  }, [active]);
+
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const wrapperHeight = wrapperRef.current?.offsetHeight || 0;
-      const lastSectionHeight = windowHeight * 2;
-      const LastSectionOffset = scrollRef.current?.offsetTop || 0;
-      const progress = Math.min(
-        scrollPosition / (wrapperHeight - windowHeight),
-        1
-      );
-      setScrollProgress(progress);
-
-      const newActive = Math.floor(progress * items.length);
-      if (newActive !== active && newActive < items.length) {
-        setActive(newActive);
-      }
-
-      setIsFixed(scrollPosition < wrapperHeight - windowHeight);
-    };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [active]);
+  }, [handleScroll]);
 
   return (
     <>
@@ -147,9 +153,7 @@ export default function Hero({ children }: { children?: React.ReactNode }) {
           <div className={styles.shadow}></div>
         </div>
       </div>
-      <div
-        ref={scrollRef}
-      >{children}</div>
+      <div ref={scrollRef}>{children}</div>
     </>
   );
 }

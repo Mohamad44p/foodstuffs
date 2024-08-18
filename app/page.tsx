@@ -1,5 +1,6 @@
-import { FeaturesSectionDemo } from "@/components/FeaturesSection";
 import Hero from "@/components/HeroSlider/Hero";
+import ProductGr from "@/components/ProductGr";
+import ProductShowSec from "@/components/ProductShowSec";
 import SecSec from "@/components/SecSec";
 import React from "react";
 
@@ -11,7 +12,10 @@ export default function page() {
           <SecSec />
         </div>
         <div className="h-auto overflow-y-hidden">
-          <FeaturesSectionDemo />
+          <ProductShowSec />
+        </div>
+        <div className="bg-[#faf7f2]">
+          <ProductGr />
         </div>
       </Hero>
     </div>
