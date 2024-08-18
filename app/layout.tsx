@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Suspense } from "react";
-import Preloader from "@/components/PreLoader";
-import PreloaderManager from "@/components/PreloaderManager";
+import Preloader from "@/components/PreLoader/PreLoader";
+import PreloaderManager from "@/components/PreLoader/PreloaderManager";
+import AnimatedFooter from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <PreloaderManager>{children}</PreloaderManager>
+        <AnimatedFooter/>
       </body>
     </html>
   );

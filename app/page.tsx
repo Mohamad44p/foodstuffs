@@ -2,6 +2,7 @@ import Hero from "@/components/HeroSlider/Hero";
 import ProductGr from "@/components/ProductGr";
 import ProductShowSec from "@/components/ProductShowSec";
 import SecSec from "@/components/SecSec";
+import VideoBanner from "@/components/VideoBanner";
 import React from "react";
 
 export default function page() {
@@ -18,6 +19,7 @@ export default function page() {
           <ProductGr />
         </div>
       </Hero>
+      <VideoBanner/>
     </div>
   );
 }

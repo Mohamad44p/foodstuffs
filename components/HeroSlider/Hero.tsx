@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import styles from "./Carousel.module.css";
 import { ArrowRightIcon, MenuIcon } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 const items = [
   {
@@ -40,8 +40,9 @@ export default function Hero({ children }: { children?: React.ReactNode }) {
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
     const wrapperHeight = wrapperRef.current?.offsetHeight || 0;
+    const scrollFactor = 0.8;
     const progress = Math.min(
-      scrollPosition / (wrapperHeight - windowHeight),
+      (scrollPosition * scrollFactor) / (wrapperHeight - windowHeight),
       1
     );
     setScrollProgress(progress);
@@ -51,14 +52,18 @@ export default function Hero({ children }: { children?: React.ReactNode }) {
       setActive(newActive);
     }
 
-    const shouldFix = scrollPosition < wrapperHeight - windowHeight;
+    const shouldFix =
+      scrollPosition < (wrapperHeight - windowHeight) / scrollFactor;
     setIsFixed(shouldFix);
 
     if (carouselRef.current) {
       const translateY = shouldFix
         ? 0
-        : Math.min(scrollPosition - (wrapperHeight - windowHeight), 0);
-      carouselRef.current.style.transform = `translateY(-${translateY}px)`;
+        : Math.min(
+            scrollPosition - (wrapperHeight - windowHeight) / scrollFactor,
+            0
+          );
+      carouselRef.current.style.transform = `translateY(${translateY}px)`;
     }
   }, [active]);
 

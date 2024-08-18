@@ -1,5 +1,5 @@
 .wrapper {
-  height: 320vh;
+  height: 375vh; /* Increased height to allow for slower scrolling */
   position: relative;
 }
 
@@ -249,4 +249,12 @@
     height: 100%;
     object-fit: cover;
   }
+}
+
+.item:last-child.active {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }

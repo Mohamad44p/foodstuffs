@@ -111,7 +111,7 @@ export default function Component() {
   return (
     <div className="container mx-auto px-4 py-16 bg-[#faf7f2] overflow-hidden">
       <motion.div
-        className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 items-center justify-center space-x-16 space-y-10 mb-12"
+        className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 items-center justify-center md:space-x-20 lg:space-x-16 space-y-10 mb-12"
         variants={containerVariants}
         initial="hidden"
         animate="visible"

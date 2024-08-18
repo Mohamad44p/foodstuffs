@@ -130,7 +130,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative mt-[10vh] mb-[20vh] flex items-center justify-center overflow-hidden"
+      className="relative mt-[30vh] mb-[20vh] flex items-center justify-center overflow-hidden"
     >
       <SVGPathAnimation />
       <div className="container mx-auto px-4 z-10">
