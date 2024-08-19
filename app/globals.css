@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+body {
   overflow-x: hidden;
 }
 
@@ -72,8 +72,39 @@ body{
   body {
     @apply bg-background text-foreground;
   }
+
+  .font-playfair {
+    font-family: var(--font-playfair);
+  }
+  .font-merriweather {
+    font-family: var(--font-merriweather);
+  }
 }
 
-.deg{
- rotate: -40deg;
+.bgImage{
+  background-image: url('/BgYellow.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bgImageFeature{
+  background-image: url('/BgBlue.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.CardImage{
+  background-image: url('/BgWhite.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.BgPinkImage{
+  background-image: url('/Pink.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }

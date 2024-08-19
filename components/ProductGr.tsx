@@ -3,86 +3,35 @@
 import { ArrowRight } from "lucide-react";
 import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function Component() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const products = [
     {
-      name: "Hazelnut Original",
-      image: "/supernaturel_2.png",
-      color: "bg-pink-200",
-      buttonColor: "bg-pink-600",
-      volume: "1.75L",
-      description:
-        "Rich, creamy hazelnut flavor with 8g of plant-based protein.",
-      feature: "High Protein",
+      image: "/MAsl.png",
+      color: "bg-[#84C454]",
+      buttonColor: "bg-[#84C454]",
+      href: "https://www.saadmaslamani.com",
     },
     {
-      name: "Hazelnut Original",
-      image: "/supernaturel_2.png",
+      image: "/ALZh.png",
       color: "bg-pink-200",
-      buttonColor: "bg-pink-600",
-      volume: "1.75L",
-      description:
-        "Rich, creamy hazelnut flavor with 8g of plant-based protein.",
-      feature: "High Protein",
+      buttonColor: "bg-pink-200",
+      href: "https://www.facebook.com/alzahra.alshamiahsweets",
     },
     {
-      name: "Oat Original",
-      image: "/supernaturel_2.png",
+      image: "/Lets.png",
       color: "bg-yellow-300",
-      buttonColor: "bg-yellow-400",
-      volume: "1.75L",
-      description: "Smooth, delicious oat milk packed with 8g of protein.",
-      feature: "Dairy Free",
+      buttonColor: "bg-yellow-300",
+      href: "#",
     },
     {
-      name: "Almond Original",
-      image: "/supernaturel_2.png",
+      image: "/Tians.png",
       color: "bg-blue-200",
-      buttonColor: "bg-blue-600",
-      volume: "1.75L",
-      description: "Classic almond taste with 8g of plant-powered protein.",
-      feature: "Low Calorie",
-    },
-    {
-      name: "Almond Original",
-      image: "/supernaturel_2.png",
-      color: "bg-blue-200",
-      buttonColor: "bg-blue-600",
-      volume: "1.75L",
-      description: "Classic almond taste with 8g of plant-powered protein.",
-      feature: "Low Calorie",
-    },
-    {
-      name: "Hazelnut Original",
-      image: "/supernaturel_2.png",
-      color: "bg-pink-200",
-      buttonColor: "bg-pink-600",
-      volume: "1.75L",
-      description:
-        "Rich, creamy hazelnut flavor with 8g of plant-based protein.",
-      feature: "High Protein",
-    },
-    {
-      name: "Hazelnut Original",
-      image: "/supernaturel_2.png",
-      color: "bg-pink-200",
-      buttonColor: "bg-pink-600",
-      volume: "1.75L",
-      description:
-        "Rich, creamy hazelnut flavor with 8g of plant-based protein.",
-      feature: "High Protein",
-    },
-    {
-      name: "Oat Original",
-      image: "/supernaturel_2.png",
-      color: "bg-yellow-300",
-      buttonColor: "bg-yellow-400",
-      volume: "1.75L",
-      description: "Smooth, delicious oat milk packed with 8g of protein.",
-      feature: "Dairy Free",
+      buttonColor: "bg-blue-200",
+      href: "https://www.facebook.com/p/Tians-Pakistan-100063803573183",
     },
   ];
 
@@ -111,7 +60,7 @@ export default function Component() {
   return (
     <div className="container mx-auto px-4 py-16 bg-[#faf7f2] overflow-hidden">
       <motion.div
-        className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 items-center justify-center md:space-x-20 lg:space-x-16 space-y-10 mb-12"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center justify-center md:space-y-0 space-y-10 mb-12"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -133,7 +82,7 @@ export default function Component() {
             >
               <motion.img
                 src={product.image}
-                alt={product.name}
+                alt="Brand Logo"
                 className="w-56 h-auto absolute"
                 style={{ rotate: -12 }}
                 animate={{
@@ -147,28 +96,17 @@ export default function Component() {
                 animate={{ opacity: hoveredIndex === index ? 1 : 0 }}
               />
             </div>
-            <motion.div
-              className="absolute top-4 right-4 bg-white text-black text-xs font-bold py-1 px-2 rounded-full shadow-md"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.5 }}
-            >
-              {product.feature}
-            </motion.div>
-            <h3 className="text-3xl font-bold mb-1">{product.name}</h3>
-            <p className="text-xl text-gray-600 mb-2">{product.volume}</p>
-            <p className="text-sm text-center text-gray-500 mb-4 max-w-[200px]">
-              {product.description}
-            </p>
             <motion.button
-              className={`${product.buttonColor} text-white font-bold py-2 px-6 rounded-sm uppercase text-lg relative overflow-hidden`}
+              className={`${product.buttonColor} mt-5 text-white font-bold py-2 px-6 rounded-sm uppercase text-lg relative overflow-hidden`}
               style={{
                 clipPath: "polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%)",
               }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              See Product
+              <Link className="flex items-center justify-center gap-x-5" href={product.href} target="_blank">
+              Visit Website <ArrowRight className="w-5 h-5 text-white" />
+              </Link>
               <motion.div
                 className="absolute inset-0 bg-white"
                 initial={{ x: "-100%" }}

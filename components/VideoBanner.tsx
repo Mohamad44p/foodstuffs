@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import { useState, useRef, useEffect } from "react";
@@ -89,7 +90,7 @@ export default function Component() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-orange-100 via-pink-100 to-purple-100 p-8 overflow-hidden relative">
+    <div className="min-h-screen py-[30vh] flex flex-col items-center justify-center BgPinkImage p-8 overflow-hidden relative">
       <motion.div
         className="absolute inset-0 z-0"
         animate={{
@@ -120,11 +121,11 @@ export default function Component() {
           variants={itemVariants}
         >
           <h1 className="text-7xl font-extrabold mb-4 tracking-tight">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-400 via-pink-500 to-purple-600">
+            <span className="text-[#B02484] font-playfair">
               Culinary Delights
             </span>
           </h1>
-          <p className="text-2xl text-gray-700 max-w-3xl mx-auto font-light">
+          <p className="text-2xl text-black font-merriweather max-w-3xl mx-auto font-light">
             Discover exquisite recipes that will tantalize your taste buds and
             elevate your culinary experience.
           </p>
@@ -145,11 +146,9 @@ export default function Component() {
                   />
                   <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/60 to-transparent p-4 text-white">
                     <h3 className="text-lg font-semibold">
-                      Iced Coffee Preparation
+                      Bringing Joy to Every Bite
                     </h3>
-                    <p className="text-sm">
-                      Watch how to make the perfect iced coffee
-                    </p>
+                    <p className="text-sm">Watch how to make the perfect Joy</p>
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
                     <div className="flex items-center justify-between mb-2">
@@ -213,18 +212,22 @@ export default function Component() {
                     variants={itemVariants}
                   >
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-pink-600">
-                      Iced Coffee with Maple Mousse
+                      Bringing Joy to Every Bite
                     </span>
                   </motion.h2>
                   <motion.p
                     className="text-gray-600 mb-6 leading-relaxed"
                     variants={itemVariants}
                   >
-                    Indulge in our exquisite iced coffee creation, elevated with
-                    a luscious maple mousse. This gourmet beverage promises pure
-                    bliss in every sip! The perfect balance of rich coffee
-                    flavors and sweet, creamy maple will satisfy your iced
-                    coffee cravings all summer long.
+                    At Adeeb Aljunidi and Partners, we believe that food is more
+                    than just sustenance—it's a source of happiness. That’s why
+                    we carefully select and distribute products and brands that
+                    delight our customers with every bite. From your favorite
+                    snacks to the sweetest treats, our wide range of offerings
+                    is designed to bring joy and satisfaction to your daily
+                    life. Whether it’s a refreshing drink on a hot day or a
+                    comforting biscuit with your coffee, we’re here to make
+                    every moment a little more joyful.
                   </motion.p>
                   <motion.div
                     className="flex items-center space-x-4 mb-6"

@@ -35,40 +35,7 @@ export default function Component() {
   ];
 
   return (
-    <div ref={containerRef} className="py-24 relative overflow-hidden bg-white">
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-100">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `linear-gradient(to right, #e5e7eb 1px, transparent 1px),
-                               linear-gradient(to bottom, #e5e7eb 1px, transparent 1px)`,
-            backgroundSize: "40px 40px",
-          }}
-        />
-      </div>
-
-      <div className="absolute inset-0">
-        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          <pattern
-            id="dotPattern"
-            x="0"
-            y="0"
-            width="20"
-            height="20"
-            patternUnits="userSpaceOnUse"
-          >
-            <circle cx="2" cy="2" r="1" fill="#a855f7" fillOpacity="0.1" />
-          </pattern>
-          <rect
-            x="0"
-            y="0"
-            width="100%"
-            height="100%"
-            fill="url(#dotPattern)"
-          />
-        </svg>
-      </div>
-
+    <div ref={containerRef} className="py-24 bgImageFeature relative overflow-hidden bg-white">
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -left-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob" />
         <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000" />
@@ -94,7 +61,7 @@ export default function Component() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600"
+            className="text-black"
           >
             Featured Products
           </motion.span>
@@ -128,7 +95,7 @@ export default function Component() {
                     className="w-full h-auto"
                   />
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-pink-500/30 mix-blend-overlay"
+                    className="absolute inset-0"
                     initial={{ opacity: 0 }}
                     whileHover={{ opacity: 1 }}
                     transition={{ duration: 0.3 }}
@@ -137,7 +104,7 @@ export default function Component() {
               </motion.div>
               <div className="w-full md:w-1/2 space-y-8 relative z-20">
                 <motion.div
-                  className="absolute -inset-8 bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl shadow-lg backdrop-blur-sm"
+                  className="absolute -inset-8 bg-[#0047BB] rounded-3xl shadow-lg backdrop-blur-sm"
                   initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
                   whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
                   viewport={{ once: false }}
@@ -150,11 +117,11 @@ export default function Component() {
                   viewport={{ once: false }}
                   transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
+                  <span className="text-white">
                     {product.title}
                   </span>
                   <motion.span
-                    className="absolute -top-2 -right-2 text-yellow-400"
+                    className="absolute -top-2 -right-2 text-white"
                     initial={{ rotate: 0 }}
                     animate={{ rotate: 360 }}
                     transition={{
@@ -167,7 +134,7 @@ export default function Component() {
                   </motion.span>
                 </motion.h3>
                 <motion.p
-                  className="text-xl text-gray-600 relative z-10 p-2 backdrop-blur-sm bg-white/50 rounded-lg"
+                  className="text-xl text-white relative z-10 p-2 backdrop-blur-sm rounded-lg"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false }}
@@ -182,7 +149,7 @@ export default function Component() {
                   transition={{ duration: 0.5, delay: 0.6 }}
                   className="relative z-10"
                 >
-                  <Button className="group bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 transition-all duration-300 text-lg py-6 px-8 rounded-full shadow-lg hover:shadow-xl overflow-hidden">
+                  <Button className="group bg-white text-black hover:text-black hover:bg-white text-lg py-6 px-8 rounded-full shadow-lg hover:shadow-xl overflow-hidden">
                     <span className="relative z-10">Discover More</span>
                     <motion.div
                       className="absolute inset-0 bg-white"
