@@ -198,7 +198,7 @@ export default function AnimatedFooter() {
       </div>
       <motion.button
         onClick={goToTop}
-        className="fixed bottom-8 right-8 bg-[#FF5C00] text-white p-3 rounded-full shadow-lg hover:bg-[#FF7D00] transition-colors duration-300"
+        className="fixed bottom-8 right-8 bg-[#84C454] text-white p-3 rounded-full shadow-lg hover:bg-[#84C454] transition-colors duration-300"
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}

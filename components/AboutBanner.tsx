@@ -6,7 +6,7 @@ import { useAnimation, useInView, motion } from "framer-motion";
 import { ArrowRight, Flower2 } from "lucide-react";
 import { useEffect, useRef } from "react";
 
-export default function Component() {
+export default function AboutBanner() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: false, amount: 0.1 });
   const controls = useAnimation();
@@ -59,7 +59,7 @@ export default function Component() {
   return (
     <div
       ref={containerRef}
-      className="bg-gradient-to-b my-[30vh] from-white to-green-50 min-h-screen py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      className="bg-gradient-to-b py-[30vh] from-white to-green-50 min-h-screen px-4 sm:px-6 lg:px-8 relative overflow-hidden"
     >
       <motion.div
         initial="hidden"

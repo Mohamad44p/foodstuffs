@@ -10,18 +10,22 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-navigation-menu": "^1.2.0",
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
+    "@studio-freight/lenis": "^1.0.42",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cobe": "^0.6.3",
     "framer-motion": "^11.3.28",
+    "gsap": "^3.12.5",
     "lucide-react": "^0.428.0",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
     "react-intersection-observer": "^9.13.0",
+    "react-scroll-parallax": "^3.4.5",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7"
   },

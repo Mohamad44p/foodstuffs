@@ -1,6 +1,7 @@
 import AboutBanner from "@/components/AboutBanner";
-import HeroSection from "@/components/HeroSlider/Hero";
-import Hero from "@/components/HeroSlider/Hero";
+import ContactUs from "@/components/ContactUs";
+import { HeroSection } from "@/components/HeroSlider/Hero";
+import { Usps } from "@/components/HeroSlider/Usps";
 import Navbar from "@/components/Navbar";
 import ProductGr from "@/components/ProductGr";
 import ProductShowSec from "@/components/ProductShowSec";
@@ -13,16 +14,24 @@ export default function page() {
   return (
     <div>
       <Navbar />
-      <HeroSection />
-      <div className="h-auto  overflow-y-hidden">
+      <div id="home" className="bg-background relative z-10">
+        <HeroSection />
+        <Usps />
+      </div>
+      <div id="about" className="h-auto  overflow-y-hidden">
         <SecSec />
       </div>
-      <Timeline />
-      <div className="bg-[#faf7f2]">
+      <div id="our-story">
+        <Timeline />
+      </div>
+      <div id="clients" className="bg-[#faf7f2]">
         <ProductGr />
       </div>
       <VideoBanner />
       <AboutBanner />
+      <div id="contact">
+        <ContactUs />
+      </div>
     </div>
   );
 }
