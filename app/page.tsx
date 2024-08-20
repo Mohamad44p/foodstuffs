@@ -1,9 +1,9 @@
 import AboutBanner from "@/components/AboutBanner";
+import ClientsPage from "@/components/ClientsList";
 import ContactUs from "@/components/ContactUs";
 import { HeroSection } from "@/components/HeroSlider/Hero";
 import { Usps } from "@/components/HeroSlider/Usps";
 import Navbar from "@/components/Navbar";
-import ProductGr from "@/components/ProductGr";
 import ProductShowSec from "@/components/ProductShowSec";
 import SecSec from "@/components/SecSec";
 import Timeline from "@/components/Timeline";
@@ -25,7 +25,7 @@ export default function page() {
         <Timeline />
       </div>
       <div id="clients" className="bg-[#faf7f2]">
-        <ProductGr />
+        <ClientsPage />
       </div>
       <VideoBanner />
       <AboutBanner />

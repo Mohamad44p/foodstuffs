@@ -1,39 +1,26 @@
+// ClientComponent.tsx
 "use client";
 
 import { ArrowRight } from "lucide-react";
-import { motion, useAnimation } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import Link from "next/link";
 
-export default function Component() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+interface Client {
+  id: string;
+  title: string;
+  Link: string;
+  ButtonColor: string;
+  BackgroundColor: string;
+  ImageUrl: string;
+}
 
-  const products = [
-    {
-      image: "/MAsl.png",
-      color: "bg-emerald-100",
-      buttonColor: "bg-emerald-500",
-      href: "https://www.saadmaslamani.com",
-    },
-    {
-      image: "/ALZh.png",
-      color: "bg-pink-100",
-      buttonColor: "bg-pink-500",
-      href: "https://www.facebook.com/alzahra.alshamiahsweets",
-    },
-    {
-      image: "/Lets.png",
-      color: "bg-amber-100",
-      buttonColor: "bg-amber-500",
-      href: "#",
-    },
-    {
-      image: "/Tians.png",
-      color: "bg-sky-100",
-      buttonColor: "bg-sky-500",
-      href: "https://www.facebook.com/p/Tians-Pakistan-100063803573183",
-    },
-  ];
+interface ClientComponentProps {
+  clients: Client[];
+}
+
+export default function ClientComponent({ clients }: ClientComponentProps) {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -58,7 +45,7 @@ export default function Component() {
   };
 
   return (
-    <div className="container py-[24vh] mx-auto px-4  bg-[#faf7f2] overflow-hidden">
+    <div className="container py-[24vh] mx-auto px-4 bg-[#FAF7F2] overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-center mb-[20vh] bg-clip-text text-transparent bg-gradient-to-r from-gray-700 to-gray-900"
@@ -74,9 +61,9 @@ export default function Component() {
           initial="hidden"
           animate="visible"
         >
-          {products.map((product, index) => (
+          {clients.map((client, index) => (
             <motion.div
-              key={index}
+              key={client.id}
               className="flex flex-col items-center group relative"
               variants={itemVariants}
               onHoverStart={() => setHoveredIndex(index)}
@@ -84,13 +71,13 @@ export default function Component() {
             >
               <div
                 className={`${
-                  product.color
+                  client.BackgroundColor
                 } rounded-full w-72 h-72 flex items-center justify-center mb-6 relative overflow-hidden transform transition-all duration-300 ease-in-out ${
                   hoveredIndex === index ? "scale-105 shadow-xl" : ""
                 }`}
               >
                 <motion.img
-                  src={product.image}
+                  src={client.ImageUrl}
                   alt="Brand Logo"
                   className="w-56 h-auto absolute"
                   style={{ rotate: -12 }}
@@ -106,7 +93,7 @@ export default function Component() {
                 />
               </div>
               <motion.button
-                className={`${product.buttonColor} mt-5 text-white font-bold py-2 px-6 rounded-sm uppercase text-lg relative overflow-hidden`}
+                className={`${client.ButtonColor} mt-5 text-white font-bold py-2 px-6 rounded-sm uppercase text-lg relative overflow-hidden`}
                 style={{
                   clipPath:
                     "polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%)",
@@ -116,7 +103,7 @@ export default function Component() {
               >
                 <Link
                   className="flex items-center justify-center gap-x-5"
-                  href={product.href}
+                  href={client.Link}
                   target="_blank"
                 >
                   Visit Website <ArrowRight className="w-5 h-5 text-white" />
