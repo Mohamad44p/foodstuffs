@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+/* import type { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from "nodemailer";
 
 export default async function handler(
@@ -54,4 +54,4 @@ export default async function handler(
     res.setHeader("Allow", ["POST"]);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
-}
+} */
