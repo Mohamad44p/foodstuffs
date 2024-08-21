@@ -73,38 +73,38 @@ export default function AboutBanner() {
               variants={itemVariants}
               className="text-4xl sm:text-5xl font-bold text-green-600 leading-tight"
             >
-              We are proud{" "}
+              We are dedicated{" "}
               <motion.span
                 variants={itemVariants}
                 className="bg-blue-500 text-white px-2 py-1 rounded inline-block"
               >
-                to do
+                to excellence
               </motion.span>
               <br />
-              more for our
+              in every
               <br />
-              Planet.
+              bite.
             </motion.h2>
             <motion.p variants={itemVariants} className="text-gray-600 text-lg">
-              At Enjoy!, we're committed to making a positive impact on the
-              world, without compromising on taste.
+              At Adeeb Juneidi, we are committed to providing high-quality food
+              products that meet the highest standards of taste and safety.
             </motion.p>
             <motion.ul variants={containerVariants} className="space-y-4">
               {[
                 {
-                  icon: "★",
+                  icon: "🍞",
                   color: "text-yellow-400",
-                  text: "We walk the talk!",
+                  text: "Freshly made, every day!",
                 },
                 {
-                  icon: "☺",
-                  color: "text-pink-500",
-                  text: "Certified delicious!",
-                },
-                {
-                  icon: "☘",
+                  icon: "🌾",
                   color: "text-green-500",
-                  text: "Prepared in Canada!",
+                  text: "Sourced from the finest ingredients!",
+                },
+                {
+                  icon: "🇵🇸",
+                  color: "text-red-500",
+                  text: "Proudly made in Palestine!",
                 },
               ].map((item, index) => (
                 <motion.li
@@ -133,9 +133,9 @@ export default function AboutBanner() {
           >
             <div className="grid grid-cols-3 gap-4">
               {[
-                "/TestBannerAbout1.webp",
-                "/TestBannerAbout2.webp",
-                "/TestBannerAbout3.webp",
+                "/ABImage1.webp",
+                "/ABImage2.webp",
+                "/ABImage3.webp",
               ].map((src, index) => (
                 <motion.div
                   key={index}
@@ -144,7 +144,7 @@ export default function AboutBanner() {
                 >
                   <img
                     src={src}
-                    alt={`About banner image ${index + 1}`}
+                    alt={`Adeeb Juneidi product image ${index + 1}`}
                     className="w-full h-96 object-cover rounded-lg shadow-lg border-4 border-yellow-400"
                   />
                   <motion.div

@@ -1,54 +1,49 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-
-import { useScroll, useTransform, motion } from "framer-motion";
 import { useRef } from "react";
-import { Container } from "../Container";
+import { motion } from "framer-motion";
 import { Button } from "../ui/button";
+import Link from "next/link";
+import { Card, CardContent } from "@/components/ui/card";
 
-export const HeroSection = () => {
+export default function HeroSection() {
   const videoContainerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: videoContainerRef,
-    offset: ["start start", "end end"],
-  });
-  const opacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 1, 0.5]);
 
   return (
-    <div className="bg-background text-white">
-      <motion.div
-        style={{ opacity }}
-        ref={videoContainerRef}
-        className="absolute -top-[--header-height] left-0 h-[200vh] w-full"
-      >
+    <div className="relative bg-background text-white min-h-screen overflow-hidden">
+      <motion.div ref={videoContainerRef} className="absolute inset-0">
         <img
-          className="sticky top-0 h-screen w-full object-cover"
-          alt="Napoleon"
-          src="/napoleon.webp"
+          className="h-full w-full object-cover"
+          alt="Adeeb Juneidi Food Products"
+          src="/HeroImage.jpg"
         />
       </motion.div>
-      <Container className="relative z-10 h-[--hero-height] pb-7">
-        <motion.div
-          className="flex h-full flex-col items-start justify-end"
-          variants={{
-            hidden: { opacity: 0 },
-            visible: { opacity: 1 },
-          }}
-          whileInView="visible"
-          exit="hidden"
-          animate="hidden"
-          viewport={{ amount: 0.98 }}
-        >
-          <h1 className="mb-10 text-4xl font-bold md:text-5xl">
-            All Apple Originals. <br />
-            Only on Apple TV+.
-          </h1>
-          <Button className="mb-10 w-[400px]" size={"lg"}>
-            Stream now
-          </Button>
-          <p className="font-semibold text-xl">Watch on the 📺 app.</p>
-        </motion.div>
-      </Container>
+      <motion.div
+        className="absolute left-4 top-0 bottom-0 flex items-center"
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <Card className="bg-black/50 backdrop-blur-md border-none shadow-xl max-w-[300px] sm:max-w-[350px] md:max-w-[400px] lg:max-w-[450px]">
+          <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+              Quality You Can Trust, <br />
+              From Farm to Table.
+            </h1>
+            <p className="text-sm sm:text-base md:text-lg font-semibold text-white/90">
+              Discover the finest food products by Adeeb Juneidi.
+            </p>
+            <Link href="#our-story" className="block">
+              <Button
+                className="w-full bg-[#78AF4B] hover:bg-[#5C8A3A] text-white font-bold py-2 sm:py-3 px-4 sm:px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
+                size="lg"
+              >
+                Explore Our Story
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+      </motion.div>
     </div>
   );
-};
+}

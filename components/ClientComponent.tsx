@@ -45,7 +45,7 @@ export default function ClientComponent({ clients }: ClientComponentProps) {
   };
 
   return (
-    <div className="container py-[24vh] mx-auto px-4 bg-[#FAF7F2] overflow-hidden">
+    <div className="container mx-auto px-4 bg-[#FAF7F2] overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-center mb-[20vh] bg-clip-text text-transparent bg-gradient-to-r from-gray-700 to-gray-900"
@@ -53,7 +53,7 @@ export default function ClientComponent({ clients }: ClientComponentProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Our Esteemed Clients
+          Our In-House Brands
         </motion.h2>
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center justify-center md:space-y-0 space-y-10 mb-12"
@@ -70,11 +70,10 @@ export default function ClientComponent({ clients }: ClientComponentProps) {
               onHoverEnd={() => setHoveredIndex(null)}
             >
               <div
-                className={`${
-                  client.BackgroundColor
-                } rounded-full w-72 h-72 flex items-center justify-center mb-6 relative overflow-hidden transform transition-all duration-300 ease-in-out ${
+                className={`rounded-full w-72 h-72 flex items-center justify-center mb-6 relative overflow-hidden transform transition-all duration-300 ease-in-out ${
                   hoveredIndex === index ? "scale-105 shadow-xl" : ""
                 }`}
+                style={{ backgroundColor: client.BackgroundColor }}
               >
                 <motion.img
                   src={client.ImageUrl}
@@ -93,8 +92,9 @@ export default function ClientComponent({ clients }: ClientComponentProps) {
                 />
               </div>
               <motion.button
-                className={`${client.ButtonColor} mt-5 text-white font-bold py-2 px-6 rounded-sm uppercase text-lg relative overflow-hidden`}
+                className="mt-5 text-white font-bold py-2 px-6 rounded-sm uppercase text-lg relative overflow-hidden"
                 style={{
+                  backgroundColor: client.ButtonColor,
                   clipPath:
                     "polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%)",
                 }}

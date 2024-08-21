@@ -58,7 +58,7 @@ export default function ClientAddPage() {
     if ("error" in result) {
       setError(result.error || "Failed to add client. Please try again.");
     } else {
-      router.push("/clients");
+      router.push("/admin/clients");
     }
 
     setIsSubmitting(false);

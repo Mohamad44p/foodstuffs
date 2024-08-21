@@ -70,7 +70,7 @@ export default function Sidebar() {
               onClick={closeSidebar}
               active={pathname  === "/clients"}
             >
-              Clients
+              Brands
             </NavItem>
             <NavItem
               href="/settings"

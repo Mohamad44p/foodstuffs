@@ -10,6 +10,7 @@ import {
   Linkedin,
   MenuIcon,
   Twitter,
+  X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { smoothScroll } from "@/lib/smoothScroll";
@@ -19,8 +20,8 @@ export default function Component() {
     { name: "HOME", href: "home" },
     { name: "ABOUT", href: "about" },
     { name: "OUR STORY", href: "our-story" },
-    { name: "SERVICES", href: "services" },
-    { name: "CLIENTS", href: "clients" },
+    { name: "CAREERS", href: "#" },
+    { name: "BRANDS", href: "brands" },
   ];
   const leftNavItems = navItems.slice(0, Math.ceil(navItems.length / 2));
   const rightNavItems = navItems.slice(Math.ceil(navItems.length / 2));
@@ -64,31 +65,68 @@ export default function Component() {
             ))}
           </nav>
           <div className="hidden md:flex items-center space-x-4">
-            {[Facebook, Twitter, Instagram, Linkedin].map((Icon, index) => (
-              <Link
-                key={index}
-                href="#"
-                className="text-black hover:text-gray-600 transition-colors duration-300"
-              >
-                <Icon
-                  size={24}
-                  className="transform hover:scale-110 transition-transform duration-300"
-                />
-                <span className="sr-only">Social Media Link</span>
-              </Link>
-            ))}
+            <Link
+              href="https://www.facebook.com/people/%D8%B4%D8%B1%D9%83%D8%A9-%D8%A3%D8%AF%D9%8A%D8%A8-%D8%A7%D9%84%D8%AC%D9%86%D9%8A%D8%AF%D9%8A-%D9%88%D8%B4%D8%B1%D9%83%D8%A7%D8%A6%D9%87-%D9%84%D8%AA%D8%AC%D8%A7%D8%B1%D8%A9-%D8%A7%D9%84%D9%85%D9%88%D8%A7%D8%AF-%D8%A7%D9%84%D8%BA%D8%B0%D8%A7%D8%A6%D9%8A%D8%A9/100057638731643"
+              className="text-black hover:text-gray-600 transition-colors duration-300"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Facebook
+                size={24}
+                className="transform hover:scale-110 transition-transform duration-300"
+              />
+              <span className="sr-only">Facebook</span>
+            </Link>
+            <Link
+              href="https://x.com/?lang=en"
+              className="text-black hover:text-gray-600 transition-colors duration-300"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <X
+                size={24}
+                className="transform hover:scale-110 transition-transform duration-300"
+              />
+              <span className="sr-only">Twitter</span>
+            </Link>
+            <Link
+              href="https://www.instagram.com"
+              className="text-black hover:text-gray-600 transition-colors duration-300"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Instagram
+                size={24}
+                className="transform hover:scale-110 transition-transform duration-300"
+              />
+              <span className="sr-only">Instagram</span>
+            </Link>
+            <Link
+              href="https://www.linkedin.com/feed"
+              className="text-black hover:text-gray-600 transition-colors duration-300"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Linkedin
+                size={24}
+                className="transform hover:scale-110 transition-transform duration-300"
+              />
+              <span className="sr-only">LinkedIn</span>
+            </Link>
           </div>
         </div>
 
         <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-16">
           <div className="relative group">
-            <Image
-              src="/Logo.jpg"
-              alt="Logo"
-              width={150}
-              height={150}
-              className="rounded-full border-4 border-white shadow-lg transition-transform duration-300 group-hover:scale-105"
-            />
+            <Link href="/">
+              <Image
+                src="/Logo.jpg"
+                alt="Logo"
+                width={150}
+                height={150}
+                className="rounded-full border-4 border-white shadow-lg transition-transform duration-300 group-hover:scale-105"
+              />
+            </Link>
             <div className="absolute inset-0 rounded-full bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-opacity duration-300"></div>
           </div>
         </div>

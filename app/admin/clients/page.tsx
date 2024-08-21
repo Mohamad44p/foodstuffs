@@ -14,13 +14,13 @@ export default async function AdminDashboard() {
     <div className="py-10">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold tracking-tight">
-          Client Admin Dashboard
+          Brands Admin Dashboard
         </h1>
         <Link
           href="/admin/clients/add"
           className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-primary text-primary-foreground hover:bg-primary/90 h-10 py-2 px-4"
         >
-          Add New Client
+          Add New Brands
         </Link>
       </div>
 

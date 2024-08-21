@@ -7,7 +7,8 @@
     "build": "next build",
     "local": "next dev -H 192.168.1.16",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@kinde-oss/kinde-auth-nextjs": "^2.3.6",
@@ -19,6 +20,7 @@
     "@radix-ui/react-scroll-area": "^1.1.0",
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-toast": "^1.2.1",
     "@studio-freight/lenis": "^1.0.42",
     "@tanstack/react-table": "^8.20.1",
     "class-variance-authority": "^0.7.0",
@@ -27,6 +29,7 @@
     "gsap": "^3.12.5",
     "lucide-react": "^0.428.0",
     "next": "14.2.5",
+    "nodemailer": "^6.9.14",
     "react": "^18",
     "react-dom": "^18",
     "react-intersection-observer": "^9.13.0",
@@ -37,6 +40,7 @@
   "devDependencies": {
     "@prisma/client": "5.18.0",
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.15",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",

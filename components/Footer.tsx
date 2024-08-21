@@ -12,10 +12,19 @@ import {
   Twitter,
   ArrowUp,
 } from "lucide-react";
+import { smoothScroll } from "@/lib/smoothScroll";
 
 export default function AnimatedFooter() {
   const controls = useAnimation();
   const [isInView, setIsInView] = useState(false);
+
+  const navItems = [
+    { name: "HOME", href: "home" },
+    { name: "ABOUT", href: "about" },
+    { name: "OUR STORY", href: "our-story" },
+    { name: "SERVICES", href: "services" },
+    { name: "CLIENTS", href: "clients" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -79,13 +88,19 @@ export default function AnimatedFooter() {
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-12">
           <div>
-            <h3 className="text-lg font-semibold mb-4">Solutions</h3>
+            <h3 className="text-lg font-semibold mb-4">Navigation</h3>
             <ul className="space-y-2">
-              <li>
-                <Link href="#" className="hover:text-gray-600">
-                  Insurance Solutions
-                </Link>
-              </li>
+              {navItems.map((item) => (
+                <li key={item.name}>
+                  <a
+                    href={`#${item.href}`}
+                    onClick={smoothScroll}
+                    className="hover:text-gray-600 transition-colors duration-300"
+                  >
+                    {item.name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
           <div>
@@ -130,14 +145,14 @@ export default function AnimatedFooter() {
           </div>
           <div className="md:col-span-3 lg:col-span-1">
             <Link
-              href="#"
+              href="#contact"
+              onClick={smoothScroll}
               className="inline-block bg-[#FF5C00] text-white py-2 px-6 rounded-md hover:bg-[#FF7D00] transition-colors duration-300"
             >
               CONTACT US
             </Link>
             <div className="mt-6 space-y-1">
-              <p>Austin, Texas</p>
-              <p>Berlin, Germany</p>
+              <p>Hebron, Palestine</p>
             </div>
           </div>
         </div>
@@ -198,7 +213,7 @@ export default function AnimatedFooter() {
       </div>
       <motion.button
         onClick={goToTop}
-        className="fixed bottom-8 right-8 bg-[#84C454] text-white p-3 rounded-full shadow-lg hover:bg-[#84C454] transition-colors duration-300"
+        className="fixed bottom-8 right-8 bg-[#e6f0de] text-white p-3 rounded-full shadow-lg hover:bg-[#84C454] transition-colors duration-300"
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
