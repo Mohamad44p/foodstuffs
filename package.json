@@ -21,6 +21,7 @@
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.1",
+    "@react-email/components": "0.0.22",
     "@studio-freight/lenis": "^1.0.42",
     "@tanstack/react-table": "^8.20.1",
     "class-variance-authority": "^0.7.0",
@@ -32,8 +33,10 @@
     "nodemailer": "^6.9.14",
     "react": "^18",
     "react-dom": "^18",
+    "react-email": "2.1.6",
     "react-intersection-observer": "^9.13.0",
     "react-scroll-parallax": "^3.4.5",
+    "resend": "^4.0.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7"
   },

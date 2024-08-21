@@ -46,10 +46,10 @@ export default function ContactUs() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/email', {
-        method: 'POST',
+      const response = await fetch("/api/send-email", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formState),
       });
@@ -62,12 +62,14 @@ export default function ContactUs() {
         setFormState({ name: "", email: "", message: "" });
       } else {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to send message');
+        throw new Error(errorData.message || "Failed to send message");
       }
     } catch (error) {
       toast({
         title: "Error",
-        description: (error as Error).message || "Failed to send message. Please try again later.",
+        description:
+          (error as Error).message ||
+          "Failed to send message. Please try again later.",
         variant: "destructive",
       });
     } finally {
@@ -162,13 +164,13 @@ export default function ContactUs() {
               </form>
             </CardContent>
             <CardFooter>
-              <Button 
-                type="submit" 
-                className="w-full" 
+              <Button
+                type="submit"
+                className="w-full"
                 onClick={handleSubmit}
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {isSubmitting ? "Sending..." : "Send Message"}
                 <SendIcon className="ml-2 h-4 w-4" />
               </Button>
             </CardFooter>
