@@ -1,155 +1,91 @@
 /* eslint-disable react/no-unescaped-entities */
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   motion,
   useScroll,
   useTransform,
-  useSpring,
-  useAnimation,
-  useMotionValue,
   useInView,
-  wrap,
-  useAnimationFrame,
-  useVelocity,
+  useSpring,
 } from "framer-motion";
-import {
-  ArrowRight,
-  ChevronDown,
-  Utensils,
-  Truck,
-  Users,
-  Star,
-} from "lucide-react";
+import { ArrowRight, ChevronDown, Leaf, Sun, Cloud } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
-const ParallaxText = ({
-  children,
-  baseVelocity = 100,
-}: {
-  children: React.ReactNode;
-  baseVelocity?: number;
-}) => {
-  const baseX = useMotionValue(0);
-  const { scrollY } = useScroll();
-  const scrollVelocity = useVelocity(scrollY);
-  const smoothVelocity = useSpring(scrollVelocity, {
-    damping: 50,
-    stiffness: 400,
-  });
-  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], {
-    clamp: false,
-  });
-
-  const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
-
-  const directionFactor = useRef(1);
-  useAnimationFrame((t: any, delta: number) => {
-    let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
-    if (velocityFactor.get() < 0) {
-      directionFactor.current = -1;
-    } else if (velocityFactor.get() > 0) {
-      directionFactor.current = 1;
-    }
-    moveBy += directionFactor.current * moveBy * velocityFactor.get();
-    baseX.set(baseX.get() + moveBy);
-  });
+const AnimatedBackground = () => {
+  const { scrollYProgress } = useScroll();
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const rotation = useTransform(scrollYProgress, [0, 1], [0, 360]);
 
   return (
-    <div className="parallax">
-      <motion.div className="scroller" style={{ x }}>
-        <span>{children} </span>
-        <span>{children} </span>
-        <span>{children} </span>
-        <span>{children} </span>
+    <motion.div className="absolute inset-0 z-0" style={{ y }}>
+      <svg
+        className="w-full h-full"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+      >
+        <motion.path
+          d="M0,50 Q25,0 50,50 T100,50 V100 H0 Z"
+          fill="#84C454"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{
+            duration: 2,
+            ease: "easeInOut",
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
+        />
+      </svg>
+      <motion.div
+        className="absolute top-10 right-10 text-white"
+        style={{ rotate: rotation }}
+      >
+        <Sun size={40} />
       </motion.div>
-    </div>
-  );
-};
-
-const FloatingElement = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <motion.div
-      animate={{
-        y: [0, 15, 0],
-        rotate: [0, 5, -5, 0],
-      }}
-      transition={{
-        duration: 6,
-        repeat: Infinity,
-        repeatType: "reverse",
-      }}
-    >
-      {children}
+      <motion.div
+        className="absolute bottom-10 left-10 text-white"
+        animate={{ y: [0, 20, 0] }}
+        transition={{ duration: 4, repeat: Infinity, repeatType: "reverse" }}
+      >
+        <Cloud size={40} />
+      </motion.div>
     </motion.div>
   );
 };
 
-const SVGPathAnimation = () => {
-  const pathRef = useRef(null);
-  const [pathLength, setPathLength] = useState(0);
-
+const FloatingLeaf = ({ style = {} }) => {
   return (
-    <svg
-      className="absolute top-0 left-0 w-full h-full"
-      viewBox="0 0 100 100"
-      preserveAspectRatio="none"
+    <motion.div
+      className="absolute text-[#4CAF50] z-10"
+      style={style}
+      animate={{
+        y: [0, -20, 0],
+        rotate: [0, 360],
+        scale: [1, 1.2, 1],
+      }}
+      transition={{
+        duration: 5,
+        repeat: Infinity,
+        repeatType: "reverse",
+      }}
     >
-      <motion.path
-        ref={pathRef}
-        d="M0,50 Q25,30 50,50 T100,50"
-        fill="none"
-        stroke="url(#gradient)"
-        strokeWidth="0.5"
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-        }}
-      />
-      <defs>
-        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#84C454" />
-          <stop offset="100%" stopColor="#84C454" />
-        </linearGradient>
-      </defs>
-    </svg>
+      <Leaf size={24} />
+    </motion.div>
   );
 };
 
 const Hero = () => {
-  const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
-
   return (
-    <section
-      id="home"
-      className="relative mt-[20vh] mb-[20vh] flex items-center justify-center overflow-hidden"
-    >
-      <SVGPathAnimation />
-      <div className="container mx-auto px-4 z-10">
-        <motion.h1
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-6xl font-playfair md:text-8xl font-bold text-black text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600"
-        >
-          Delicious Food, <br /> Delivered to You
-        </motion.h1>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#E8F5E9]">
+      <AnimatedBackground />
 
-        <motion.p
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-base md:text-[18px] font-[100]  font-merriweather  text-black text-justify mb-8"
-        >
+      <div className="container mx-auto px-4 z-20 relative">
+        <h1 className="text-5xl md:text-7xl font-bold text-center mb-6 text-[#2E7D32]">
+          Delicious Food, <br /> Delivered to You
+        </h1>
+
+        <p className="text-lg md:text-xl text-[#000] text-justify mb-8">
           Adeeb Aljunidi and Partners is a prestigious Palestinian company
           specializing in the import and distribution of food products. Founded
           in 1996 by Adeeb Aljunidi and his partners, the company is
@@ -168,8 +104,9 @@ const Hero = () => {
           regions, further enhancing the company's success and its continued
           commitment to providing exceptional and high-quality services in
           import and distribution operations.
-        </motion.p>
-        <p className="text-base md:text-[18px] font-[100]  font-merriweather  text-black text-justify mb-8">
+        </p>
+
+        <p className="text-base md:text-lg text-[#33691E] text-justify mb-8 max-w-4xl mx-auto">
           At Adeeb Aljunidi and Partners, we believe that food is more than just
           sustenance—it's a source of happiness. That’s why we carefully select
           and distribute products and brands that delight our customers with
@@ -177,28 +114,29 @@ const Hero = () => {
           range of offerings is designed to bring joy and satisfaction to your
           daily life. Whether it’s a refreshing drink on a hot day or a
           comforting biscuit with your coffee, we’re here to make every moment a
-          little more joyful.
+          little more joyful.ns.
         </p>
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex justify-center"
-        >
+
+        <div className="flex justify-center">
           <Button
             size="lg"
-            className="bg-[#84C454] text-xl font-playfair text-black hover:bg-black hover:text-white transform hover:scale-105 transition-all"
+            className="bg-[#4CAF50] text-xl text-white hover:bg-[#45a049] transition-colors duration-300"
           >
             Discover Our Story <ArrowRight className="ml-2" />
           </Button>
-        </motion.div>
+        </div>
       </div>
+
+      <FloatingLeaf style={{ top: "20%", left: "10%" }} />
+      <FloatingLeaf style={{ bottom: "30%", right: "15%" }} />
+      <FloatingLeaf style={{ top: "70%", left: "80%" }} />
+
       <motion.div
         animate={{ y: [0, 10, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
       >
-        <ChevronDown className="text-white w-8 h-8" />
+        <ChevronDown className="text-[#2E7D32] w-8 h-8" />
       </motion.div>
     </section>
   );
