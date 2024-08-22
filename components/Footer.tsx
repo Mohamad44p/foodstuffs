@@ -11,6 +11,7 @@ import {
   Facebook,
   Twitter,
   ArrowUp,
+  Globe,
 } from "lucide-react";
 import { smoothScroll } from "@/lib/smoothScroll";
 
@@ -152,7 +153,10 @@ export default function AnimatedFooter() {
               CONTACT US
             </Link>
             <div className="mt-6 space-y-1">
-              <p>Hebron, Palestine</p>
+              <p className="flex items-center gap-x-3">
+                <Globe size={20} className="inline-block" />{" "}
+                Hebron, Palestine
+              </p>
             </div>
           </div>
         </div>

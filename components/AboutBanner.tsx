@@ -4,6 +4,7 @@
 
 import { useAnimation, useInView, motion } from "framer-motion";
 import { ArrowRight, Flower2 } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 export default function AboutBanner() {
@@ -104,7 +105,7 @@ export default function AboutBanner() {
                 {
                   icon: "🇵🇸",
                   color: "text-red-500",
-                  text: "Proudly made in Palestine!",
+                  text: "Proudly Distributed in Palestine!",
                 },
               ].map((item, index) => (
                 <motion.li
@@ -117,50 +118,50 @@ export default function AboutBanner() {
                 </motion.li>
               ))}
             </motion.ul>
-            <motion.button
-              variants={itemVariants}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center text-white bg-blue-600 px-6 py-3 rounded-full text-lg font-semibold transition-colors hover:bg-blue-700"
-            >
-              Learn more
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </motion.button>
+            <Link href="#our-story">
+              <motion.button
+                variants={itemVariants}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center text-white bg-blue-600 px-6 py-3 rounded-full text-lg font-semibold transition-colors hover:bg-blue-700"
+              >
+                Learn more
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </motion.button>
+            </Link>
           </div>
           <motion.div
             variants={containerVariants}
             className="lg:w-1/2 relative"
           >
             <div className="grid grid-cols-3 gap-4">
-              {[
-                "/ABImage1.webp",
-                "/ABImage2.webp",
-                "/ABImage3.webp",
-              ].map((src, index) => (
-                <motion.div
-                  key={index}
-                  variants={imageVariants}
-                  className="relative"
-                >
-                  <img
-                    src={src}
-                    alt={`Adeeb Juneidi product image ${index + 1}`}
-                    className="w-full h-96 object-cover rounded-lg shadow-lg border-4 border-yellow-400"
-                  />
+              {["/ABImage1.webp", "/ABImage2.webp", "/ABImage3.webp"].map(
+                (src, index) => (
                   <motion.div
-                    variants={flowerVariants}
-                    className="absolute -top-3 -left-3"
+                    key={index}
+                    variants={imageVariants}
+                    className="relative"
                   >
-                    <Flower2 className="text-pink-400 w-8 h-8 transform -rotate-45" />
+                    <img
+                      src={src}
+                      alt={`Adeeb Juneidi product image ${index + 1}`}
+                      className="w-full h-96 object-cover rounded-lg shadow-lg border-4 border-yellow-400"
+                    />
+                    <motion.div
+                      variants={flowerVariants}
+                      className="absolute -top-3 -left-3"
+                    >
+                      <Flower2 className="text-pink-400 w-8 h-8 transform -rotate-45" />
+                    </motion.div>
+                    <motion.div
+                      variants={flowerVariants}
+                      className="absolute -bottom-3 -right-3"
+                    >
+                      <Flower2 className="text-purple-400 w-8 h-8 transform rotate-45" />
+                    </motion.div>
                   </motion.div>
-                  <motion.div
-                    variants={flowerVariants}
-                    className="absolute -bottom-3 -right-3"
-                  >
-                    <Flower2 className="text-purple-400 w-8 h-8 transform rotate-45" />
-                  </motion.div>
-                </motion.div>
-              ))}
+                )
+              )}
             </div>
           </motion.div>
         </div>

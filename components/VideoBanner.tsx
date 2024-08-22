@@ -13,6 +13,7 @@ import {
   SkipForwardIcon,
 } from "lucide-react";
 import { motion, useAnimation, useInView } from "framer-motion";
+import Link from "next/link";
 
 export default function Component() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -90,7 +91,7 @@ export default function Component() {
   };
 
   return (
-    <div className="min-h-screen py-[30vh] flex flex-col items-center justify-center BgPinkImage p-8 overflow-hidden relative">
+    <div className="min-h-screen py-[15vh] flex flex-col items-center justify-center BgPinkImage p-8 overflow-hidden relative">
       <motion.div
         className="absolute inset-0 z-0"
         animate={{
@@ -120,14 +121,15 @@ export default function Component() {
           className="text-center mb-12 relative z-10"
           variants={itemVariants}
         >
-          <h1 className="text-7xl font-extrabold mb-4 tracking-tight">
+          <h1 className="text-5xl font-extrabold mb-4 tracking-tight">
             <span className="text-[#B02484] font-playfair">
-              Culinary Delights
+              Feeding Your Passion for Good Food!
             </span>
           </h1>
-          <p className="text-2xl text-black font-merriweather max-w-3xl mx-auto font-light">
-            Discover exquisite recipes that will tantalize your taste buds and
-            elevate your culinary experience.
+          <p className="text-xl text-justify text-black font-merriweather max-w-3xl mx-auto font-light">
+            Whether you're a home cook or a gourmet chef, our
+            curated selection of premium foods will inspire your culinary
+            creativity and satisfy your passion for great food.
           </p>
         </motion.div>
 
@@ -229,49 +231,16 @@ export default function Component() {
                     comforting biscuit with your coffee, we’re here to make
                     every moment a little more joyful.
                   </motion.p>
-                  <motion.div
-                    className="flex items-center space-x-4 mb-6"
-                    variants={itemVariants}
-                  >
-                    <div className="flex items-center bg-orange-100 rounded-full px-3 py-1">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5 text-orange-500 mr-2"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      <span className="text-sm font-medium text-orange-700">
-                        5 min prep
-                      </span>
-                    </div>
-                    <div className="flex items-center bg-green-100 rounded-full px-3 py-1">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5 text-green-500 mr-2"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      <span className="text-sm font-medium text-green-700">
-                        Easy to make
-                      </span>
-                    </div>
-                  </motion.div>
+
                   <motion.div variants={itemVariants}>
-                    <Button className="w-full bg-gradient-to-r from-orange-400 to-pink-600 hover:from-orange-500 hover:to-pink-700 text-white transition-all duration-300 transform hover:scale-105 text-lg font-semibold py-3">
-                      DISCOVER RECIPE
-                    </Button>
+                    <Link
+                      target="_blank"
+                      href="https://www.facebook.com/people/%D8%B4%D8%B1%D9%83%D8%A9-%D8%A3%D8%AF%D9%8A%D8%A8-%D8%A7%D9%84%D8%AC%D9%86%D9%8A%D8%AF%D9%8A-%D9%88%D8%B4%D8%B1%D9%83%D8%A7%D8%A6%D9%87-%D9%84%D8%AA%D8%AC%D8%A7%D8%B1%D8%A9-%D8%A7%D9%84%D9%85%D9%88%D8%A7%D8%AF-%D8%A7%D9%84%D8%BA%D8%B0%D8%A7%D8%A6%D9%8A%D8%A9/100057638731643"
+                    >
+                      <Button className="w-full bg-gradient-to-r from-orange-400 to-pink-600 hover:from-orange-500 hover:to-pink-700 text-white transition-all duration-300 transform hover:scale-105 text-lg font-semibold py-3">
+                        DISCOVER MORE
+                      </Button>
+                    </Link>
                   </motion.div>
                 </div>
               </div>

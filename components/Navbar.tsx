@@ -48,22 +48,7 @@ export default function Component() {
   }, []);
 
   return (
-    <header className="bg-white relative top-0 z-[1000] px-6 py-4 shadow-md">
-      <div className="container relative mx-auto flex items-center justify-between">
-        <div className="flex items-center space-x-6">
-          <nav className="hidden md:flex items-center space-x-6 font-medium">
-            {leftNavItems.map((item) => (
-              <a
-                key={item.name}
-                href={`#${item.href}`}
-                onClick={smoothScroll}
-                className="text-black hover:text-gray-600 transition-colors duration-300 relative group"
-              >
-                {item.name}{" "}
-                <span className="absolute left-0 bottom-0 w-full h-0.5 bg-black transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
-              </a>
-            ))}
-          </nav>
+    <header className="bg-white flex items-center justify-center relative top-0 z-[1000] px-6 py-4 shadow-md">
           <div className="hidden md:flex items-center space-x-4">
             <Link
               href="https://www.facebook.com/people/%D8%B4%D8%B1%D9%83%D8%A9-%D8%A3%D8%AF%D9%8A%D8%A8-%D8%A7%D9%84%D8%AC%D9%86%D9%8A%D8%AF%D9%8A-%D9%88%D8%B4%D8%B1%D9%83%D8%A7%D8%A6%D9%87-%D9%84%D8%AA%D8%AC%D8%A7%D8%B1%D8%A9-%D8%A7%D9%84%D9%85%D9%88%D8%A7%D8%AF-%D8%A7%D9%84%D8%BA%D8%B0%D8%A7%D8%A6%D9%8A%D8%A9/100057638731643"
@@ -114,6 +99,21 @@ export default function Component() {
               <span className="sr-only">LinkedIn</span>
             </Link>
           </div>
+      <div className="container relative mx-auto flex items-center justify-around">
+        <div className="flex items-center space-x-6">
+          <nav className="hidden md:flex items-center space-x-6 font-medium">
+            {leftNavItems.map((item) => (
+              <a
+                key={item.name}
+                href={`#${item.href}`}
+                onClick={smoothScroll}
+                className="text-black hover:text-gray-600 transition-colors duration-300 relative group"
+              >
+                {item.name}{" "}
+                <span className="absolute left-0 bottom-0 w-full h-0.5 bg-black transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
+              </a>
+            ))}
+          </nav>
         </div>
 
         <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-16">
@@ -145,7 +145,18 @@ export default function Component() {
               </a>
             ))}
           </nav>
-          <Button
+        </div>
+
+        <Button
+          variant="ghost"
+          size="icon"
+          className="md:hidden text-black hover:text-gray-600 transition-colors duration-300"
+        >
+          <MenuIcon className="h-6 w-6" />
+          <span className="sr-only">Toggle menu</span>
+        </Button>
+      </div>
+      <Button
             variant="outline"
             className="ml-4 bg-black text-white border-black hover:bg-white hover:text-black transition-colors duration-300"
           >
@@ -158,17 +169,6 @@ export default function Component() {
               <ArrowRightIcon className="ml-2 h-4 w-4 animate-bounce" />
             </Link>
           </Button>
-        </div>
-
-        <Button
-          variant="ghost"
-          size="icon"
-          className="md:hidden text-black hover:text-gray-600 transition-colors duration-300"
-        >
-          <MenuIcon className="h-6 w-6" />
-          <span className="sr-only">Toggle menu</span>
-        </Button>
-      </div>
     </header>
   );
 }
