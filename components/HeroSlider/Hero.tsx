@@ -28,7 +28,7 @@ export default function HeroSection() {
           <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
               Bringing the World’s, <br />
-              Best Foods to You!.
+              Best Products to You!.
             </h1>
             <p className="text-sm sm:text-base md:text-lg font-semibold text-white/90">
               Discover the finest food products by Adeeb Juneidi.
