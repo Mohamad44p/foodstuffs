@@ -1,12 +1,5 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/api/auth/creation/route": "app/api/auth/creation/route.js",
-  "/api/send-email/route": "app/api/send-email/route.js",
-  "/page": "app/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/api/auth/[kindeAuth]/route": "app/api/auth/[kindeAuth]/route.js",
-  "/admin/clients/add/page": "app/admin/clients/add/page.js",
-  "/admin/clients/edit/[id]/page": "app/admin/clients/edit/[id]/page.js",
-  "/admin/clients/page": "app/admin/clients/page.js",
-  "/admin/page": "app/admin/page.js"
+  "/page": "app/page.js"
 }
