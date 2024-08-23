@@ -30,8 +30,6 @@ export async function GET() {
         });
     }
     return NextResponse.redirect(
-        process.env.NODE_ENV === "development"
-            ? "http://localhost:3000/admin"
-            : "https://foodstuffs-iota.vercel.app/admin"
+        "https://foodstuffs-iota.vercel.app/admin"
     );
 }
