@@ -1,14 +1,23 @@
 import db from "@/db/db";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
-import { Metadata } from "next";
+import ClientComponent from "./ClientComponent";
+import { unstable_noStore  as noStore} from "next/cache";
 
-const ClientComponent = dynamic(() => import("@/components/ClientComponent"), {
-  loading: () => <p>Loading...</p>,
-});
 
 export default async function ClientsPage() {
-  const clients = await db.client.findMany();
+  noStore();
+  const clients = await db.client.findMany({
+    select: {
+      id: true,
+      title: true,
+      Link: true,
+      ButtonColor: true,
+      BackgroundColor: true,
+      ImageUrl: true,
+    },
+  
+  });
 
   return (
     <div className="container py-24 mx-auto px-4 bg-[#faf7f2] overflow-hidden">

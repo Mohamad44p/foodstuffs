@@ -2,12 +2,14 @@ import db from "@/db/db";
 import Link from "next/link";
 import { DataTable } from "./_components/DataTable";
 import { columns } from "./_components/columns";
+import { unstable_noStore as noStore } from "next/cache";
 
 async function getClients() {
   return await db.client.findMany();
 }
 
 export default async function AdminDashboard() {
+  noStore();
   const clients = await getClients();
 
   return (

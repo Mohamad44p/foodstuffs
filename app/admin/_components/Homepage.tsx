@@ -1,9 +1,17 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import db from "@/db/db";
 import { UsersIcon } from "lucide-react";
 import React from "react";
+import { unstable_noStore as noStore } from "next/cache";
 
-const Homepage = () => {
-  const clientCount = 42;
+async function fetchClientCount() {
+  const data = await db.client.count();
+  return data;
+}
+
+const Homepage = async () => {
+  noStore();
+  const clientCount = await fetchClientCount();
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
