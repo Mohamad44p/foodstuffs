@@ -1,77 +1,96 @@
-/* eslint-disable react/no-unescaped-entities */
-'use client'
+"use client";
 
-import { useRef, useEffect } from 'react'
-import { motion, useAnimation, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import { Card, CardContent } from '@/components/ui/card'
+import { useRef, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  useMotionValue,
+} from "framer-motion";
 
-export default function Component() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
+export default function Hero() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"]
-  })
+    offset: ["start start", "end start"],
+  });
 
-  const smoothScrollYProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 })
+  const smoothScrollYProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
-  const backgroundY = useTransform(smoothScrollYProgress, [0, 1], ['0%', '20%'])
-  const textY = useTransform(smoothScrollYProgress, [0, 1], ['0%', '100%'])
-  const opacity = useTransform(smoothScrollYProgress, [0, 0.5], [1, 0])
+  const backgroundY = useTransform(
+    smoothScrollYProgress,
+    [0, 1],
+    ["0%", "20%"]
+  );
+  const textY = useTransform(smoothScrollYProgress, [0, 1], ["0%", "100%"]);
+  const opacity = useTransform(smoothScrollYProgress, [0, 0.5], [1, 0]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (containerRef.current) {
-        const { left, top, width, height } = containerRef.current.getBoundingClientRect()
-        const x = (e.clientX - left) / width
-        const y = (e.clientY - top) / height
-        mouseX.set(x)
-        mouseY.set(y)
+        const { left, top, width, height } =
+          containerRef.current.getBoundingClientRect();
+        const x = (e.clientX - left) / width;
+        const y = (e.clientY - top) / height;
+        mouseX.set(x);
+        mouseY.set(y);
       }
-    }
+    };
 
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [mouseX, mouseY])
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
 
-  const rotateX = useTransform(mouseY, [0, 1], [5, -5])
-  const rotateY = useTransform(mouseX, [0, 1], [-5, 5])
+  const rotateX = useTransform(mouseY, [0, 1], [5, -5]);
+  const rotateY = useTransform(mouseX, [0, 1], [-5, 5]);
 
   return (
-    <motion.div 
-      ref={containerRef} 
+    <motion.div
+      ref={containerRef}
       className="relative bg-background text-white min-h-screen overflow-hidden"
       style={{ perspective: 1000 }}
     >
       <motion.div
         className="absolute inset-0"
         style={{
-          backgroundImage: `url('/HeroTest.webp')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
           y: backgroundY,
         }}
-      />
+      >
+        <Image
+          src="/HeroTest.webp"
+          alt="Hero background"
+          fill
+          priority
+          className="object-cover w-full h-full"
+          quality={90}
+        />
+      </motion.div>
       <motion.div
         className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent"
         style={{ opacity }}
       />
-      <motion.div 
+
+      <motion.div
         className="absolute inset-0 flex items-center justify-center"
-        style={{ 
+        style={{
           opacity,
           rotateX,
           rotateY,
         }}
       >
-        <motion.div
-          className="max-w-4xl w-full px-4"
-          style={{ y: textY }}
-        >
+        <motion.div className="max-w-4xl w-full px-4" style={{ y: textY }}>
           <Card className="bg-black/50 backdrop-blur-md border-none shadow-xl overflow-hidden">
             <CardContent className="p-8 space-y-6">
               <motion.h1
@@ -80,7 +99,7 @@ export default function Component() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                Bringing the World's,
+                Bringing the World&apos;s,
                 <br />
                 Best Products to You!
               </motion.h1>
@@ -110,6 +129,7 @@ export default function Component() {
           </Card>
         </motion.div>
       </motion.div>
+
       <motion.div
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
         style={{ opacity }}
@@ -119,7 +139,7 @@ export default function Component() {
       >
         <motion.div
           animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -132,12 +152,14 @@ export default function Component() {
             strokeLinecap="round"
             strokeLinejoin="round"
             className="text-white"
+            aria-hidden="true"
           >
             <path d="M12 5v14" />
             <path d="m19 12-7 7-7-7" />
           </svg>
+          <span className="sr-only">Scroll down</span>
         </motion.div>
       </motion.div>
     </motion.div>
-  )
+  );
 }

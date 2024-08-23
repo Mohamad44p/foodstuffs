@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import { useState } from "react";
@@ -19,13 +18,19 @@ import { Label } from "@/components/ui/label";
 import { SendIcon } from "lucide-react";
 import { useToast } from "./ui/use-toast";
 
+interface FormState {
+  name: string;
+  email: string;
+  message: string;
+}
+
 export default function ContactUs() {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
-  const [formState, setFormState] = useState({
+  const [formState, setFormState] = useState<FormState>({
     name: "",
     email: "",
     message: "",
@@ -41,7 +46,7 @@ export default function ContactUs() {
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -101,7 +106,7 @@ export default function ContactUs() {
   return (
     <section
       ref={ref}
-      className="py-[10vh] bg-gradient-to-br from-background to-secondary"
+      className="py-24 bg-gradient-to-br from-background to-secondary"
     >
       <motion.div
         className="container mx-auto px-4"
@@ -112,8 +117,8 @@ export default function ContactUs() {
         <motion.div variants={itemVariants} className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4">Contact Us</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            We'd love to hear from you. Send us a message and we'll respond as
-            soon as possible.
+            We&apos;d love to hear from you. Send us a message and we&apos;ll
+            respond as soon as possible.
           </p>
         </motion.div>
 
@@ -136,6 +141,7 @@ export default function ContactUs() {
                     value={formState.name}
                     onChange={handleInputChange}
                     required
+                    aria-required="true"
                   />
                 </div>
                 <div className="space-y-2">
@@ -148,6 +154,7 @@ export default function ContactUs() {
                     value={formState.email}
                     onChange={handleInputChange}
                     required
+                    aria-required="true"
                   />
                 </div>
                 <div className="space-y-2">
@@ -159,21 +166,19 @@ export default function ContactUs() {
                     value={formState.message}
                     onChange={handleInputChange}
                     required
+                    aria-required="true"
                   />
                 </div>
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                  <SendIcon className="ml-2 h-4 w-4" aria-hidden="true" />
+                </Button>
               </form>
             </CardContent>
-            <CardFooter>
-              <Button
-                type="submit"
-                className="w-full"
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Sending..." : "Send Message"}
-                <SendIcon className="ml-2 h-4 w-4" />
-              </Button>
-            </CardFooter>
           </Card>
         </motion.div>
       </motion.div>

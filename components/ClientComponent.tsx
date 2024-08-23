@@ -2,8 +2,9 @@
 
 import { ArrowRight } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface Client {
   id: string;
@@ -20,13 +21,12 @@ interface ClientComponentProps {
 
 export default function ClientComponent({ clients }: ClientComponentProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   const containerVariants = {
@@ -52,10 +52,18 @@ export default function ClientComponent({ clients }: ClientComponentProps) {
     },
   };
 
+  const handleHoverStart = useCallback((index: number) => {
+    setHoveredIndex(index);
+  }, []);
+
+  const handleHoverEnd = useCallback(() => {
+    setHoveredIndex(null);
+  }, []);
+
   return (
     <motion.div
       ref={containerRef}
-      className="relative min-h-screen  overflow-hidden"
+      className="relative min-h-screen overflow-hidden"
     >
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
@@ -79,8 +87,8 @@ export default function ClientComponent({ clients }: ClientComponentProps) {
                 key={client.id}
                 className="flex flex-col items-center group relative"
                 variants={itemVariants}
-                onHoverStart={() => setHoveredIndex(index)}
-                onHoverEnd={() => setHoveredIndex(null)}
+                onHoverStart={() => handleHoverStart(index)}
+                onHoverEnd={handleHoverEnd}
                 whileHover={{ scale: 1.05 }}
               >
                 <motion.div
@@ -97,16 +105,22 @@ export default function ClientComponent({ clients }: ClientComponentProps) {
                   }}
                   transition={{ duration: 0.5 }}
                 >
-                  <motion.img
+                  <Image
                     src={client.ImageUrl}
                     alt={client.title}
+                    width={300}
+                    height={300}
                     className="w-3/4 h-auto absolute"
-                    animate={{
-                      y: hoveredIndex === index ? -10 : 0,
-                      rotateY: hoveredIndex === index ? 15 : 0,
-                      scale: hoveredIndex === index ? 1.1 : 1,
+                    style={{
+                      transform: `translateY(${
+                        hoveredIndex === index ? -10 : 0
+                      }px) 
+                                  rotateY(${
+                                    hoveredIndex === index ? 15 : 0
+                                  }deg) 
+                                  scale(${hoveredIndex === index ? 1.1 : 1})`,
+                      transition: "transform 0.3s spring",
                     }}
-                    transition={{ type: "spring", stiffness: 300 }}
                   />
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0"
@@ -114,22 +128,26 @@ export default function ClientComponent({ clients }: ClientComponentProps) {
                     transition={{ duration: 0.3 }}
                   />
                 </motion.div>
-                <motion.button
+                <Link
+                  href={client.Link}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="mt-5 text-white font-bold py-3 px-8 rounded-full uppercase text-lg relative overflow-hidden"
                   style={{
                     backgroundColor: client.ButtonColor,
                   }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
                 >
-                  <Link
+                  <motion.div
                     className="flex items-center justify-center gap-x-3"
-                    href={client.Link}
-                    target="_blank"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     Visit {client.title}{" "}
-                    <ArrowRight className="w-5 h-5 text-white" />
-                  </Link>
+                    <ArrowRight
+                      className="w-5 h-5 text-white"
+                      aria-hidden="true"
+                    />
+                  </motion.div>
                   <motion.div
                     className="absolute inset-0 bg-white"
                     initial={{ x: "-100%" }}
@@ -137,7 +155,7 @@ export default function ClientComponent({ clients }: ClientComponentProps) {
                     transition={{ duration: 0.5 }}
                     style={{ opacity: 0.3 }}
                   />
-                </motion.button>
+                </Link>
               </motion.div>
             ))}
           </motion.div>

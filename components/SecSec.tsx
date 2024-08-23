@@ -1,15 +1,23 @@
-/* eslint-disable react/no-unescaped-entities */
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useScroll,
   useTransform,
   useInView,
   useSpring,
+  AnimatePresence,
 } from "framer-motion";
-import { ArrowRight, ChevronDown, Leaf, Sun, Cloud } from "lucide-react";
+import {
+  ArrowRight,
+  Leaf,
+  Cloud,
+  Coffee,
+  Pizza,
+  Apple,
+  Sun,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const AnimatedBackground = () => {
@@ -23,38 +31,53 @@ const AnimatedBackground = () => {
         className="w-full h-full"
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
+        aria-hidden="true"
       >
         <motion.path
           d="M0,50 Q25,0 50,50 T100,50 V100 H0 Z"
-          fill="#84C454"
+          fill="url(#gradient)"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
           transition={{
-            duration: 2,
+            duration: 5,
             ease: "easeInOut",
             repeat: Infinity,
-            repeatType: "reverse",
+            repeatType: "mirror",
           }}
         />
+        <defs>
+          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#84C454" />
+            <stop offset="50%" stopColor="#4CAF50" />
+            <stop offset="100%" stopColor="#2E7D32" />
+          </linearGradient>
+        </defs>
       </svg>
       <motion.div
-        className="absolute top-10 right-10 text-white"
+        className="absolute top-10 right-10 text-yellow-400"
         style={{ rotate: rotation }}
+        whileHover={{ scale: 1.2 }}
       >
-        <Sun size={40} />
+        <Sun size={80} aria-hidden="true" />
       </motion.div>
       <motion.div
         className="absolute bottom-10 left-10 text-white"
-        animate={{ y: [0, 20, 0] }}
-        transition={{ duration: 4, repeat: Infinity, repeatType: "reverse" }}
+        animate={{ y: [0, 20, 0], x: [0, 10, 0] }}
+        transition={{ duration: 6, repeat: Infinity, repeatType: "reverse" }}
       >
-        <Cloud size={40} />
+        <Cloud size={80} aria-hidden="true" />
       </motion.div>
     </motion.div>
   );
 };
 
-const FloatingLeaf = ({ style = {} }) => {
+const FloatingIcon = ({
+  icon: Icon,
+  style = {},
+}: {
+  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  style?: React.CSSProperties;
+}) => {
   return (
     <motion.div
       className="absolute text-[#4CAF50] z-10"
@@ -69,75 +92,161 @@ const FloatingLeaf = ({ style = {} }) => {
         repeat: Infinity,
         repeatType: "reverse",
       }}
+      whileHover={{ scale: 1.5, rotate: 720 }}
     >
-      <Leaf size={24} />
+      <Icon width={48} aria-hidden="true" />
     </motion.div>
   );
 };
 
-const Hero = () => {
+const AnimatedText = ({
+  children,
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  delay?: number;
+}) => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#E8F5E9]">
+    <motion.span
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay }}
+      className="inline-block"
+    >
+      {children}
+    </motion.span>
+  );
+};
+
+const Hero = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true });
+  const [hovered, setHovered] = useState(false);
+
+  const titleVariants = {
+    hidden: { opacity: 0, y: -50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 0.2,
+        when: "beforeChildren",
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const letterVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+    },
+  };
+
+  return (
+    <section
+      ref={ref}
+      className="relative py-24 min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#E8F5E9] to-[#C8E6C9]"
+    >
       <AnimatedBackground />
 
       <div className="container mx-auto px-4 z-20 relative">
-        <h1 className="text-5xl md:text-7xl font-bold text-center mb-6 text-[#2E7D32]">
-          Delicious Food, <br /> Delivered to You
-        </h1>
+        <motion.h1
+          className="text-4xl sm:text-6xl md:text-8xl font-bold text-center mb-12 text-[#2E7D32]"
+          variants={titleVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {["Delicious", "Food,", "Delivered", "to", "You"].map(
+            (word, index) => (
+              <motion.span
+                key={index}
+                className="inline-block mr-4"
+                variants={letterVariants}
+              >
+                {word.split("").map((char, charIndex) => (
+                  <motion.span
+                    key={charIndex}
+                    className="inline-block"
+                    whileHover={{ scale: 1.2, color: "#4CAF50", rotate: 10 }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </motion.span>
+            )
+          )}
+        </motion.h1>
 
-        <p className="text-lg md:text-xl text-[#000] text-justify mb-8">
-          Adeeb Aljunidi and Partners is a prestigious Palestinian company
-          specializing in the import and distribution of food products. Founded
-          in 1996 by Adeeb Aljunidi and his partners, the company is
-          headquartered in the city of Hebron, Palestine. The company has
-          secured a leading position in the food trade and investment sector in
-          Palestine, thanks to its excellence in entrepreneurship. Despite
-          political and economic challenges, the company has experienced
-          significant growth in recent years, standing out among similar
-          companies due to its clear strategies focused on customer satisfaction
-          by offering high-quality, reliable, and effective products, along with
-          a wide range of competitively priced items. The company boasts a
-          specialized team in logistics and sales, highly qualified and trained
-          by managers with extensive experience in food marketing and investment
-          management. This team works diligently to reach most cities and areas
-          within the Palestinian market, including Gaza Strip and Arab 48
-          regions, further enhancing the company's success and its continued
-          commitment to providing exceptional and high-quality services in
-          import and distribution operations.
-        </p>
+        <motion.div
+          className="bg-white bg-opacity-80 backdrop-blur-lg rounded-xl p-8 shadow-2xl"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+          <motion.p
+            className="text-base sm:text-lg md:text-xl text-[#333] text-justify mb-8 leading-relaxed"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.7 }}
+          >
+            Adeeb Aljunidi and Partners is a prestigious Palestinian company
+            specializing in the import and distribution of food products.
+            Founded in 1996 by Adeeb Aljunidi and his partners, the company is
+            headquartered in the city of Hebron, Palestine. The company has
+            secured a leading position in the food trade and investment sector
+            in Palestine, thanks to its excellence in entrepreneurship. Despite
+            political and economic challenges, the company has experienced
+            significant growth in recent years, standing out among similar
+            companies due to its clear strategies focused on customer
+            satisfaction by offering high-quality, reliable, and effective
+            products, along with a wide range of competitively priced items.
+          </motion.p>
 
-        <p className="text-base md:text-lg text-[#33691E] text-justify mb-8 max-w-4xl mx-auto">
-          At Adeeb Aljunidi and Partners, we believe that food is more than just
-          sustenance—it's a source of happiness. That’s why we carefully select
-          and distribute products and brands that delight our customers with
-          every bite. From your favorite snacks to the sweetest treats, our wide
-          range of offerings is designed to bring joy and satisfaction to your
-          daily life. Whether it’s a refreshing drink on a hot day or a
-          comforting biscuit with your coffee, we’re here to make every moment a
-          little more joyful.ns.
-        </p>
+          <motion.p
+            className="text-sm sm:text-base md:text-lg text-[#33691E] text-justify mb-8 max-w-4xl mx-auto leading-relaxed"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.9 }}
+          >
+            At Adeeb Aljunidi and Partners, we believe that food is more than
+            just sustenance—it&apos;s a source of happiness. That&apos;s why we
+            carefully select and distribute products and brands that delight our
+            customers with every bite. From your favorite snacks to the sweetest
+            treats, our wide range of offerings is designed to bring joy and
+            satisfaction to your daily life.
+          </motion.p>
+        </motion.div>
 
-        <div className="flex justify-center">
+        <motion.div
+          className="flex justify-center mt-12"
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, delay: 1.1 }}
+        >
           <Button
             size="lg"
-            className="bg-[#4CAF50] text-xl text-white hover:bg-[#45a049] transition-colors duration-300"
+            className="bg-[#4CAF50] text-xl sm:text-2xl text-white hover:bg-[#45a049] transition-all duration-300 transform hover:scale-110 hover:rotate-3 px-6 sm:px-8 py-4 sm:py-6 rounded-full shadow-lg"
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
           >
-            Discover Our Story <ArrowRight className="ml-2" />
+            Discover Our Story
+            <motion.span
+              className="inline-block ml-2"
+              animate={{ x: hovered ? 10 : 0 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <ArrowRight className="inline" aria-hidden="true" />
+            </motion.span>
           </Button>
-        </div>
+        </motion.div>
       </div>
 
-      <FloatingLeaf style={{ top: "20%", left: "10%" }} />
-      <FloatingLeaf style={{ bottom: "30%", right: "15%" }} />
-      <FloatingLeaf style={{ top: "70%", left: "80%" }} />
-
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
-      >
-        <ChevronDown className="text-[#2E7D32] w-8 h-8" />
-      </motion.div>
+      <FloatingIcon icon={Leaf} style={{ top: "15%", left: "5%" }} />
+      <FloatingIcon icon={Coffee} style={{ bottom: "25%", right: "10%" }} />
+      <FloatingIcon icon={Pizza} style={{ top: "65%", left: "85%" }} />
+      <FloatingIcon icon={Apple} style={{ top: "35%", right: "15%" }} />
     </section>
   );
 };

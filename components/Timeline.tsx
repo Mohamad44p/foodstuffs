@@ -1,7 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import {
   motion,
   useScroll,
@@ -27,7 +28,7 @@ const timelineEvents = [
   {
     title: "Value",
     description:
-      "We are committed to delivering the best value in every product category we offer, ensuring that each purchase—whether it’s a crunchy biscuit or a savory nut—provides exceptional quality at a fair price.",
+      "We are committed to delivering the best value in every product category we offer, ensuring that each purchase—whether it's a crunchy biscuit or a savory nut—provides exceptional quality at a fair price.",
     image: "/Value.jpeg",
   },
   {
@@ -47,7 +48,7 @@ const EventItem = ({
   index: number;
   progress: any;
 }) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: false, amount: 0.5 });
   const isEven = index % 2 === 0;
 
@@ -110,9 +111,11 @@ const ImageContent = ({
       whileHover={{ scale: 1.03 }}
       transition={{ type: "spring", stiffness: 300 }}
     >
-      <img
+      <Image
         src={event.image}
         alt={event.title}
+        width={640}
+        height={360}
         className="w-full h-full object-cover"
       />
     </motion.div>
@@ -136,12 +139,13 @@ const TimelineNode = ({
     <motion.div
       className="absolute left-1/2 w-8 h-8 rounded-full border-4 border-purple-100 transform -translate-x-1/2 md:order-2 z-10"
       style={{ backgroundColor: color }}
+      aria-hidden="true"
     />
   );
 };
 
-export default function Component() {
-  const containerRef = useRef(null);
+export default function Timeline() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef });
   const scaleY = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -150,27 +154,28 @@ export default function Component() {
   });
 
   return (
-    <div
-      className="bgImage min-h-screen p-4 md:p-8"
-      ref={containerRef}
-    >
-      <motion.h1
+    <div className="bgImage py-24 min-h-screen p-4 md:p-8" ref={containerRef}>
+      <motion.h2
         className="text-4xl font-playfair md:text-5xl font-bold text-center mb-12 md:mb-8 text-black"
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
         Our Core Values: The Heart of Everything We Offer
-      </motion.h1>
-      <p className="text-[23px] font-merriweather font-bold mb-16 text-center text-gray-900/85">
+      </motion.h2>
+      <p className="text-xl md:text-2xl font-merriweather font-bold mb-16 text-center text-gray-900/85">
         We bring LOVE to the people we serve <br />
         Here is what LOVE means to us{" "}
       </p>
       <div className="relative max-w-screen-2xl mx-auto">
-        <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-[#84C454] transform -translate-x-1/2" />
+        <div
+          className="absolute left-1/2 top-0 bottom-0 w-1 bg-[#84C454] transform -translate-x-1/2"
+          aria-hidden="true"
+        />
         <motion.div
           className="absolute left-1/2 top-0 bottom-0 w-1 bg-[#4c782a] origin-top"
           style={{ scaleY, translateX: "-50%" }}
+          aria-hidden="true"
         />
         {timelineEvents.map((event, index) => (
           <EventItem
@@ -182,20 +187,24 @@ export default function Component() {
         ))}
       </div>
       <div className="flex justify-center space-x-6 mt-16">
-        <motion.button
-          className="px-8 py-3 bg-[#84C454] text-black rounded-full hover:bg-[#4c782a] hover:text-white transition-colors text-lg font-semibold shadow-lg"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          About Us
-        </motion.button>
-        <motion.button
-          className="px-8 py-3 bg-white text-black rounded-full hover:bg-gray-100 transition-colors text-lg font-semibold shadow-lg"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Contact
-        </motion.button>
+        <Link href="/about">
+          <motion.button
+            className="px-8 py-3 bg-[#84C454] text-black rounded-full hover:bg-[#4c782a] hover:text-white transition-colors text-lg font-semibold shadow-lg"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            About Us
+          </motion.button>
+        </Link>
+        <Link href="/contact">
+          <motion.button
+            className="px-8 py-3 bg-white text-black rounded-full hover:bg-gray-100 transition-colors text-lg font-semibold shadow-lg"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Contact
+          </motion.button>
+        </Link>
       </div>
     </div>
   );

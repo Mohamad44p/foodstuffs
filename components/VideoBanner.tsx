@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import { useState, useRef, useEffect } from "react";
@@ -14,11 +13,53 @@ import {
 } from "lucide-react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
-export default function Component() {
+const FoodParticles = () => {
+  const particles = [
+    { icon: "🍎", delay: 0 },
+    { icon: "🍇", delay: 2 },
+    { icon: "🍊", delay: 4 },
+    { icon: "🍓", delay: 6 },
+    { icon: "🥑", delay: 8 },
+    { icon: "🍍", delay: 10 },
+  ];
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {particles.map((particle, index) => (
+        <motion.div
+          key={index}
+          className="absolute text-4xl"
+          initial={{ y: "120%", x: Math.random() * 100 + "%", opacity: 0 }}
+          animate={{
+            y: "-120%",
+            x: [
+              `${Math.random() * 100}%`,
+              `${Math.random() * 100}%`,
+              `${Math.random() * 100}%`,
+            ],
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            delay: particle.delay,
+            ease: "linear",
+          }}
+        >
+          {particle.icon}
+        </motion.div>
+      ))}
+    </div>
+  );
+};
+
+export default function VideoBanner() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: false, amount: 0.1 });
@@ -42,7 +83,11 @@ export default function Component() {
     };
 
     video.addEventListener("timeupdate", updateProgress);
-    return () => video.removeEventListener("timeupdate", updateProgress);
+    video.addEventListener("loadeddata", () => setIsVideoLoaded(true));
+    return () => {
+      video.removeEventListener("timeupdate", updateProgress);
+      video.removeEventListener("loadeddata", () => setIsVideoLoaded(true));
+    };
   }, []);
 
   const togglePlay = () => {
@@ -75,8 +120,8 @@ export default function Component() {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5,
-        staggerChildren: 0.1,
+        duration: 0.8,
+        staggerChildren: 0.2,
       },
     },
   };
@@ -86,107 +131,106 @@ export default function Component() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 },
+      transition: { duration: 0.6 },
     },
   };
 
   return (
-    <div className="min-h-screen py-[15vh] flex flex-col items-center justify-center BgPinkImage p-8 overflow-hidden relative">
-      <motion.div
-        className="absolute inset-0 z-0"
-        animate={{
-          backgroundPosition: ["0% 0%", "100% 100%"],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          repeatType: "reverse",
-        }}
-        style={{
-          backgroundImage:
-            'url("data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z" fill="%23FFA07A" fill-opacity="0.1" fill-rule="evenodd"/%3E%3C/svg%3E")',
-          backgroundSize: "150px 150px",
-          opacity: 0.5,
-        }}
-      />
+    <div className="min-h-screen py-24 flex flex-col items-center justify-center p-8 overflow-hidden relative bg-gradient-to-br from-green-50 to-orange-50">
+      <FoodParticles />
 
       <motion.div
         ref={containerRef}
         variants={containerVariants}
         initial="hidden"
         animate={controls}
-        className="w-full max-w-6xl"
+        className="w-full max-w-6xl relative z-10"
       >
         <motion.div
           className="text-center mb-12 relative z-10"
           variants={itemVariants}
         >
-          <h1 className="text-5xl font-extrabold mb-4 tracking-tight">
-            <span className="text-[#B02484] font-playfair">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 tracking-tight">
+            <span className="text-green-700 font-playfair">
               Feeding Your Passion for Good Food!
             </span>
-          </h1>
-          <p className="text-xl text-justify text-black font-merriweather max-w-3xl mx-auto font-light">
-            Whether you're a home cook or a gourmet chef, our
-            curated selection of premium foods will inspire your culinary
-            creativity and satisfy your passion for great food.
+          </h2>
+          <p className="text-lg sm:text-xl text-center text-gray-700 font-merriweather max-w-3xl mx-auto font-light">
+            Whether you&apos;re a home cook or a gourmet chef, our curated
+            selection of premium foods will inspire your culinary creativity and
+            satisfy your passion for great food.
           </p>
         </motion.div>
 
         <motion.div variants={itemVariants}>
-          <Card className="overflow-hidden shadow-2xl relative z-10 bg-white rounded-2xl border-2 border-orange-200">
+          <Card className="overflow-hidden shadow-2xl relative z-10 bg-white rounded-3xl border-2 border-green-200 hover:shadow-green-200/50 transition-all duration-300">
             <CardContent className="p-0">
               <div className="flex flex-col md:flex-row">
                 <div className="md:w-1/2 relative">
+                  {!isVideoLoaded && (
+                    <Image
+                      src="/VideoImage.png"
+                      alt="Video thumbnail"
+                      width={640}
+                      height={360}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
                   <video
                     ref={videoRef}
-                    className="w-full h-full object-cover"
+                    className={`w-full h-full object-cover ${
+                      isVideoLoaded ? "block" : "hidden"
+                    }`}
                     src="VideoJ.mp4"
                     loop
                     muted={isMuted}
-                    poster="/VideoImage.png"
+                    playsInline
+                    preload="metadata"
                   />
-                  <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/60 to-transparent p-4 text-white">
-                    <h3 className="text-lg font-semibold">
+                  <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/60 to-transparent p-6 text-white">
+                    <h3 className="text-2xl font-semibold">
                       Bringing Joy to Every Bite
                     </h3>
                     <p className="text-sm">Watch how to make the perfect Joy</p>
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                    <div className="flex items-center justify-between mb-2">
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                    <div className="flex items-center justify-between mb-4">
                       <Button
                         variant="ghost"
                         size="icon"
                         onClick={() => seek("backward")}
-                        className="text-white hover:text-orange-400 transition-colors"
+                        className="text-white hover:text-green-400 transition-colors transform hover:scale-110"
+                        aria-label="Rewind 10 seconds"
                       >
-                        <SkipBackIcon className="h-5 w-5" />
+                        <SkipBackIcon className="h-6 w-6" />
                       </Button>
                       <Button
                         variant="ghost"
                         size="icon"
                         onClick={togglePlay}
-                        className="text-white hover:text-orange-400 transition-colors"
+                        className="text-white hover:text-green-400 transition-colors transform hover:scale-125"
+                        aria-label={isPlaying ? "Pause" : "Play"}
                       >
                         {isPlaying ? (
-                          <PauseIcon className="h-8 w-8" />
+                          <PauseIcon className="h-12 w-12" />
                         ) : (
-                          <PlayIcon className="h-8 w-8" />
+                          <PlayIcon className="h-12 w-12" />
                         )}
                       </Button>
                       <Button
                         variant="ghost"
                         size="icon"
                         onClick={() => seek("forward")}
-                        className="text-white hover:text-orange-400 transition-colors"
+                        className="text-white hover:text-green-400 transition-colors transform hover:scale-110"
+                        aria-label="Forward 10 seconds"
                       >
-                        <SkipForwardIcon className="h-5 w-5" />
+                        <SkipForwardIcon className="h-6 w-6" />
                       </Button>
                     </div>
                     <div className="flex items-center">
-                      <div className="w-full mr-4 bg-white/30 rounded-full h-1">
+                      <div className="w-full mr-4 bg-white/30 rounded-full h-2 overflow-hidden">
                         <motion.div
-                          className="bg-orange-400 h-1 rounded-full"
+                          className="bg-green-500 h-2 rounded-full"
                           style={{ width: `${progress}%` }}
                           initial={{ width: "0%" }}
                           animate={{ width: `${progress}%` }}
@@ -197,47 +241,47 @@ export default function Component() {
                         variant="ghost"
                         size="icon"
                         onClick={toggleMute}
-                        className="text-white hover:text-orange-400 transition-colors"
+                        className="text-white hover:text-green-400 transition-colors transform hover:scale-110"
+                        aria-label={isMuted ? "Unmute" : "Mute"}
                       >
                         {isMuted ? (
-                          <VolumeIcon className="h-5 w-5" />
+                          <VolumeIcon className="h-6 w-6" />
                         ) : (
-                          <Volume2Icon className="h-5 w-5" />
+                          <Volume2Icon className="h-6 w-6" />
                         )}
                       </Button>
                     </div>
                   </div>
                 </div>
-                <div className="md:w-1/2 p-8 bg-white">
+                <div className="md:w-1/2 p-10 bg-white">
                   <motion.h2
-                    className="text-4xl font-bold mb-4"
+                    className="text-3xl sm:text-4xl font-bold mb-6"
                     variants={itemVariants}
                   >
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-pink-600">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-orange-500">
                       Bringing Joy to Every Bite
                     </span>
                   </motion.h2>
                   <motion.p
-                    className="text-gray-600 mb-6 leading-relaxed"
+                    className="text-gray-700 mb-8 leading-relaxed"
                     variants={itemVariants}
                   >
                     At Adeeb Aljunidi and Partners, we believe that food is more
-                    than just sustenance—it's a source of happiness. That’s why
-                    we carefully select and distribute products and brands that
-                    delight our customers with every bite. From your favorite
-                    snacks to the sweetest treats, our wide range of offerings
-                    is designed to bring joy and satisfaction to your daily
-                    life. Whether it’s a refreshing drink on a hot day or a
-                    comforting biscuit with your coffee, we’re here to make
-                    every moment a little more joyful.
+                    than just sustenance—it&apos;s a source of happiness.
+                    That&apos;s why we carefully select and distribute products
+                    and brands that delight our customers with every bite. From
+                    your favorite snacks to the sweetest treats, our wide range
+                    of offerings is designed to bring joy and satisfaction to
+                    your daily life.
                   </motion.p>
 
                   <motion.div variants={itemVariants}>
                     <Link
-                      target="_blank"
                       href="https://www.facebook.com/people/%D8%B4%D8%B1%D9%83%D8%A9-%D8%A3%D8%AF%D9%8A%D8%A8-%D8%A7%D9%84%D8%AC%D9%86%D9%8A%D8%AF%D9%8A-%D9%88%D8%B4%D8%B1%D9%83%D8%A7%D8%A6%D9%87-%D9%84%D8%AA%D8%AC%D8%A7%D8%B1%D8%A9-%D8%A7%D9%84%D9%85%D9%88%D8%A7%D8%AF-%D8%A7%D9%84%D8%BA%D8%B0%D8%A7%D8%A6%D9%8A%D8%A9/100057638731643"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      <Button className="w-full bg-gradient-to-r from-orange-400 to-pink-600 hover:from-orange-500 hover:to-pink-700 text-white transition-all duration-300 transform hover:scale-105 text-lg font-semibold py-3">
+                      <Button className="w-full bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white transition-all duration-300 transform hover:scale-105 text-lg font-semibold py-4 rounded-xl shadow-lg hover:shadow-xl">
                         DISCOVER MORE
                       </Button>
                     </Link>

@@ -1,10 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import { useAnimation, useInView, motion } from "framer-motion";
 import { ArrowRight, Flower2 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 export default function AboutBanner() {
@@ -57,10 +56,26 @@ export default function AboutBanner() {
     },
   };
 
+  const features = [
+    { icon: "🍞", color: "text-yellow-400", text: "Freshly made, every day!" },
+    {
+      icon: "🌾",
+      color: "text-green-500",
+      text: "Sourced from the finest ingredients!",
+    },
+    {
+      icon: "🇵🇸",
+      color: "text-red-500",
+      text: "Proudly Distributed in Palestine!",
+    },
+  ];
+
+  const images = ["/ABImage1.webp", "/ABImage2.webp", "/ABImage3.webp"];
+
   return (
-    <div
+    <section
       ref={containerRef}
-      className="bg-gradient-to-b py-[30vh] from-white to-green-50 min-h-screen px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      className="bg-gradient-to-b py-24 from-white to-green-50 min-h-screen px-4 sm:px-6 lg:px-8 relative overflow-hidden"
     >
       <motion.div
         initial="hidden"
@@ -91,29 +106,15 @@ export default function AboutBanner() {
               products that meet the highest standards of taste and safety.
             </motion.p>
             <motion.ul variants={containerVariants} className="space-y-4">
-              {[
-                {
-                  icon: "🍞",
-                  color: "text-yellow-400",
-                  text: "Freshly made, every day!",
-                },
-                {
-                  icon: "🌾",
-                  color: "text-green-500",
-                  text: "Sourced from the finest ingredients!",
-                },
-                {
-                  icon: "🇵🇸",
-                  color: "text-red-500",
-                  text: "Proudly Distributed in Palestine!",
-                },
-              ].map((item, index) => (
+              {features.map((item, index) => (
                 <motion.li
                   key={index}
                   variants={itemVariants}
                   className="flex items-center space-x-3"
                 >
-                  <span className={`${item.color} text-2xl`}>{item.icon}</span>
+                  <span className={`${item.color} text-2xl`} aria-hidden="true">
+                    {item.icon}
+                  </span>
                   <span className="text-gray-700">{item.text}</span>
                 </motion.li>
               ))}
@@ -123,10 +124,10 @@ export default function AboutBanner() {
                 variants={itemVariants}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center text-white bg-blue-600 px-6 py-3 rounded-full text-lg font-semibold transition-colors hover:bg-blue-700"
+                className="inline-flex md:my-8 my-12 items-center text-white bg-blue-600 px-6 py-3 rounded-full text-lg font-semibold transition-colors hover:bg-blue-700"
               >
                 Learn more
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
               </motion.button>
             </Link>
           </div>
@@ -135,69 +136,65 @@ export default function AboutBanner() {
             className="lg:w-1/2 relative"
           >
             <div className="grid grid-cols-3 gap-4">
-              {["/ABImage1.webp", "/ABImage2.webp", "/ABImage3.webp"].map(
-                (src, index) => (
+              {images.map((src, index) => (
+                <motion.div
+                  key={index}
+                  variants={imageVariants}
+                  className="relative"
+                >
+                  <Image
+                    src={src}
+                    alt={`Adeeb Juneidi product image ${index + 1}`}
+                    width={300}
+                    height={400}
+                    className="w-full h-96 object-cover rounded-lg shadow-lg border-4 border-yellow-400"
+                  />
                   <motion.div
-                    key={index}
-                    variants={imageVariants}
-                    className="relative"
+                    variants={flowerVariants}
+                    className="absolute -top-3 -left-3"
+                    aria-hidden="true"
                   >
-                    <img
-                      src={src}
-                      alt={`Adeeb Juneidi product image ${index + 1}`}
-                      className="w-full h-96 object-cover rounded-lg shadow-lg border-4 border-yellow-400"
-                    />
-                    <motion.div
-                      variants={flowerVariants}
-                      className="absolute -top-3 -left-3"
-                    >
-                      <Flower2 className="text-pink-400 w-8 h-8 transform -rotate-45" />
-                    </motion.div>
-                    <motion.div
-                      variants={flowerVariants}
-                      className="absolute -bottom-3 -right-3"
-                    >
-                      <Flower2 className="text-purple-400 w-8 h-8 transform rotate-45" />
-                    </motion.div>
+                    <Flower2 className="text-pink-400 w-8 h-8 transform -rotate-45" />
                   </motion.div>
-                )
-              )}
+                  <motion.div
+                    variants={flowerVariants}
+                    className="absolute -bottom-3 -right-3"
+                    aria-hidden="true"
+                  >
+                    <Flower2 className="text-purple-400 w-8 h-8 transform rotate-45" />
+                  </motion.div>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </div>
       </motion.div>
-      <motion.div
-        variants={flowerVariants}
-        initial="hidden"
-        animate={controls}
-        className="absolute top-12 right-12"
-      >
-        <Flower2 className="text-green-300 w-16 h-16 opacity-50" />
-      </motion.div>
-      <motion.div
-        variants={flowerVariants}
-        initial="hidden"
-        animate={controls}
-        className="absolute bottom-12 left-12"
-      >
-        <Flower2 className="text-yellow-300 w-16 h-16 opacity-50 transform rotate-45" />
-      </motion.div>
-      <motion.div
-        variants={flowerVariants}
-        initial="hidden"
-        animate={controls}
-        className="absolute top-1/4 left-8"
-      >
-        <Flower2 className="text-pink-300 w-12 h-12 opacity-50 transform -rotate-45" />
-      </motion.div>
-      <motion.div
-        variants={flowerVariants}
-        initial="hidden"
-        animate={controls}
-        className="absolute bottom-1/4 right-8"
-      >
-        <Flower2 className="text-purple-300 w-12 h-12 opacity-50 transform rotate-90" />
-      </motion.div>
-    </div>
+      {[
+        { className: "absolute top-12 right-12", color: "text-green-300" },
+        {
+          className: "absolute bottom-12 left-12",
+          color: "text-yellow-300 transform rotate-45",
+        },
+        {
+          className: "absolute top-1/4 left-8",
+          color: "text-pink-300 transform -rotate-45",
+        },
+        {
+          className: "absolute bottom-1/4 right-8",
+          color: "text-purple-300 transform rotate-90",
+        },
+      ].map((flower, index) => (
+        <motion.div
+          key={index}
+          variants={flowerVariants}
+          initial="hidden"
+          animate={controls}
+          className={flower.className}
+          aria-hidden="true"
+        >
+          <Flower2 className={`${flower.color} w-16 h-16 opacity-50`} />
+        </motion.div>
+      ))}
+    </section>
   );
 }
