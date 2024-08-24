@@ -4,8 +4,6 @@ import "./globals.css";
 import { Suspense, lazy } from "react";
 import PreloaderManager from "@/components/PreLoader/PreloaderManager";
 import Script from "next/script";
-import { NextIntlClientProvider } from "next-intl";
-import { notFound } from "next/navigation";
 
 const AnimatedFooter = lazy(() => import("@/components/Footer"));
 
@@ -58,38 +56,17 @@ export const metadata: Metadata = {
     canonical: "https://juneidi.ps",
   },
   icons: {
-    icon: "/Logo.png",
+    icon: '/Logo.png',
   },
 };
 
-interface RootLayoutProps {
-  children: React.ReactNode;
-  params: {
-    locale: string;
-  };
-}
-
-export default async function RootLayout({
+export default function RootLayout({
   children,
-  params: { locale },
-}: Readonly<RootLayoutProps>) {
-  let messages;
-  try {
-    messages = (await import(`../../messages/${locale}.json`)).default;
-  } catch (error) {
-    notFound();
-  }
-
-  const isRTL = locale === "ar";
-
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html
-      lang={locale}
-      dir={isRTL ? "rtl" : "ltr"}
-      className={`${playfair.variable} ${merriweather.variable} ${
-        isRTL ? "rtl" : "ltr"
-      }`}
-    >
+    <html lang="en" className={`${playfair.variable} ${merriweather.variable}`}>
       <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=YOUR_GOOGLE_ANALYTICS_ID"
@@ -104,15 +81,13 @@ export default async function RootLayout({
           `}
         </Script>
       </head>
-      <body className={isRTL ? "rtl" : "ltr"}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <PreloaderManager>
-            {children}
-            <Suspense fallback={<div>Loading footer...</div>}>
-              <AnimatedFooter />
-            </Suspense>
-          </PreloaderManager>
-        </NextIntlClientProvider>
+      <body>
+        <PreloaderManager>
+          {children}
+          <Suspense fallback={<div>Loading footer...</div>}>
+            <AnimatedFooter />
+          </Suspense>
+        </PreloaderManager>
       </body>
     </html>
   );

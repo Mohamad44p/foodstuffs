@@ -10,14 +10,13 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { SendIcon } from "lucide-react";
 import { useToast } from "./ui/use-toast";
-import { useTranslations } from "next-intl";
-import { useLocale } from "next-intl";
 
 interface FormState {
   name: string;
@@ -26,9 +25,6 @@ interface FormState {
 }
 
 export default function ContactUs() {
-  const t = useTranslations("contactUs");
-  const locale = useLocale();
-
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -65,18 +61,20 @@ export default function ContactUs() {
 
       if (response.ok) {
         toast({
-          title: t("successTitle"),
-          description: t("successDescription"),
+          title: "Message sent!",
+          description: "We'll get back to you as soon as possible.",
         });
         setFormState({ name: "", email: "", message: "" });
       } else {
         const errorData = await response.json();
-        throw new Error(errorData.message || t("errorDefault"));
+        throw new Error(errorData.message || "Failed to send message");
       }
     } catch (error) {
       toast({
-        title: t("errorTitle"),
-        description: (error as Error).message || t("errorDefault"),
+        title: "Error",
+        description:
+          (error as Error).message ||
+          "Failed to send message. Please try again later.",
         variant: "destructive",
       });
     } finally {
@@ -108,9 +106,7 @@ export default function ContactUs() {
   return (
     <section
       ref={ref}
-      className={`py-24 bg-gradient-to-br from-background to-secondary ${
-        locale === "ar" ? "rtl" : "ltr"
-      }`}
+      className="py-24 bg-gradient-to-br from-background to-secondary"
     >
       <motion.div
         className="container mx-auto px-4"
@@ -119,26 +115,29 @@ export default function ContactUs() {
         animate={inView ? "visible" : "hidden"}
       >
         <motion.div variants={itemVariants} className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">{t("title")}</h2>
+          <h2 className="text-4xl font-bold mb-4">Contact Us</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            {t("subtitle")}
+            We&apos;d love to hear from you. Send us a message and we&apos;ll
+            respond as soon as possible.
           </p>
         </motion.div>
 
         <motion.div variants={itemVariants}>
           <Card className="max-w-2xl mx-auto">
             <CardHeader>
-              <CardTitle>{t("cardTitle")}</CardTitle>
-              <CardDescription>{t("cardDescription")}</CardDescription>
+              <CardTitle>Get in Touch</CardTitle>
+              <CardDescription>
+                Fill out the form below to send us a message.
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name">{t("nameLabel")}</Label>
+                  <Label htmlFor="name">Name</Label>
                   <Input
                     id="name"
                     name="name"
-                    placeholder={t("namePlaceholder")}
+                    placeholder="Your name"
                     value={formState.name}
                     onChange={handleInputChange}
                     required
@@ -146,12 +145,12 @@ export default function ContactUs() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">{t("emailLabel")}</Label>
+                  <Label htmlFor="email">Email</Label>
                   <Input
                     id="email"
                     name="email"
                     type="email"
-                    placeholder={t("emailPlaceholder")}
+                    placeholder="Your email"
                     value={formState.email}
                     onChange={handleInputChange}
                     required
@@ -159,11 +158,11 @@ export default function ContactUs() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="message">{t("messageLabel")}</Label>
+                  <Label htmlFor="message">Message</Label>
                   <Textarea
                     id="message"
                     name="message"
-                    placeholder={t("messagePlaceholder")}
+                    placeholder="Your message"
                     value={formState.message}
                     onChange={handleInputChange}
                     required
@@ -172,16 +171,11 @@ export default function ContactUs() {
                 </div>
                 <Button
                   type="submit"
-                  className={`w-full ${
-                    locale === "ar" ? "flex-row-reverse" : ""
-                  }`}
+                  className="w-full"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? t("sendingButton") : t("sendButton")}
-                  <SendIcon
-                    className={`${locale === "ar" ? "mr-2" : "ml-2"} h-4 w-4`}
-                    aria-hidden="true"
-                  />
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                  <SendIcon className="ml-2 h-4 w-4" aria-hidden="true" />
                 </Button>
               </form>
             </CardContent>

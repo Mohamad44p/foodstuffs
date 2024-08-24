@@ -19,8 +19,6 @@ import {
   Sun,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useTranslations } from "next-intl";
-import { useLocale } from "next-intl";
 
 const AnimatedBackground = () => {
   const { scrollYProgress } = useScroll();
@@ -120,9 +118,7 @@ const AnimatedText = ({
   );
 };
 
-const HeroSection2 = () => {
-  const t = useTranslations("heroSec2");
-  const locale = useLocale();
+const Hero = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
   const [hovered, setHovered] = useState(false);
@@ -148,8 +144,6 @@ const HeroSection2 = () => {
     },
   };
 
-  const titleWords = t("title").split(" ");
-
   return (
     <section
       ref={ref}
@@ -158,14 +152,14 @@ const HeroSection2 = () => {
       <AnimatedBackground />
 
       <div className="container mx-auto px-4 z-20 relative">
-        {locale === "en" && (
-          <motion.h1
-            className="text-4xl sm:text-6xl md:text-8xl font-bold text-center mb-12 text-[#2E7D32]"
-            variants={titleVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            {titleWords.map((word, index) => (
+        <motion.h1
+          className="text-4xl sm:text-6xl md:text-8xl font-bold text-center mb-12 text-[#2E7D32]"
+          variants={titleVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {["Delicious", "Food,", "Delivered", "to", "You"].map(
+            (word, index) => (
               <motion.span
                 key={index}
                 className="inline-block mr-4"
@@ -181,25 +175,12 @@ const HeroSection2 = () => {
                   </motion.span>
                 ))}
               </motion.span>
-            ))}
-          </motion.h1>
-        )}
-
-        {locale === "ar" && (
-            <motion.h1
-            className="text-4xl sm:text-6xl md:text-8xl font-bold text-center mb-12 text-[#2E7D32]"
-            variants={titleVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            {t("title")} 
-          </motion.h1>
-        )}
+            )
+          )}
+        </motion.h1>
 
         <motion.div
-          className={`bg-white bg-opacity-80 backdrop-blur-lg rounded-xl p-8 shadow-2xl ${
-            locale === "ar" ? "rtl" : "ltr"
-          }`}
+          className="bg-white bg-opacity-80 backdrop-blur-lg rounded-xl p-8 shadow-2xl"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
@@ -210,7 +191,17 @@ const HeroSection2 = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, delay: 0.7 }}
           >
-            {t("description")}
+            Adeeb Aljunidi and Partners is a prestigious Palestinian company
+            specializing in the import and distribution of food products.
+            Founded in 1996 by Adeeb Aljunidi and his partners, the company is
+            headquartered in the city of Hebron, Palestine. The company has
+            secured a leading position in the food trade and investment sector
+            in Palestine, thanks to its excellence in entrepreneurship. Despite
+            political and economic challenges, the company has experienced
+            significant growth in recent years, standing out among similar
+            companies due to its clear strategies focused on customer
+            satisfaction by offering high-quality, reliable, and effective
+            products, along with a wide range of competitively priced items.
           </motion.p>
 
           <motion.p
@@ -219,7 +210,12 @@ const HeroSection2 = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, delay: 0.9 }}
           >
-            {t("mission")}
+            At Adeeb Aljunidi and Partners, we believe that food is more than
+            just sustenance—it&apos;s a source of happiness. That&apos;s why we
+            carefully select and distribute products and brands that delight our
+            customers with every bite. From your favorite snacks to the sweetest
+            treats, our wide range of offerings is designed to bring joy and
+            satisfaction to your daily life.
           </motion.p>
         </motion.div>
 
@@ -235,16 +231,13 @@ const HeroSection2 = () => {
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
           >
-            {t("discoverButton")}
+            Discover Our Story
             <motion.span
-              className={`inline-block ${locale === "ar" ? "mr-2" : "ml-2"}`}
-              animate={{ x: hovered ? (locale === "ar" ? -10 : 10) : 0 }}
+              className="inline-block ml-2"
+              animate={{ x: hovered ? 10 : 0 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <ArrowRight
-                className={`inline ${locale === "ar" ? "rotate-180" : ""}`}
-                aria-hidden="true"
-              />
+              <ArrowRight className="inline" aria-hidden="true" />
             </motion.span>
           </Button>
         </motion.div>
@@ -258,11 +251,11 @@ const HeroSection2 = () => {
   );
 };
 
-export default function SecSec() {
+export default function Component() {
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-grow">
-        <HeroSection2 />
+        <Hero />
       </main>
     </div>
   );

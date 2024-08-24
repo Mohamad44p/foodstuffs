@@ -9,14 +9,12 @@ import {
   Instagram,
   Linkedin,
   AlignLeft,
+  Twitter,
   X,
 } from "lucide-react";
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { smoothScroll } from "@/lib/smoothScroll";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTranslations } from "next-intl";
-import { useLocale } from "next-intl";
-import LocalSwitcher from "./local-switcher";
 
 const socialLinks = [
   {
@@ -30,20 +28,16 @@ const socialLinks = [
 ];
 
 export default function Navbar() {
-  const t = useTranslations("navbar");
-  const locale = useLocale();
-
   const navItems = useMemo(
     () => [
-      { name: t("home"), href: "home" },
-      { name: t("about"), href: "about" },
-      { name: t("ourStory"), href: "our-story" },
-      { name: t("careers"), href: "#" },
-      { name: t("brands"), href: "brands" },
+      { name: "HOME", href: "home" },
+      { name: "ABOUT", href: "about" },
+      { name: "OUR STORY", href: "our-story" },
+      { name: "CAREERS", href: "#" },
+      { name: "BRANDS", href: "brands" },
     ],
-    [t]
+    []
   );
-
   const leftNavItems = navItems.slice(0, Math.ceil(navItems.length / 2));
   const rightNavItems = navItems.slice(Math.ceil(navItems.length / 2));
   const [activeSection, setActiveSection] = useState("");
@@ -84,105 +78,94 @@ export default function Navbar() {
   };
 
   return (
-    <header
-      className={`flex items-center justify-between relative top-0 z-[1000] px-6 py-4 shadow-md ${
-        locale === "ar" ? "rtl" : "ltr"
-      }`}
-    >
+    <header className="flex items-center justify-between relative top-0 z-[1000] px-6 py-4 shadow-md">
       <Button
         variant="ghost"
         size="icon"
         onClick={toggleMenu}
         className="lg:hidden text-black hover:text-gray-600 transition-colors duration-300"
-        aria-label={t("changeLanguage")}
+        aria-label="Toggle menu"
       >
         <AlignLeft className="h-6 w-6" aria-hidden="true" />
       </Button>
 
-      <div className="flex items-center justify-between gap-x-[15rem]">
-        <div className="hidden lg:flex items-center space-x-4">
-          {socialLinks.map(({ Icon, href, label }) => (
-            <Link
-              key={label}
-              href={href}
-              className="text-black hover:text-gray-600 transition-colors duration-300"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={label}
-            >
-              <Icon
-                size={24}
-                className="transform hover:scale-110 transition-transform duration-300"
-                aria-hidden="true"
-              />
-            </Link>
-          ))}
-        </div>
-
-        <nav className="hidden lg:flex items-center gap-x-6">
-          {leftNavItems.map((item) => (
-            <a
-              key={item.name}
-              href={`#${item.href}`}
-              onClick={smoothScroll}
-              className={`text-black font-medium hover:text-gray-600 transition-colors duration-300 relative group`}
-            >
-              {item.name}
-              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-black transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
-            </a>
-          ))}
-        </nav>
-
-        <div className="flex items-center justify-center lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/2 lg:top-20">
-          <Link href="/" className="relative group">
-            <Image
-              src="/Logo.jpg"
-              alt={t("logoAlt")}
-              width={150}
-              height={150}
-              className="rounded-full border-4 border-white shadow-lg transition-transform duration-300 group-hover:scale-105
-            w-16 h-16 sm:w-16 sm:h-16 md:w-28 md:h-28 lg:w-36 lg:h-36"
-            />
-            <div className="absolute inset-0 rounded-full bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-opacity duration-300"></div>
-          </Link>
-        </div>
-
-        <nav className="hidden lg:flex items-center gap-x-6">
-          {rightNavItems.map((item) => (
-            <a
-              key={item.name}
-              onClick={smoothScroll}
-              href={`#${item.href}`}
-              className={`text-black font-medium hover:text-gray-600 transition-colors duration-300 relative group`}
-            >
-              {item.name}
-              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-black transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
-            </a>
-          ))}
-        </nav>
-      </div>
-
-      <div className="flex items-center justify-center">
-        <Button
-          variant="outline"
-          className="hidden lg:flex mx-4 bg-black text-white border-black hover:bg-white hover:text-black transition-colors duration-300"
-        >
+      <div className="hidden lg:flex items-center space-x-4">
+        {socialLinks.map(({ Icon, href, label }) => (
           <Link
-            className="flex items-center justify-center gap-x-1"
-            href="#contact"
-            onClick={smoothScroll}
+            key={label}
+            href={href}
+            className="text-black hover:text-gray-600 transition-colors duration-300"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={label}
           >
-            {t("contactUs")}
-            <ArrowRightIcon
-              className={`${
-                locale === "ar" ? "mr-2" : "ml-2"
-              } h-4 w-4 animate-bounce`}
+            <Icon
+              size={24}
+              className="transform hover:scale-110 transition-transform duration-300"
               aria-hidden="true"
             />
           </Link>
-        </Button>
-        <LocalSwitcher />
+        ))}
       </div>
+
+      <nav className="hidden lg:flex items-center space-x-6">
+        {leftNavItems.map((item) => (
+          <a
+            key={item.name}
+            href={`#${item.href}`}
+            onClick={smoothScroll}
+            className={`text-black font-medium hover:text-gray-600 transition-colors duration-300 relative group`}
+          >
+            {item.name}
+            <span className="absolute left-0 bottom-0 w-full h-0.5 bg-black transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
+          </a>
+        ))}
+      </nav>
+
+      <div className="flex items-center justify-center lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/2 lg:top-20">
+        <Link href="/" className="relative group">
+          <Image
+            src="/Logo.jpg"
+            alt="Adeeb Al-Junaidi Logo"
+            width={150}
+            height={150}
+            className="rounded-full border-4 border-white shadow-lg transition-transform duration-300 group-hover:scale-105
+            w-16 h-16 sm:w-16 sm:h-16 md:w-28 md:h-28 lg:w-36 lg:h-36"
+          />
+          <div className="absolute inset-0 rounded-full bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-opacity duration-300"></div>
+        </Link>
+      </div>
+
+      <nav className="hidden lg:flex items-center space-x-6">
+        {rightNavItems.map((item) => (
+          <a
+            key={item.name}
+            onClick={smoothScroll}
+            href={`#${item.href}`}
+            className={`text-black font-medium hover:text-gray-600 transition-colors duration-300 relative group`}
+          >
+            {item.name}
+            <span className="absolute left-0 bottom-0 w-full h-0.5 bg-black transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
+          </a>
+        ))}
+      </nav>
+
+      <Button
+        variant="outline"
+        className="hidden lg:flex ml-4 bg-black text-white border-black hover:bg-white hover:text-black transition-colors duration-300"
+      >
+        <Link
+          className="flex items-center justify-center gap-x-1"
+          href="#contact"
+          onClick={smoothScroll}
+        >
+          Contact Us
+          <ArrowRightIcon
+            className="ml-2 h-4 w-4 animate-bounce"
+            aria-hidden="true"
+          />
+        </Link>
+      </Button>
 
       <AnimatePresence>
         {isMenuOpen && (
@@ -198,7 +181,7 @@ export default function Navbar() {
               size="icon"
               onClick={toggleMenu}
               className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors duration-300"
-              aria-label={t("closeMenu")}
+              aria-label="Close menu"
             >
               <X className="h-6 w-6" aria-hidden="true" />
             </Button>
@@ -219,7 +202,7 @@ export default function Navbar() {
                 </motion.a>
               ))}
               <motion.div
-                className="flex space-x-6  mt-8"
+                className="flex space-x-6 mt-8"
                 variants={itemVariants}
                 transition={{ delay: navItems.length * 0.1 }}
               >
