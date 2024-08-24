@@ -1,12 +1,16 @@
-"use client";
+'use client';
 
 import { useAnimation, useInView, motion } from "framer-motion";
 import { ArrowRight, Flower2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+import { useTranslations } from 'next-intl';
+import { useLocale } from 'next-intl';
 
 export default function AboutBanner() {
+  const t = useTranslations('aboutBanner');
+  const locale = useLocale();
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: false, amount: 0.1 });
   const controls = useAnimation();
@@ -57,17 +61,9 @@ export default function AboutBanner() {
   };
 
   const features = [
-    { icon: "🍞", color: "text-yellow-400", text: "Freshly made, every day!" },
-    {
-      icon: "🌾",
-      color: "text-green-500",
-      text: "Sourced from the finest ingredients!",
-    },
-    {
-      icon: "🇵🇸",
-      color: "text-red-500",
-      text: "Proudly Distributed in Palestine!",
-    },
+    { icon: "🍞", color: "text-yellow-400", text: t('feature1') },
+    { icon: "🌾", color: "text-green-500", text: t('feature2') },
+    { icon: "🇵🇸", color: "text-red-500", text: t('feature3') },
   ];
 
   const images = ["/ABImage1.webp", "/ABImage2.webp", "/ABImage3.webp"];
@@ -75,7 +71,7 @@ export default function AboutBanner() {
   return (
     <section
       ref={containerRef}
-      className="bg-gradient-to-b py-24 from-white to-green-50 min-h-screen px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      className={`bg-gradient-to-b py-24 from-white to-green-50 min-h-screen px-4 sm:px-6 lg:px-8 relative overflow-hidden ${locale === 'ar' ? 'rtl' : 'ltr'}`}
     >
       <motion.div
         initial="hidden"
@@ -89,21 +85,20 @@ export default function AboutBanner() {
               variants={itemVariants}
               className="text-4xl sm:text-5xl font-bold text-green-600 leading-tight"
             >
-              We are dedicated{" "}
+              {t('title1')}{' '}
               <motion.span
                 variants={itemVariants}
                 className="bg-blue-500 text-white px-2 py-1 rounded inline-block"
               >
-                to excellence
+                {t('titleHighlight')}
               </motion.span>
               <br />
-              in every
+              {t('title2')}
               <br />
-              bite.
+              {t('title3')}
             </motion.h2>
             <motion.p variants={itemVariants} className="text-gray-600 text-lg">
-              At Adeeb Juneidi, we are committed to providing high-quality food
-              products that meet the highest standards of taste and safety.
+              {t('description')}
             </motion.p>
             <motion.ul variants={containerVariants} className="space-y-4">
               {features.map((item, index) => (
@@ -124,10 +119,10 @@ export default function AboutBanner() {
                 variants={itemVariants}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex md:my-8 my-12 items-center text-white bg-blue-600 px-6 py-3 rounded-full text-lg font-semibold transition-colors hover:bg-blue-700"
+                className={`inline-flex md:my-8 my-12 items-center text-white bg-blue-600 px-6 py-3 rounded-full text-lg font-semibold transition-colors hover:bg-blue-700 ${locale === 'ar' ? 'flex-row-reverse' : ''}`}
               >
-                Learn more
-                <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
+                {t('learnMoreButton')}
+                <ArrowRight className={`${locale === 'ar' ? 'ml-2 rotate-180' : 'mr-2'} h-5 w-5`} aria-hidden="true" />
               </motion.button>
             </Link>
           </div>
@@ -144,7 +139,7 @@ export default function AboutBanner() {
                 >
                   <Image
                     src={src}
-                    alt={`Adeeb Juneidi product image ${index + 1}`}
+                    alt={t('imageAlt', { index: index + 1 })}
                     width={300}
                     height={400}
                     className="w-full h-96 object-cover rounded-lg shadow-lg border-4 border-yellow-400"

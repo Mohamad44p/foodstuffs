@@ -12,8 +12,13 @@ import {
   useSpring,
   useMotionValue,
 } from "framer-motion";
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 
 export default function Hero() {
+  const t = useTranslations("hero");
+  const locale = useLocale();
+
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -70,7 +75,7 @@ export default function Hero() {
       >
         <Image
           src="/HeroTest.webp"
-          alt="Hero background"
+          alt={t("backgroundAlt")}
           fill
           priority
           className="object-cover w-full h-full"
@@ -92,16 +97,16 @@ export default function Hero() {
       >
         <motion.div className="max-w-4xl w-full px-4" style={{ y: textY }}>
           <Card className="bg-black/50 backdrop-blur-md border-none shadow-xl overflow-hidden">
-            <CardContent className="p-8 space-y-6">
+            <CardContent
+              className={`p-8 space-y-6 ${locale === "ar" ? "rtl" : "ltr"}`}
+            >
               <motion.h1
                 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                Bringing the World&apos;s,
-                <br />
-                Best Products to You!
+                {t("title")}
               </motion.h1>
               <motion.p
                 className="text-lg sm:text-xl md:text-2xl font-semibold text-white/90"
@@ -109,7 +114,7 @@ export default function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
-                Discover the finest food products by Adeeb Juneidi.
+                {t("subtitle")}
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -121,7 +126,7 @@ export default function Hero() {
                     className="w-full bg-[#78AF4B] hover:bg-[#5C8A3A] text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
                     size="lg"
                   >
-                    Explore Our Range
+                    {t("exploreButton")}
                   </Button>
                 </Link>
               </motion.div>
@@ -157,7 +162,7 @@ export default function Hero() {
             <path d="M12 5v14" />
             <path d="m19 12-7 7-7-7" />
           </svg>
-          <span className="sr-only">Scroll down</span>
+          <span className="sr-only">{t("scrollDown")}</span>
         </motion.div>
       </motion.div>
     </motion.div>
