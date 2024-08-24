@@ -12,7 +12,7 @@ import {
   useSpring,
   useMotionValue,
 } from "framer-motion";
-
+import HeroImage from "@/public/HeroTest.webp";
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
@@ -69,7 +69,7 @@ export default function Hero() {
         }}
       >
         <Image
-          src="/HeroTest.webp"
+          src={HeroImage}
           alt="Hero background"
           fill
           priority
