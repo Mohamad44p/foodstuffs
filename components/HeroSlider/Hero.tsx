@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useRef, useEffect } from "react";
@@ -68,13 +69,10 @@ export default function Hero() {
           y: backgroundY,
         }}
       >
-        <Image
-          src={HeroImage}
+        <img
+          src={HeroImage.src}
           alt="Hero background"
-          fill
-          priority
           className="object-cover w-full h-full"
-          quality={90}
         />
       </motion.div>
       <motion.div
