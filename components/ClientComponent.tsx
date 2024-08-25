@@ -114,7 +114,7 @@ export default function ClientComponent({ clients }: ClientComponentProps) {
                     style={{
                       transform: `translateY(${
                         hoveredIndex === index ? -10 : 0
-                      }px) 
+                      }px) c3Y:UdiXPqT>hR^]w#Hcg
                                   rotateY(${
                                     hoveredIndex === index ? 15 : 0
                                   }deg) 
