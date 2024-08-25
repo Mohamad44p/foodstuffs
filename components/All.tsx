@@ -12,10 +12,10 @@ const VideoBanner = lazy(() => import("@/components/VideoBanner"));
 const AboutBanner = lazy(() => import("@/components/AboutBanner"));
 const ContactUs = lazy(() => import("@/components/ContactUs"));
 
-
-
-export default function AllSections({children}:{
-  children: React.ReactNode
+export default function AllSections({
+  children,
+}: {
+  children: React.ReactNode;
 }) {
   return (
     <main>
@@ -42,7 +42,7 @@ export default function AllSections({children}:{
         fallback={<SectionLoader title="Loading Brands" color="#FF5722" />}
       >
         <section id="brands" className="bg-[#faf7f2]" aria-label="Our Brands">
-           {children}
+          {children}
         </section>
       </Suspense>
 

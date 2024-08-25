@@ -14,6 +14,8 @@ import {
 import { motion, useAnimation, useInView } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 
 const FoodParticles = () => {
   const particles = [
@@ -56,6 +58,8 @@ const FoodParticles = () => {
 };
 
 export default function VideoBanner() {
+  const t = useTranslations("videoBanner");
+  const locale = useLocale();
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
@@ -151,26 +155,26 @@ export default function VideoBanner() {
           variants={itemVariants}
         >
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 tracking-tight">
-            <span className="text-green-700 font-playfair">
-              Feeding Your Passion for Good Food!
-            </span>
+            <span className="text-green-700 font-playfair">{t("title")}</span>
           </h2>
           <p className="text-lg sm:text-xl text-center text-gray-700 font-merriweather max-w-3xl mx-auto font-light">
-            Whether you&apos;re a home cook or a gourmet chef, our curated
-            selection of premium foods will inspire your culinary creativity and
-            satisfy your passion for great food.
+            {t("subtitle")}
           </p>
         </motion.div>
 
         <motion.div variants={itemVariants}>
           <Card className="overflow-hidden shadow-2xl relative z-10 bg-white rounded-3xl border-2 border-green-200 hover:shadow-green-200/50 transition-all duration-300">
             <CardContent className="p-0">
-              <div className="flex flex-col md:flex-row">
+              <div
+                className={`flex flex-col ${
+                  locale === "ar" ? "md:flex-row-reverse" : "md:flex-row"
+                }`}
+              >
                 <div className="md:w-1/2 relative">
                   {!isVideoLoaded && (
                     <Image
                       src="/VideoImage.png"
-                      alt="Video thumbnail"
+                      alt={t("videoThumbnailAlt")}
                       width={640}
                       height={360}
                       className="w-full h-full object-cover"
@@ -189,9 +193,9 @@ export default function VideoBanner() {
                   />
                   <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/60 to-transparent p-6 text-white">
                     <h3 className="text-2xl font-semibold">
-                      Bringing Joy to Every Bite
+                      {t("videoTitle")}
                     </h3>
-                    <p className="text-sm">Watch how to make the perfect Joy</p>
+                    <p className="text-sm">{t("videoSubtitle")}</p>
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
                     <div className="flex items-center justify-between mb-4">
@@ -200,16 +204,22 @@ export default function VideoBanner() {
                         size="icon"
                         onClick={() => seek("backward")}
                         className="text-white hover:text-green-400 transition-colors transform hover:scale-110"
-                        aria-label="Rewind 10 seconds"
+                        aria-label={t("rewindAriaLabel")}
                       >
-                        <SkipBackIcon className="h-6 w-6" />
+                        <SkipBackIcon
+                          className={`h-6 w-6 ${
+                            locale === "ar" ? "rotate-180" : ""
+                          }`}
+                        />
                       </Button>
                       <Button
                         variant="ghost"
                         size="icon"
                         onClick={togglePlay}
                         className="text-white hover:text-green-400 transition-colors transform hover:scale-125"
-                        aria-label={isPlaying ? "Pause" : "Play"}
+                        aria-label={
+                          isPlaying ? t("pauseAriaLabel") : t("playAriaLabel")
+                        }
                       >
                         {isPlaying ? (
                           <PauseIcon className="h-12 w-12" />
@@ -222,9 +232,13 @@ export default function VideoBanner() {
                         size="icon"
                         onClick={() => seek("forward")}
                         className="text-white hover:text-green-400 transition-colors transform hover:scale-110"
-                        aria-label="Forward 10 seconds"
+                        aria-label={t("forwardAriaLabel")}
                       >
-                        <SkipForwardIcon className="h-6 w-6" />
+                        <SkipForwardIcon
+                          className={`h-6 w-6 ${
+                            locale === "ar" ? "rotate-180" : ""
+                          }`}
+                        />
                       </Button>
                     </div>
                     <div className="flex items-center">
@@ -242,7 +256,9 @@ export default function VideoBanner() {
                         size="icon"
                         onClick={toggleMute}
                         className="text-white hover:text-green-400 transition-colors transform hover:scale-110"
-                        aria-label={isMuted ? "Unmute" : "Mute"}
+                        aria-label={
+                          isMuted ? t("unmuteAriaLabel") : t("muteAriaLabel")
+                        }
                       >
                         {isMuted ? (
                           <VolumeIcon className="h-6 w-6" />
@@ -253,26 +269,24 @@ export default function VideoBanner() {
                     </div>
                   </div>
                 </div>
-                <div className="md:w-1/2 p-10 bg-white">
+                <div
+                  className={`md:w-1/2 p-10 bg-white ${
+                    locale === "ar" ? "text-right" : "text-left"
+                  }`}
+                >
                   <motion.h2
                     className="text-3xl sm:text-4xl font-bold mb-6"
                     variants={itemVariants}
                   >
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-orange-500">
-                      Bringing Joy to Every Bite
+                      {t("contentTitle")}
                     </span>
                   </motion.h2>
                   <motion.p
                     className="text-gray-700 mb-8 leading-relaxed"
                     variants={itemVariants}
                   >
-                    At Adeeb Aljunidi and Partners, we believe that food is more
-                    than just sustenance—it&apos;s a source of happiness.
-                    That&apos;s why we carefully select and distribute products
-                    and brands that delight our customers with every bite. From
-                    your favorite snacks to the sweetest treats, our wide range
-                    of offerings is designed to bring joy and satisfaction to
-                    your daily life.
+                    {t("contentDescription")}
                   </motion.p>
 
                   <motion.div variants={itemVariants}>
@@ -282,7 +296,7 @@ export default function VideoBanner() {
                       rel="noopener noreferrer"
                     >
                       <Button className="w-full bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white transition-all duration-300 transform hover:scale-105 text-lg font-semibold py-4 rounded-xl shadow-lg hover:shadow-xl">
-                        DISCOVER MORE
+                        {t("discoverMoreButton")}
                       </Button>
                     </Link>
                   </motion.div>

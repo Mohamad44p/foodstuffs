@@ -11,33 +11,8 @@ import {
   useTransform,
 } from "framer-motion";
 import { cn } from "@/lib/utils";
-
-const timelineEvents = [
-  {
-    title: "Loyalty",
-    description:
-      "We are dedicated to earning our customers' trust by consistently offering a diverse selection of top-quality products, from refreshing beverages to indulgent sweets and snacks, ensuring they always return for more.",
-    image: "/Loyalte.jpg",
-  },
-  {
-    title: "Openness",
-    description:
-      "We prioritize transparency, providing clear information about our product origins and ingredients, so customers can make informed choices when selecting from our extensive range.",
-    image: "/Opeenes.jpeg",
-  },
-  {
-    title: "Value",
-    description:
-      "We are committed to delivering the best value in every product category we offer, ensuring that each purchase—whether it's a crunchy biscuit or a savory nut—provides exceptional quality at a fair price.",
-    image: "/Value.jpeg",
-  },
-  {
-    title: "Excellence",
-    description:
-      "We strive for excellence in every product we distribute, carefully curating our selection to meet the highest standards of freshness, flavor, and overall satisfaction, making us a trusted name in the food retail industry.",
-    image: "/LastImageSec.jpeg",
-  },
-];
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 
 const EventItem = ({
   event,
@@ -48,6 +23,8 @@ const EventItem = ({
   index: number;
   progress: any;
 }) => {
+  const t = useTranslations("timeline");
+  const locale = useLocale();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: false, amount: 0.5 });
   const isEven = index % 2 === 0;
@@ -55,14 +32,17 @@ const EventItem = ({
   return (
     <motion.div
       ref={ref}
-      className="mb-24 md:mb-32 relative flex flex-col md:flex-row items-center"
+      className={cn(
+        "mb-24 md:mb-32 relative flex flex-col md:flex-row items-center",
+        locale === "ar" ? "md:flex-row-reverse" : ""
+      )}
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 0.5 }}
     >
-      <ImageContent event={event} isEven={isEven} />
+      <ImageContent event={event} isEven={isEven} locale={locale} />
       <TimelineNode index={index} progress={progress} />
-      <TextContent event={event} isEven={isEven} />
+      <TextContent event={event} isEven={isEven} locale={locale} />
     </motion.div>
   );
 };
@@ -70,40 +50,59 @@ const EventItem = ({
 const TextContent = ({
   event,
   isEven,
+  locale,
 }: {
   event: { title: string; description: string };
   isEven: boolean;
-}) => (
-  <div
-    className={cn(
-      "w-full md:w-[calc(50%-32px)] px-4 md:px-0",
-      isEven ? "md:order-3 md:pl-16" : "md:order-1 md:pr-16"
-    )}
-  >
-    <motion.div
-      className="p-6 rounded-lg CardImage shadow-lg"
-      whileHover={{ scale: 1.03 }}
-      transition={{ type: "spring", stiffness: 300 }}
+  locale: string;
+}) => {
+  return (
+    <div
+      className={cn(
+        "w-full md:w-[calc(50%-32px)] px-4 md:px-0",
+        locale === "ar"
+          ? isEven
+            ? "md:order-1 md:pr-16"
+            : "md:order-3 md:pl-16"
+          : isEven
+          ? "md:order-3 md:pl-16"
+          : "md:order-1 md:pr-16",
+        locale === "ar" ? "text-right" : "text-left"
+      )}
     >
-      <h3 className="text-2xl font-semibold font-playfair mb-2 text-black">
-        {event.title}
-      </h3>
-      <p className="text-gray-700 font-merriweather">{event.description}</p>
-    </motion.div>
-  </div>
-);
+      <motion.div
+        className="p-6 rounded-lg CardImage shadow-lg"
+        whileHover={{ scale: 1.03 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
+        <h3 className="text-2xl font-semibold font-playfair mb-2 text-black">
+          {event.title}
+        </h3>
+        <p className="text-gray-700 font-merriweather">{event.description}</p>
+      </motion.div>
+    </div>
+  );
+};
 
 const ImageContent = ({
   event,
   isEven,
+  locale,
 }: {
   event: { image: string; title: string };
   isEven: boolean;
+  locale: string;
 }) => (
   <div
     className={cn(
       "w-full md:w-[calc(50%-32px)] px-4 md:px-0 mt-4 md:mt-0",
-      isEven ? "md:order-1 md:pr-16" : "md:order-3 md:pl-16"
+      locale === "ar"
+        ? isEven
+          ? "md:order-3 md:pl-16"
+          : "md:order-1 md:pr-16"
+        : isEven
+        ? "md:order-1 md:pr-16"
+        : "md:order-3 md:pl-16"
     )}
   >
     <motion.div
@@ -131,7 +130,7 @@ const TimelineNode = ({
 }) => {
   const color = useTransform(
     progress,
-    [index / timelineEvents.length, (index + 1) / timelineEvents.length],
+    [index / 4, (index + 1) / 4],
     ["#84C454", "#4c782a"]
   );
 
@@ -145,6 +144,8 @@ const TimelineNode = ({
 };
 
 export default function Timeline() {
+  const t = useTranslations("timeline");
+  const locale = useLocale();
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef });
   const scaleY = useSpring(scrollYProgress, {
@@ -153,19 +154,48 @@ export default function Timeline() {
     restDelta: 0.001,
   });
 
+  const timelineEvents = [
+    {
+      title: t("loyalty.title"),
+      description: t("loyalty.description"),
+      image: "/Loyalte.jpg",
+    },
+    {
+      title: t("openness.title"),
+      description: t("openness.description"),
+      image: "/Opeenes.jpeg",
+    },
+    {
+      title: t("value.title"),
+      description: t("value.description"),
+      image: "/Value.jpeg",
+    },
+    {
+      title: t("excellence.title"),
+      description: t("excellence.description"),
+      image: "/LastImageSec.jpeg",
+    },
+  ];
+
   return (
-    <div className="bgImage py-24 min-h-screen p-4 md:p-8" ref={containerRef}>
+    <div
+      className={cn(
+        "bgImage py-24 min-h-screen p-4 md:p-8",
+        locale === "ar" ? "rtl" : "ltr"
+      )}
+      ref={containerRef}
+    >
       <motion.h2
         className="text-4xl font-playfair md:text-5xl font-bold text-center mb-12 md:mb-8 text-black"
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        Our Core Values: The Heart of Everything We Offer
+        {t("title")}
       </motion.h2>
       <p className="text-xl md:text-2xl font-merriweather font-bold mb-16 text-center text-gray-900/85">
-        We bring LOVE to the people we serve <br />
-        Here is what LOVE means to us{" "}
+        {t("subtitle1")} <br />
+        {t("subtitle2")}
       </p>
       <div className="relative max-w-screen-2xl mx-auto">
         <div
@@ -186,14 +216,19 @@ export default function Timeline() {
           />
         ))}
       </div>
-      <div className="flex justify-center space-x-6 mt-16">
+      <div
+        className={cn(
+          "flex justify-center mt-16",
+          locale === "ar" ? "space-x-reverse" : "space-x-6"
+        )}
+      >
         <Link href="/about">
           <motion.button
             className="px-8 py-3 bg-[#84C454] text-black rounded-full hover:bg-[#4c782a] hover:text-white transition-colors text-lg font-semibold shadow-lg"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            About Us
+            {t("aboutButton")}
           </motion.button>
         </Link>
         <Link href="/contact">
@@ -202,7 +237,7 @@ export default function Timeline() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Contact
+            {t("contactButton")}
           </motion.button>
         </Link>
       </div>

@@ -1,32 +1,32 @@
 {
   "components\\All.tsx -> @/components/AboutBanner": {
-    "id": 5851,
+    "id": "components\\All.tsx -> @/components/AboutBanner",
     "files": [
-      "static/chunks/851.c19406667e96d3ba.js"
+      "static/chunks/_app-pages-browser_components_AboutBanner_tsx.js"
     ]
   },
   "components\\All.tsx -> @/components/ContactUs": {
-    "id": 3411,
+    "id": "components\\All.tsx -> @/components/ContactUs",
     "files": [
-      "static/chunks/411.38aadd859f0cdd49.js"
+      "static/chunks/_app-pages-browser_components_ContactUs_tsx.js"
     ]
   },
   "components\\All.tsx -> @/components/SecSec": {
-    "id": 5352,
+    "id": "components\\All.tsx -> @/components/SecSec",
     "files": [
-      "static/chunks/352.d091d134eca23dee.js"
+      "static/chunks/_app-pages-browser_components_SecSec_tsx.js"
     ]
   },
   "components\\All.tsx -> @/components/Timeline": {
-    "id": 8878,
+    "id": "components\\All.tsx -> @/components/Timeline",
     "files": [
-      "static/chunks/593.25f71a916ed3a43b.js"
+      "static/chunks/_app-pages-browser_components_Timeline_tsx.js"
     ]
   },
   "components\\All.tsx -> @/components/VideoBanner": {
-    "id": 2439,
+    "id": "components\\All.tsx -> @/components/VideoBanner",
     "files": [
-      "static/chunks/439.ad60d61582b52227.js"
+      "static/chunks/_app-pages-browser_components_VideoBanner_tsx.js"
     ]
   }
 }

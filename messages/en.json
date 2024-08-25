@@ -1,0 +1,124 @@
+{
+  "navbar": {
+    "home": "HOME",
+    "about": "ABOUT",
+    "ourStory": "OUR STORY",
+    "careers": "CAREERS",
+    "brands": "BRANDS",
+    "contactUs": "Contact Us",
+    "changeLanguage": "Change language"
+  },
+  "languages": {
+    "english": "English",
+    "arabic": "Arabic"
+  },
+  "hero": {
+    "backgroundAlt": "Hero background",
+    "title": "Bringing the World's,\nBest Products to You!",
+    "subtitle": "Discover the finest food products by Adeeb Juneidi.",
+    "exploreButton": "Explore Our Range",
+    "scrollDown": "Scroll down"
+  },
+  "heroSec2": {
+    "title": "Delicious Food, Delivered to You",
+    "description": "Adeeb Aljunidi and Partners is a prestigious Palestinian company specializing in the import and distribution of food products. Founded in 1996 by Adeeb Aljunidi and his partners, the company is headquartered in the city of Hebron, Palestine. The company has secured a leading position in the food trade and investment sector in Palestine, thanks to its excellence in entrepreneurship. Despite political and economic challenges, the company has experienced significant growth in recent years, standing out among similar companies due to its clear strategies focused on customer satisfaction by offering high-quality, reliable, and effective products, along with a wide range of competitively priced items.",
+    "mission": "At Adeeb Aljunidi and Partners, we believe that food is more than just sustenance—it's a source of happiness. That's why we carefully select and distribute products and brands that delight our customers with every bite. From your favorite snacks to the sweetest treats, our wide range of offerings is designed to bring joy and satisfaction to your daily life.",
+    "discoverButton": "Discover Our Story"
+  },
+  "timeline": {
+    "title": "Our Core Values: The Heart of Everything We Offer",
+    "subtitle1": "We bring LOVE to the people we serve",
+    "subtitle2": "Here is what LOVE means to us",
+    "loyalty": {
+      "title": "Loyalty",
+      "description": "We are dedicated to earning our customers' trust by consistently offering a diverse selection of top-quality products, from refreshing beverages to indulgent sweets and snacks, ensuring they always return for more."
+    },
+    "openness": {
+      "title": "Openness",
+      "description": "We prioritize transparency, providing clear information about our product origins and ingredients, so customers can make informed choices when selecting from our extensive range."
+    },
+    "value": {
+      "title": "Value",
+      "description": "We are committed to delivering the best value in every product category we offer, ensuring that each purchase—whether it's a crunchy biscuit or a savory nut—provides exceptional quality at a fair price."
+    },
+    "excellence": {
+      "title": "Excellence",
+      "description": "We strive for excellence in every product we distribute, carefully curating our selection to meet the highest standards of freshness, flavor, and overall satisfaction, making us a trusted name in the food retail industry."
+    },
+    "aboutButton": "About Us",
+    "contactButton": "Contact"
+  },
+
+  "videoBanner": {
+    "title": "Feeding Your Passion for Good Food!",
+    "subtitle": "Whether you're a home cook or a gourmet chef, our curated selection of premium foods will inspire your culinary creativity and satisfy your passion for great food.",
+    "videoThumbnailAlt": "Video thumbnail",
+    "videoTitle": "Bringing Joy to Every Bite",
+    "videoSubtitle": "Watch how to make the perfect Joy",
+    "rewindAriaLabel": "Rewind 10 seconds",
+    "forwardAriaLabel": "Forward 10 seconds",
+    "playAriaLabel": "Play",
+    "pauseAriaLabel": "Pause",
+    "unmuteAriaLabel": "Unmute",
+    "muteAriaLabel": "Mute",
+    "contentTitle": "Bringing Joy to Every Bite",
+    "contentDescription": "At Adeeb Aljunidi and Partners, we believe that food is more than just sustenance—it's a source of happiness. That's why we carefully select and distribute products and brands that delight our customers with every bite. From your favorite snacks to the sweetest treats, our wide range of offerings is designed to bring joy and satisfaction to your daily life.",
+    "discoverMoreButton": "DISCOVER MORE"
+  },
+  "aboutBanner": {
+    "title1": "We are dedicated",
+    "titleHighlight": "to excellence",
+    "title2": "in every",
+    "title3": "bite.",
+    "description": "At Adeeb Juneidi, we are committed to providing high-quality food products that meet the highest standards of taste and safety.",
+    "feature1": "Freshly made, every day!",
+    "feature2": "Sourced from the finest ingredients!",
+    "feature3": "Proudly Distributed in Palestine!",
+    "learnMoreButton": "Learn more",
+    "imageAlt": "Adeeb Juneidi product image {index}"
+  },
+  "contactUs": {
+    "title": "Contact Us",
+    "subtitle": "We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+    "cardTitle": "Get in Touch",
+    "cardDescription": "Fill out the form below to send us a message.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Your email",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Your message",
+    "sendButton": "Send Message",
+    "sendingButton": "Sending...",
+    "successTitle": "Message sent!",
+    "successDescription": "We'll get back to you as soon as possible.",
+    "errorTitle": "Error",
+    "errorDefault": "Failed to send message. Please try again later."
+  },
+  "footer": {
+    "nav": {
+      "home": "HOME",
+      "about": "ABOUT",
+      "ourStory": "OUR STORY",
+      "services": "SERVICES",
+      "clients": "CLIENTS"
+    },
+    "navigation": "Navigation",
+    "insights": "Insights",
+    "caseStudies": "Case Studies",
+    "thoughtLeadership": "Thought Leadership",
+    "news": "News",
+    "resources": "Resources",
+    "about": "About",
+    "team": "Team",
+    "careers": "Careers",
+    "contactUs": "CONTACT US",
+    "address": "Hebron, Palestine",
+    "companyName": "Adeeb Al-Junaidi",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfUse": "Terms of Use",
+    "trust": "Trust",
+    "copyright": "Adeeb Al-Junaidi. All rights reserved.",
+    "scrollToTop": "Scroll to top"
+  }
+}
