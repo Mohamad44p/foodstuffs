@@ -29,7 +29,7 @@ const socialLinks = [
   { Icon: Linkedin, href: "https://www.linkedin.com/feed", label: "LinkedIn" },
 ];
 
-export default function Navbar() {
+export default function Component() {
   const t = useTranslations("navbar");
   const locale = useLocale();
 
@@ -46,6 +46,7 @@ export default function Navbar() {
 
   const leftNavItems = navItems.slice(0, Math.ceil(navItems.length / 2));
   const rightNavItems = navItems.slice(Math.ceil(navItems.length / 2));
+
   const [activeSection, setActiveSection] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -69,11 +70,11 @@ export default function Navbar() {
 
   const menuVariants = {
     closed: {
-      clipPath: "circle(0% at 0% 0%)",
+      clipPath: "circle(0% at 100% 0%)",
       transition: { type: "spring", stiffness: 400, damping: 40 },
     },
     open: {
-      clipPath: "circle(150% at 0% 0%)",
+      clipPath: "circle(150% at 100% 0%)",
       transition: { type: "spring", stiffness: 100, damping: 30 },
     },
   };
@@ -85,21 +86,21 @@ export default function Navbar() {
 
   return (
     <header
-      className={`flex items-center justify-between relative top-0 z-[1000] px-6 py-4 shadow-md ${
+      className={`flex items-center justify-between fixed top-0 left-0 right-0 z-[1000] px-4 sm:px-6 py-4 bg-white shadow-md ${
         locale === "ar" ? "rtl" : "ltr"
       }`}
     >
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={toggleMenu}
-        className="lg:hidden text-black hover:text-gray-600 transition-colors duration-300"
-        aria-label={t("changeLanguage")}
-      >
-        <AlignLeft className="h-6 w-6" aria-hidden="true" />
-      </Button>
+      <div className="flex items-center justify-between w-full lg:w-auto">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={toggleMenu}
+          className="lg:hidden text-black hover:text-gray-600 transition-colors duration-300"
+          aria-label={t("openMenu")}
+        >
+          <AlignLeft className="h-6 w-6" aria-hidden="true" />
+        </Button>
 
-      <div className="flex items-center justify-between gap-x-[15rem]">
         <div className="hidden lg:flex items-center space-x-4">
           {socialLinks.map(({ Icon, href, label }) => (
             <Link
@@ -118,42 +119,18 @@ export default function Navbar() {
             </Link>
           ))}
         </div>
+      </div>
 
-        <nav className="hidden lg:flex items-center gap-x-6">
+      <div className="hidden lg:flex items-center space-x-6">
+        <nav className="flex items-center space-x-6">
           {leftNavItems.map((item) => (
             <a
               key={item.name}
               href={`#${item.href}`}
               onClick={smoothScroll}
-              className={`text-black font-medium hover:text-gray-600 transition-colors duration-300 relative group`}
-            >
-              {item.name}
-              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-black transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
-            </a>
-          ))}
-        </nav>
-
-        <div className="flex items-center justify-center lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/2 lg:top-20">
-          <Link href="/" className="relative group">
-            <Image
-              src="/Logo.jpg"
-              alt={t("logoAlt")}
-              width={150}
-              height={150}
-              className="rounded-full border-4 border-white shadow-lg transition-transform duration-300 group-hover:scale-105
-            w-16 h-16 sm:w-16 sm:h-16 md:w-28 md:h-28 lg:w-36 lg:h-36"
-            />
-            <div className="absolute inset-0 rounded-full bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-opacity duration-300"></div>
-          </Link>
-        </div>
-
-        <nav className="hidden lg:flex items-center gap-x-6">
-          {rightNavItems.map((item) => (
-            <a
-              key={item.name}
-              onClick={smoothScroll}
-              href={`#${item.href}`}
-              className={`text-black font-medium hover:text-gray-600 transition-colors duration-300 relative group`}
+              className={`text-black font-medium hover:text-gray-600 transition-colors duration-300 relative group ${
+                activeSection === item.href ? "text-primary" : ""
+              }`}
             >
               {item.name}
               <span className="absolute left-0 bottom-0 w-full h-0.5 bg-black transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
@@ -163,9 +140,42 @@ export default function Navbar() {
       </div>
 
       <div className="flex items-center justify-center">
+        <Link href="/" className="relative group">
+          <div className="relative hidden md:flex top-10 -mt-8 -mb-8">
+            <Image
+              src="/Logo.jpg"
+              alt={t("logoAlt")}
+              width={150}
+              height={150}
+              className="rounded-full border-4 border-white shadow-lg transition-transform duration-300 group-hover:scale-105"
+            />
+          </div>
+          <div className="absolute inset-0 rounded-full bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-opacity duration-300"></div>
+        </Link>
+      </div>
+
+      <div className="hidden lg:flex items-center space-x-6">
+        <nav className="flex items-center space-x-6">
+          {rightNavItems.map((item) => (
+            <a
+              key={item.name}
+              href={`#${item.href}`}
+              onClick={smoothScroll}
+              className={`text-black font-medium hover:text-gray-600 transition-colors duration-300 relative group ${
+                activeSection === item.href ? "text-primary" : ""
+              }`}
+            >
+              {item.name}
+              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-black transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      <div className="flex items-center space-x-4">
         <Button
           variant="outline"
-          className="hidden lg:flex mx-4 bg-black text-white border-black hover:bg-white hover:text-black transition-colors duration-300"
+          className="hidden lg:flex bg-black text-white border-black hover:bg-white hover:text-black transition-colors duration-300"
         >
           <Link
             className="flex items-center justify-center gap-x-1"
@@ -181,7 +191,20 @@ export default function Navbar() {
             />
           </Link>
         </Button>
-        <LocalSwitcher />
+        <div className="hidden lg:block">
+          <LocalSwitcher />
+        </div>
+        <Link href="/" className="relative group lg:hidden">
+          <div className="w-12 h-12 relative">
+            <Image
+              src="/Logo.jpg"
+              alt={t("logoAlt")}
+              layout="fill"
+              objectFit="cover"
+              className="rounded-full border-2 border-white shadow-md transition-transform duration-300 group-hover:scale-105"
+            />
+          </div>
+        </Link>
       </div>
 
       <AnimatePresence>
@@ -202,7 +225,7 @@ export default function Navbar() {
             >
               <X className="h-6 w-6" aria-hidden="true" />
             </Button>
-            <motion.nav className="flex flex-col items-center space-y-8">
+            <motion.nav className="flex flex-col items-center space-y-6">
               {navItems.map((item, index) => (
                 <motion.a
                   key={item.name}
@@ -211,7 +234,9 @@ export default function Navbar() {
                     smoothScroll(e);
                     toggleMenu();
                   }}
-                  className="text-white text-3xl font-bold hover:text-gray-300 transition-colors duration-300"
+                  className={`text-white text-2xl font-bold hover:text-gray-300 transition-colors duration-300 ${
+                    activeSection === item.href ? "text-primary" : ""
+                  }`}
                   variants={itemVariants}
                   transition={{ delay: index * 0.1 }}
                 >
@@ -219,7 +244,7 @@ export default function Navbar() {
                 </motion.a>
               ))}
               <motion.div
-                className="flex space-x-6  mt-8"
+                className="flex space-x-6 mt-6"
                 variants={itemVariants}
                 transition={{ delay: navItems.length * 0.1 }}
               >
@@ -232,9 +257,42 @@ export default function Navbar() {
                     rel="noopener noreferrer"
                     aria-label={label}
                   >
-                    <Icon size={32} aria-hidden="true" />
+                    <Icon size={28} aria-hidden="true" />
                   </Link>
                 ))}
+              </motion.div>
+              <motion.div
+                variants={itemVariants}
+                transition={{ delay: (navItems.length + 2) * 0.1 }}
+                className="text-white"
+              >
+                <LocalSwitcher />
+              </motion.div>
+              <motion.div
+                variants={itemVariants}
+                transition={{ delay: (navItems.length + 1) * 0.1 }}
+              >
+                <Button
+                  variant="outline"
+                  className="mt-2 bg-white text-black border-white hover:bg-black hover:text-white transition-colors duration-300"
+                >
+                  <Link
+                    className="flex items-center justify-center gap-x-1"
+                    href="#contact"
+                    onClick={(e) => {
+                      smoothScroll(e);
+                      toggleMenu();
+                    }}
+                  >
+                    {t("contactUs")}
+                    <ArrowRightIcon
+                      className={`${
+                        locale === "ar" ? "mr-2" : "ml-2"
+                      } h-4 w-4 animate-bounce`}
+                      aria-hidden="true"
+                    />
+                  </Link>
+                </Button>
               </motion.div>
             </motion.nav>
           </motion.div>

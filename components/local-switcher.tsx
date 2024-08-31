@@ -26,7 +26,7 @@ export default function LocalSwitcher() {
   };
 
   return (
-    <div className="hidden md:block">
+    <div className="block">
       <Select
         defaultValue={localActive}
         onValueChange={onValueChange}
