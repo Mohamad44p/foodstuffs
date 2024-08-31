@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import { Playfair_Display, Merriweather } from "next/font/google";
 import "./globals.css";
@@ -77,9 +78,7 @@ export default async function RootLayout({
   try {
     messages = (await import(`../../messages/${locale}.json`)).default;
   } catch (error) {
-    messages = {
-      "error.message": "An error occurred while loading the page.",
-    };
+    notFound();
   }
 
   const isRTL = locale === "ar";

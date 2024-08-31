@@ -86,7 +86,7 @@ export default function Component() {
 
   return (
     <header
-      className={`flex items-center justify-between fixed top-0 left-0 right-0 z-[1000] px-4 sm:px-6 py-4 bg-white shadow-md ${
+      className={`flex items-center justify-between relative  top-0 left-0 right-0 z-[1000] px-4 sm:px-6 py-4 bg-white shadow-md ${
         locale === "ar" ? "rtl" : "ltr"
       }`}
     >

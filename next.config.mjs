@@ -3,16 +3,6 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  // Add this section
-  async rewrites() {
-    return [
-      {
-        source: '/:locale/not-found',
-        destination: '/:locale/404',
-      },
-    ];
-  },
-};
+const nextConfig = {};
 
 export default withNextIntl(nextConfig);
