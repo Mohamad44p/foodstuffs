@@ -70,21 +70,29 @@ export default function Preloader() {
     }, 200)
 
     const ownerName = t('ownerName')
-    let i = 0
-    const typingInterval = setInterval(() => {
-      if (i < ownerName.length) {
-        setTypedName(ownerName.slice(0, i + 1))
-        i++
-      } else {
+    if (isRTL) {
+      setTypedName(ownerName)
+    } else {
+      let i = 0
+      const typingInterval = setInterval(() => {
+        if (i < ownerName.length) {
+          setTypedName(ownerName.slice(0, i + 1))
+          i++
+        } else {
+          clearInterval(typingInterval)
+        }
+      }, 100)
+
+      return () => {
+        clearInterval(timer)
         clearInterval(typingInterval)
       }
-    }, 100)
+    }
 
     return () => {
       clearInterval(timer)
-      clearInterval(typingInterval)
     }
-  }, [t])
+  }, [t, isRTL])
 
   const distributionIcons = ["🚚", "📦", "🏭", "🏪", "🛒", "🛍️", "🧺", "🥡"]
   const utensils = ["🍴", "🥄", "🍽️", "🥢", "🔪", "🥣"]
@@ -199,7 +207,8 @@ export default function Preloader() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          <WavyText text={t('companyName')} />
+          {locale === 'ar' && t('companyName')}
+          {locale === 'en' && <WavyText text={t('companyName')} />}
         </motion.div>
         <motion.p
           className="text-xl text-gray-300 mb-6 h-6"

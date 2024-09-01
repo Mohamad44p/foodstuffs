@@ -17,45 +17,6 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 
-const FoodParticles = () => {
-  const particles = [
-    { icon: "🍎", delay: 0 },
-    { icon: "🍇", delay: 2 },
-    { icon: "🍊", delay: 4 },
-    { icon: "🍓", delay: 6 },
-    { icon: "🥑", delay: 8 },
-    { icon: "🍍", delay: 10 },
-  ];
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map((particle, index) => (
-        <motion.div
-          key={index}
-          className="absolute text-4xl"
-          initial={{ y: "120%", x: Math.random() * 100 + "%", opacity: 0 }}
-          animate={{
-            y: "-120%",
-            x: [
-              `${Math.random() * 100}%`,
-              `${Math.random() * 100}%`,
-              `${Math.random() * 100}%`,
-            ],
-            opacity: [0, 1, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            delay: particle.delay,
-            ease: "linear",
-          }}
-        >
-          {particle.icon}
-        </motion.div>
-      ))}
-    </div>
-  );
-};
 
 export default function VideoBanner() {
   const t = useTranslations("videoBanner");
@@ -141,8 +102,6 @@ export default function VideoBanner() {
 
   return (
     <div className="min-h-screen py-24 flex flex-col items-center justify-center p-8 overflow-hidden relative bg-gradient-to-br from-green-50 to-orange-50">
-      <FoodParticles />
-
       <motion.div
         ref={containerRef}
         variants={containerVariants}
@@ -166,9 +125,8 @@ export default function VideoBanner() {
           <Card className="overflow-hidden shadow-2xl relative z-10 bg-white rounded-3xl border-2 border-green-200 hover:shadow-green-200/50 transition-all duration-300">
             <CardContent className="p-0">
               <div
-                className={`flex flex-col ${
-                  locale === "ar" ? "md:flex-row-reverse" : "md:flex-row"
-                }`}
+                className={`flex flex-col ${locale === "ar" ? "md:flex-row-reverse" : "md:flex-row"
+                  }`}
               >
                 <div className="md:w-1/2 relative">
                   {!isVideoLoaded && (
@@ -182,9 +140,8 @@ export default function VideoBanner() {
                   )}
                   <video
                     ref={videoRef}
-                    className={`w-full h-full object-cover ${
-                      isVideoLoaded ? "block" : "hidden"
-                    }`}
+                    className={`w-full h-full object-cover ${isVideoLoaded ? "block" : "hidden"
+                      }`}
                     src="VideoJ.mp4"
                     loop
                     muted={isMuted}
@@ -207,9 +164,8 @@ export default function VideoBanner() {
                         aria-label={t("rewindAriaLabel")}
                       >
                         <SkipBackIcon
-                          className={`h-6 w-6 ${
-                            locale === "ar" ? "rotate-180" : ""
-                          }`}
+                          className={`h-6 w-6 ${locale === "ar" ? "rotate-180" : ""
+                            }`}
                         />
                       </Button>
                       <Button
@@ -235,9 +191,8 @@ export default function VideoBanner() {
                         aria-label={t("forwardAriaLabel")}
                       >
                         <SkipForwardIcon
-                          className={`h-6 w-6 ${
-                            locale === "ar" ? "rotate-180" : ""
-                          }`}
+                          className={`h-6 w-6 ${locale === "ar" ? "rotate-180" : ""
+                            }`}
                         />
                       </Button>
                     </div>
@@ -270,9 +225,8 @@ export default function VideoBanner() {
                   </div>
                 </div>
                 <div
-                  className={`md:w-1/2 p-10 bg-white ${
-                    locale === "ar" ? "text-right" : "text-left"
-                  }`}
+                  className={`md:w-1/2 p-10 bg-white ${locale === "ar" ? "text-right" : "text-left"
+                    }`}
                 >
                   <motion.h2
                     className="text-3xl sm:text-4xl font-bold mb-6"
