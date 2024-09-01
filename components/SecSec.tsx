@@ -187,7 +187,7 @@ const HeroSection2 = () => {
 
         {locale === "ar" && (
           <motion.h1
-            className="text-4xl sm:text-6xl md:text-8xl font-bold text-center mb-12 text-[#2E7D32]"
+            className="text-3xl sm:text-4xl md:text-6xl font-bold text-center mb-12 text-[#2E7D32]"
             variants={titleVariants}
             initial="hidden"
             animate="visible"

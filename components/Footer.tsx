@@ -93,9 +93,8 @@ export default function AnimatedFooter() {
   return (
     <footer
       id="animated-footer"
-      className={`bg-gradient-to-b from-white to-gray-100 text-gray-800 py-12 px-4 md:px-6 relative ${
-        locale === "ar" ? "rtl" : "ltr"
-      }`}
+      className={`bg-gradient-to-b from-white to-gray-100 text-gray-800 py-12 px-4 md:px-6 relative ${locale === "ar" ? "rtl" : "ltr"
+        }`}
     >
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-12">
@@ -170,7 +169,7 @@ export default function AnimatedFooter() {
         <div className="border-t border-gray-300 pt-8 flex flex-col items-center">
           {locale === "ar" && (
             <motion.h2
-              className="text-6xl md:text-6xl font-bold mb-8 overflow-hidden text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500"
+              className="text-6xl md:text-6xl font-bold mb-8 text-[#86C353]"
               variants={containerVariants}
               initial="hidden"
               animate={controls}
@@ -231,9 +230,8 @@ export default function AnimatedFooter() {
       </div>
       <motion.button
         onClick={goToTop}
-        className={`fixed ${
-          locale === "ar" ? "left-8" : "right-8"
-        } bottom-8 bg-[#e6f0de] text-white p-3 rounded-full shadow-lg hover:bg-[#84C454] transition-colors duration-300`}
+        className={`fixed ${locale === "ar" ? "left-8" : "right-8"
+          } bottom-8 bg-[#e6f0de] text-white p-3 rounded-full shadow-lg hover:bg-[#84C454] transition-colors duration-300`}
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}

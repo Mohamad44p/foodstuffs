@@ -121,7 +121,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className={`hidden lg:flex items-center ${locale === "ar" ? "space-x-reverse space-x-8" : "space-x-8"}`}>
+      <div className="hidden lg:flex flex-1 justify-center items-center">
         <nav className={`flex items-center ${locale === "ar" ? "space-x-reverse space-x-8" : "space-x-8"}`}>
           {leftNavItems.map((item) => (
             <a
@@ -137,24 +137,19 @@ export default function Navbar() {
             </a>
           ))}
         </nav>
-      </div>
 
-      <div className="flex items-center justify-center">
-        <Link href="/" className="relative group">
-          <div className="relative hidden md:flex top-10 -mt-8 -mb-8">
+        <Link href="/" className="relative group mx-8">
+          <div className="relative flex top-10 -mt-8 -mb-8">
             <Image
               src="/Logo.jpg"
               alt={t("logoAlt")}
               width={150}
               height={150}
-              className="rounded-full border-4 border-white shadow-lg transition-transform duration-300 group-hover:scale-105"
+              className="rounded-full border-4 border-white transition-transform duration-300 group-hover:scale-[1.02]"
             />
           </div>
-          <div className="absolute inset-0 rounded-full bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-opacity duration-300"></div>
         </Link>
-      </div>
 
-      <div className={`hidden lg:flex items-center ${locale === "ar" ? "space-x-reverse space-x-8" : "space-x-8"}`}>
         <nav className={`flex items-center ${locale === "ar" ? "space-x-reverse space-x-8" : "space-x-8"}`}>
           {rightNavItems.map((item) => (
             <a
@@ -201,7 +196,7 @@ export default function Navbar() {
               alt={t("logoAlt")}
               layout="fill"
               objectFit="cover"
-              className="rounded-full border-2 border-white shadow-md transition-transform duration-300 group-hover:scale-105"
+              className="rounded-full border-2 border-white transition-transform duration-300 group-hover:scale-[1.02]"
             />
           </div>
         </Link>
