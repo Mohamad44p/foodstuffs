@@ -16,15 +16,10 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  useKindeBrowserClient,
-  LogoutLink,
-} from "@kinde-oss/kinde-auth-nextjs";
+
 
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
-  const { getUser } = useKindeBrowserClient();
-  const user = getUser();
   const closeSidebar = () => setOpen(false);
 
   const SidebarContent = () => {
@@ -37,19 +32,6 @@ export default function Sidebar() {
           <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
             Dashboard
           </h1>
-        </div>
-        <div className="flex flex-col items-center py-6 border-b border-gray-700/50">
-          <Avatar className="h-20 w-20 mb-2">
-            <AvatarImage
-              src={user?.picture ?? "/UserPLacholder.jpg"}
-              alt={user?.family_name ?? "User"}
-            />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-          <h2 className="text-xl font-semibold">
-            {user?.given_name} {user?.family_name}
-          </h2>
-          <p className="text-sm text-gray-400">{user?.email}</p>
         </div>
         <ScrollArea className="flex-1 px-3">
           <div className="space-y-2 py-4">
@@ -68,7 +50,7 @@ export default function Sidebar() {
               href="/admin/clients"
               icon={<UsersIcon className="mr-2 h-4 w-4" />}
               onClick={closeSidebar}
-              active={pathname  === "/clients"}
+              active={pathname === "/clients"}
             >
               Brands
             </NavItem>
@@ -96,17 +78,7 @@ export default function Sidebar() {
             </div>
           </div>
         </ScrollArea>
-        <div className="mt-auto p-4 border-t border-gray-700/50">
-          <Button
-            className="w-full bg-red-500 hover:bg-red-600 text-white transition-all duration-200"
-            variant="destructive"
-          >
-            <LogoutLink className="flex items-center justify-center">
-              <LogOutIcon className="mr-2 h-4 w-4" />
-              Log out
-            </LogoutLink>
-          </Button>
-        </div>
+
       </div>
     );
   };
@@ -158,9 +130,8 @@ function NavItem({
       onClick={onClick}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
-      className={`group flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200 ${
-        active ? "bg-blue-500 text-white" : "text-gray-300 hover:bg-gray-700/50"
-      }`}
+      className={`group flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200 ${active ? "bg-blue-500 text-white" : "text-gray-300 hover:bg-gray-700/50"
+        }`}
     >
       {icon}
       <span>{children}</span>

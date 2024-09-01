@@ -1,4 +1,3 @@
-// app/admin/clients/edit/[id]/page.tsx
 import { notFound } from 'next/navigation';
 import db from "@/db/db";
 import ClientEditForm from './_components/ClientEditForm';
