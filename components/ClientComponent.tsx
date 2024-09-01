@@ -1,33 +1,39 @@
-"use client";
+'use client'
 
-import { ArrowRight } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useState, useRef, useCallback } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import { ArrowRight } from "lucide-react"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useState, useRef, useCallback } from "react"
+import Link from "next/link"
+import Image from "next/image"
+import { useTranslations } from 'next-intl'
+import { useLocale } from 'next-intl'
 
 interface Client {
-  id: string;
-  title: string;
-  Link: string;
-  ButtonColor: string;
-  BackgroundColor: string;
-  ImageUrl: string;
+  id: string
+  title: string
+  Link: string
+  ButtonColor: string
+  BackgroundColor: string
+  ImageUrl: string
 }
 
 interface ClientComponentProps {
-  clients: Client[];
+  clients: Client[]
 }
 
 export default function ClientComponent({ clients }: ClientComponentProps) {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const t = useTranslations('clientComponent')
+  const locale = useLocale()
+  const isRTL = locale === 'ar'
+
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
-  });
+  })
 
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -37,7 +43,7 @@ export default function ClientComponent({ clients }: ClientComponentProps) {
         staggerChildren: 0.2,
       },
     },
-  };
+  }
 
   const itemVariants = {
     hidden: { y: 50, opacity: 0 },
@@ -50,20 +56,20 @@ export default function ClientComponent({ clients }: ClientComponentProps) {
         damping: 12,
       },
     },
-  };
+  }
 
   const handleHoverStart = useCallback((index: number) => {
-    setHoveredIndex(index);
-  }, []);
+    setHoveredIndex(index)
+  }, [])
 
   const handleHoverEnd = useCallback(() => {
-    setHoveredIndex(null);
-  }, []);
+    setHoveredIndex(null)
+  }, [])
 
   return (
     <motion.div
       ref={containerRef}
-      className="relative min-h-screen overflow-hidden"
+      className={`relative min-h-screen overflow-hidden ${isRTL ? 'rtl' : 'ltr'}`}
     >
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
@@ -74,7 +80,7 @@ export default function ClientComponent({ clients }: ClientComponentProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
           >
-            Our In-House Brands
+            {t('title')}
           </motion.h2>
           <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12"
@@ -114,7 +120,7 @@ export default function ClientComponent({ clients }: ClientComponentProps) {
                     style={{
                       transform: `translateY(${
                         hoveredIndex === index ? -10 : 0
-                      }px) c3Y:UdiXPqT>hR^]w#Hcg
+                      }px)
                                   rotateY(${
                                     hoveredIndex === index ? 15 : 0
                                   }deg) 
@@ -138,15 +144,13 @@ export default function ClientComponent({ clients }: ClientComponentProps) {
                   }}
                 >
                   <motion.div
-                    className="flex items-center justify-center gap-x-3"
+                    className={`flex items-center justify-center gap-x-3 ${isRTL ? 'flex-row-reverse' : ''}`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    Visit {client.title}{" "}
-                    <ArrowRight
-                      className="w-5 h-5 text-white"
-                      aria-hidden="true"
-                    />
+                   {locale === 'ar' && <ArrowRight size={24} className="rotate-180" />}
+                    {t('visit')}
+                    {locale === 'en' && <ArrowRight size={24} />}
                   </motion.div>
                   <motion.div
                     className="absolute inset-0 bg-white"
@@ -162,5 +166,5 @@ export default function ClientComponent({ clients }: ClientComponentProps) {
         </div>
       </div>
     </motion.div>
-  );
+  )
 }

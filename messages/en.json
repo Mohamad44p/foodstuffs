@@ -50,8 +50,8 @@
   },
 
   "videoBanner": {
-    "title": "Feeding Your Passion for Good Food!",
-    "subtitle": "Whether you're a home cook or a gourmet chef, our curated selection of premium foods will inspire your culinary creativity and satisfy your passion for great food.",
+    "title": "Bringing Quality to Your Shelves!",
+    "subtitle": "From local grocery stores to large supermarkets, our premium food products are carefully selected to help you meet your customers' demand for freshness and quality, every day.",
     "videoThumbnailAlt": "Video thumbnail",
     "videoTitle": "Bringing Joy to Every Bite",
     "videoSubtitle": "Watch how to make the perfect Joy",
@@ -120,5 +120,14 @@
     "trust": "Trust",
     "copyright": "Adeeb Al-Junaidi. All rights reserved.",
     "scrollToTop": "Scroll to top"
+  },
+  "clientComponent": {
+    "title": "Our In-House Brands",
+    "visit": "Visit"
+  },
+  "preloader": {
+    "companyName": "Al-Junaidi",
+    "by": "by",
+    "ownerName": "Adeeb Al-Junaidi"
   }
 }

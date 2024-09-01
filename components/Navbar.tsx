@@ -1,8 +1,8 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import Image from "next/image"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 import {
   ArrowRightIcon,
   Facebook,
@@ -10,13 +10,13 @@ import {
   Linkedin,
   AlignLeft,
   X,
-} from "lucide-react";
-import { useEffect, useMemo, useState, useCallback } from "react";
-import { smoothScroll } from "@/lib/smoothScroll";
-import { motion, AnimatePresence } from "framer-motion";
-import { useTranslations } from "next-intl";
-import { useLocale } from "next-intl";
-import LocalSwitcher from "./local-switcher";
+} from "lucide-react"
+import { useEffect, useMemo, useState, useCallback } from "react"
+import { smoothScroll } from "@/lib/smoothScroll"
+import { motion, AnimatePresence } from "framer-motion"
+import { useTranslations } from "next-intl"
+import { useLocale } from "next-intl"
+import LocalSwitcher from "./local-switcher"
 
 const socialLinks = [
   {
@@ -27,11 +27,11 @@ const socialLinks = [
   { Icon: X, href: "https://x.com/?lang=en", label: "Twitter" },
   { Icon: Instagram, href: "https://www.instagram.com", label: "Instagram" },
   { Icon: Linkedin, href: "https://www.linkedin.com/feed", label: "LinkedIn" },
-];
+]
 
-export default function Component() {
-  const t = useTranslations("navbar");
-  const locale = useLocale();
+export default function Navbar() {
+  const t = useTranslations("navbar")
+  const locale = useLocale()
 
   const navItems = useMemo(
     () => [
@@ -42,31 +42,31 @@ export default function Component() {
       { name: t("brands"), href: "brands" },
     ],
     [t]
-  );
+  )
 
-  const leftNavItems = navItems.slice(0, Math.ceil(navItems.length / 2));
-  const rightNavItems = navItems.slice(Math.ceil(navItems.length / 2));
+  const leftNavItems = navItems.slice(0, Math.ceil(navItems.length / 2))
+  const rightNavItems = navItems.slice(Math.ceil(navItems.length / 2))
 
-  const [activeSection, setActiveSection] = useState("");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("")
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const handleScroll = useCallback(() => {
-    const scrollPosition = window.scrollY + 150;
+    const scrollPosition = window.scrollY + 150
     for (let i = navItems.length - 1; i >= 0; i--) {
-      const section = document.getElementById(navItems[i].href);
+      const section = document.getElementById(navItems[i].href)
       if (section && section.offsetTop <= scrollPosition) {
-        setActiveSection(navItems[i].href);
-        break;
+        setActiveSection(navItems[i].href)
+        break
       }
     }
-  }, [navItems]);
+  }, [navItems])
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [handleScroll])
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
 
   const menuVariants = {
     closed: {
@@ -77,16 +77,16 @@ export default function Component() {
       clipPath: "circle(150% at 100% 0%)",
       transition: { type: "spring", stiffness: 100, damping: 30 },
     },
-  };
+  }
 
   const itemVariants = {
     closed: { opacity: 0, y: 50 },
     open: { opacity: 1, y: 0 },
-  };
+  }
 
   return (
     <header
-      className={`flex items-center justify-between relative  top-0 left-0 right-0 z-[1000] px-4 sm:px-6 py-4 bg-white shadow-md ${
+      className={`flex items-center justify-between relative top-0 left-0 right-0 z-[1000] px-4 sm:px-6 py-4 bg-white shadow-md ${
         locale === "ar" ? "rtl" : "ltr"
       }`}
     >
@@ -101,7 +101,7 @@ export default function Component() {
           <AlignLeft className="h-6 w-6" aria-hidden="true" />
         </Button>
 
-        <div className="hidden lg:flex items-center space-x-4">
+        <div className={`hidden lg:flex items-center ${locale === "ar" ? "space-x-reverse space-x-6" : "space-x-6"}`}>
           {socialLinks.map(({ Icon, href, label }) => (
             <Link
               key={label}
@@ -121,8 +121,8 @@ export default function Component() {
         </div>
       </div>
 
-      <div className="hidden lg:flex items-center space-x-6">
-        <nav className="flex items-center space-x-6">
+      <div className={`hidden lg:flex items-center ${locale === "ar" ? "space-x-reverse space-x-8" : "space-x-8"}`}>
+        <nav className={`flex items-center ${locale === "ar" ? "space-x-reverse space-x-8" : "space-x-8"}`}>
           {leftNavItems.map((item) => (
             <a
               key={item.name}
@@ -154,8 +154,8 @@ export default function Component() {
         </Link>
       </div>
 
-      <div className="hidden lg:flex items-center space-x-6">
-        <nav className="flex items-center space-x-6">
+      <div className={`hidden lg:flex items-center ${locale === "ar" ? "space-x-reverse space-x-8" : "space-x-8"}`}>
+        <nav className={`flex items-center ${locale === "ar" ? "space-x-reverse space-x-8" : "space-x-8"}`}>
           {rightNavItems.map((item) => (
             <a
               key={item.name}
@@ -172,20 +172,20 @@ export default function Component() {
         </nav>
       </div>
 
-      <div className="flex items-center space-x-4">
+      <div className={`flex items-center ${locale === "ar" ? "space-x-reverse space-x-6" : "space-x-6"}`}>
         <Button
           variant="outline"
           className="hidden lg:flex bg-black text-white border-black hover:bg-white hover:text-black transition-colors duration-300"
         >
           <Link
-            className="flex items-center justify-center gap-x-1"
+            className={`flex items-center justify-center ${locale === "ar" ? "flex-row-reverse" : ""}`}
             href="#contact"
             onClick={smoothScroll}
           >
             {t("contactUs")}
             <ArrowRightIcon
               className={`${
-                locale === "ar" ? "mr-2" : "ml-2"
+                locale === "ar" ? "ml-2 rotate-180" : "mr-2"
               } h-4 w-4 animate-bounce`}
               aria-hidden="true"
             />
@@ -231,8 +231,8 @@ export default function Component() {
                   key={item.name}
                   href={`#${item.href}`}
                   onClick={(e) => {
-                    smoothScroll(e);
-                    toggleMenu();
+                    smoothScroll(e)
+                    toggleMenu()
                   }}
                   className={`text-white text-2xl font-bold hover:text-gray-300 transition-colors duration-300 ${
                     activeSection === item.href ? "text-primary" : ""
@@ -244,7 +244,7 @@ export default function Component() {
                 </motion.a>
               ))}
               <motion.div
-                className="flex space-x-6 mt-6"
+                className={`flex ${locale === "ar" ? "space-x-reverse space-x-8" : "space-x-8"} mt-6`}
                 variants={itemVariants}
                 transition={{ delay: navItems.length * 0.1 }}
               >
@@ -277,17 +277,17 @@ export default function Component() {
                   className="mt-2 bg-white text-black border-white hover:bg-black hover:text-white transition-colors duration-300"
                 >
                   <Link
-                    className="flex items-center justify-center gap-x-1"
+                    className={`flex items-center justify-center ${locale === "ar" ? "flex-row-reverse" : ""}`}
                     href="#contact"
                     onClick={(e) => {
-                      smoothScroll(e);
-                      toggleMenu();
+                      smoothScroll(e)
+                      toggleMenu()
                     }}
                   >
                     {t("contactUs")}
                     <ArrowRightIcon
                       className={`${
-                        locale === "ar" ? "mr-2" : "ml-2"
+                        locale === "ar" ? "ml-2 rotate-180" : "mr-2"
                       } h-4 w-4 animate-bounce`}
                       aria-hidden="true"
                     />
@@ -299,5 +299,5 @@ export default function Component() {
         )}
       </AnimatePresence>
     </header>
-  );
+  )
 }

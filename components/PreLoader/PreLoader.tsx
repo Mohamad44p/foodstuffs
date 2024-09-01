@@ -1,8 +1,10 @@
-"use client";
+'use client'
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
-import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion"
+import { useEffect, useState } from "react"
+import Image from "next/image"
+import { useTranslations } from 'next-intl'
+import { useLocale } from 'next-intl'
 
 const Particle = ({ index }: { index: number }) => (
   <motion.div
@@ -22,12 +24,11 @@ const Particle = ({ index }: { index: number }) => (
     style={{
       width: Math.random() * 4 + 1 + "px",
       height: Math.random() * 4 + 1 + "px",
-      background: `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${
-        Math.random() * 255
-      }, 0.7)`,
+      background: `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255
+        }, 0.7)`,
     }}
   />
-);
+)
 
 const WavyText = ({ text }: { text: string }) => (
   <div className="flex justify-center">
@@ -46,46 +47,50 @@ const WavyText = ({ text }: { text: string }) => (
       </motion.span>
     ))}
   </div>
-);
+)
 
 export default function Preloader() {
-  const [progress, setProgress] = useState(0);
-  const [typedName, setTypedName] = useState("");
+  const t = useTranslations('preloader')
+  const locale = useLocale()
+  const isRTL = locale === 'ar'
+
+  const [progress, setProgress] = useState(0)
+  const [typedName, setTypedName] = useState("")
 
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress((oldProgress) => {
         if (oldProgress === 100) {
-          clearInterval(timer);
-          return 100;
+          clearInterval(timer)
+          return 100
         }
-        const diff = Math.random() * 10;
-        return Math.min(oldProgress + diff, 100);
-      });
-    }, 200);
+        const diff = Math.random() * 10
+        return Math.min(oldProgress + diff, 100)
+      })
+    }, 200)
 
-    const ownerName = "Adeeb Al-Junaidi";
-    let i = 0;
+    const ownerName = t('ownerName')
+    let i = 0
     const typingInterval = setInterval(() => {
       if (i < ownerName.length) {
-        setTypedName(ownerName.slice(0, i + 1));
-        i++;
+        setTypedName(ownerName.slice(0, i + 1))
+        i++
       } else {
-        clearInterval(typingInterval);
+        clearInterval(typingInterval)
       }
-    }, 100);
+    }, 100)
 
     return () => {
-      clearInterval(timer);
-      clearInterval(typingInterval);
-    };
-  }, []);
+      clearInterval(timer)
+      clearInterval(typingInterval)
+    }
+  }, [t])
 
-  const foodIcons = ["🍔", "🍕", "🍣", "🥗", "🍰", "🍜", "🍱", "🍩"];
-  const utensils = ["🍴", "🥄", "🍽️", "🥢", "🔪", "🥣"];
+  const distributionIcons = ["🚚", "📦", "🏭", "🏪", "🛒", "🛍️", "🧺", "🥡"]
+  const utensils = ["🍴", "🥄", "🍽️", "🥢", "🔪", "🥣"]
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-gray-700 to-gray-300 overflow-hidden">
+    <div className={`flex items-center justify-center min-h-screen bg-gradient-to-br from-[#86C353] via-[#68A641] to-[#4A8A2F] overflow-hidden ${isRTL ? 'rtl' : 'ltr'}`}>
       <div className="text-center relative">
         <svg
           className="absolute inset-0 w-full h-full"
@@ -145,7 +150,7 @@ export default function Preloader() {
               }}
             />
           </svg>
-          {foodIcons.map((icon, index) => (
+          {distributionIcons.map((icon, index) => (
             <motion.div
               key={index}
               className="absolute text-4xl"
@@ -194,7 +199,7 @@ export default function Preloader() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          <WavyText text="Al-Junaidi" />
+          <WavyText text={t('companyName')} />
         </motion.div>
         <motion.p
           className="text-xl text-gray-300 mb-6 h-6"
@@ -202,7 +207,7 @@ export default function Preloader() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
         >
-          by {typedName}
+          {t('by')} {typedName}
         </motion.p>
 
         <div className="w-64 h-2 bg-gray-700 rounded-full overflow-hidden mx-auto relative">
@@ -228,5 +233,5 @@ export default function Preloader() {
         </motion.p>
       </div>
     </div>
-  );
+  )
 }

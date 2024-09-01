@@ -85,7 +85,7 @@ export default function AboutBanner() {
           <div className="lg:w-1/2 space-y-6">
             <motion.h2
               variants={itemVariants}
-              className="text-4xl sm:text-5xl font-bold text-green-600 leading-tight"
+              className="text-4xl sm:text-4xl font-bold text-green-600 leading-tight"
             >
               {t("title1")}{" "}
               <motion.span
