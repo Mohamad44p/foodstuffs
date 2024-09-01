@@ -31,10 +31,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/[locale]/admin/login/page.js"
     ],
-    "/_not-found/page": [
+    "/[locale]/admin/clients/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/[locale]/admin/clients/page.js"
+    ],
+    "/[locale]/admin/clients/add/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[locale]/admin/clients/add/page.js"
     ]
   }
 }

@@ -1,38 +1,64 @@
-'use client'
+// app/[locale]/admin/login/page.tsx
+"use client";
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function AdminLogin() {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const router = useRouter()
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const res = await fetch('/api/admin/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
-    })
+    e.preventDefault();
+    setError("");
+    setIsLoading(true);
 
-    if (res.ok) {
-      router.push('/admin')
-    } else {
-      setError('Invalid credentials')
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        const locale = pathname.split('/')[1];
+        router.push(`/${locale}/admin`);
+        router.refresh();
+      } else {
+        setError(data.message || "Invalid credentials");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <Card className="w-[350px]">
         <CardHeader>
           <CardTitle>Admin Login</CardTitle>
-          <CardDescription>Enter your credentials to access the admin area</CardDescription>
+          <CardDescription>
+            Enter your credentials to access the admin area
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
@@ -61,9 +87,16 @@ export default function AdminLogin() {
           </form>
         </CardContent>
         <CardFooter>
-          <Button className="w-full" type="submit" onClick={handleSubmit}>Login</Button>
+          <Button
+            className="w-full"
+            type="submit"
+            onClick={handleSubmit}
+            disabled={isLoading}
+          >
+            {isLoading ? "Logging in..." : "Login"}
+          </Button>
         </CardFooter>
       </Card>
     </div>
-  )
+  );
 }

@@ -1,27 +1,41 @@
+// app/api/admin/login/route.ts
 import { NextResponse } from 'next/server'
+import bcrypt from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
+import db from '@/db/db'
 
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin'
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'password'
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'
+const JWT_SECRET = process.env.JWT_SECRET
 
 export async function POST(req: Request) {
-  const { username, password } = await req.json()
+  try {
+    const { username, password } = await req.json()
 
-  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-    const token = sign({ username }, JWT_SECRET, { expiresIn: '1h' })
+    const admin = await db.admin.findUnique({ where: { username } })
 
-    const response = NextResponse.json({ success: true })
-    response.cookies.set('admin_token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 3600, // 1 hour
-      path: '/',
-    })
+    if (!admin) {
+      return NextResponse.json({ success: false, message: 'Invalid credentials' }, { status: 401 })
+    }
 
-    return response
+    const isPasswordValid = await bcrypt.compare(password, admin.password)
+
+    if (isPasswordValid) {
+      const token = sign({ id: admin.id, username: admin.username, role: 'admin' }, JWT_SECRET!, { expiresIn: '30d' })
+
+      const response = NextResponse.json({ success: true, message: 'Login successful' })
+      response.cookies.set('admin_token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 30 * 24 * 60 * 60, // 30 days
+        path: '/',
+      })
+
+      return response
+    } else {
+      return NextResponse.json({ success: false, message: 'Invalid credentials' }, { status: 401 })
+    }
+  } catch (error) {
+    console.error('Login error:', error)
+    return NextResponse.json({ success: false, message: 'An error occurred' }, { status: 500 })
   }
-
-  return NextResponse.json({ success: false }, { status: 401 })
 }

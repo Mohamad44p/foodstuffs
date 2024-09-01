@@ -1,3 +1,4 @@
+// middleware.ts
 import createIntlMiddleware from 'next-intl/middleware';
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
@@ -5,42 +6,69 @@ import { verify } from 'jsonwebtoken'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'
 
-// Create internationalization middleware
 const intlMiddleware = createIntlMiddleware({
   locales: ['en', 'ar'],
   defaultLocale: 'en'
 });
 
-// Combine internationalization and admin authentication
-export default function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // Check if the request is for the admin route (including localized versions)
-  if (pathname.includes('/admin') && !pathname.endsWith('/login')) {
+  // Skip middleware for API routes
+  if (pathname.startsWith('/api/')) {
+    return NextResponse.next();
+  }
+
+  // Handle internationalization first
+  const pathnameIsMissingLocale = ['en', 'ar'].every(
+    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+  );
+
+  if (pathnameIsMissingLocale) {
+    const locale = request.cookies.get('NEXT_LOCALE')?.value || 'en'
+    return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url))
+  }
+
+  // Apply intl middleware
+  const response = intlMiddleware(request);
+
+  // Handle admin routes
+  const pathnameWithoutLocale = pathname.replace(/^\/(?:en|ar)/, '');
+  if (pathnameWithoutLocale.startsWith('/admin')) {
     const token = request.cookies.get('admin_token')?.value
+    const locale = pathname.split('/')[1];
+
+    if (pathnameWithoutLocale === '/admin/login') {
+      if (token) {
+        try {
+          verify(token, JWT_SECRET)
+          return NextResponse.redirect(new URL(`/${locale}/admin`, request.url))
+        } catch (error) {
+          // If token is invalid, continue to login page
+          return response;
+        }
+      }
+      return response;
+    }
 
     if (!token) {
-      // Redirect to login page, preserving the locale
-      const locale = pathname.split('/')[1];
       return NextResponse.redirect(new URL(`/${locale}/admin/login`, request.url))
+    }
+    if (token){
+      return response;
     }
 
     try {
       verify(token, JWT_SECRET)
-      // If verification succeeds, continue to the admin route
-      return intlMiddleware(request)
+      return response;
     } catch (error) {
-      // If verification fails, redirect to login page, preserving the locale
-      const locale = pathname.split('/')[1];
       return NextResponse.redirect(new URL(`/${locale}/admin/login`, request.url))
     }
   }
 
-  // For non-admin routes, just apply the internationalization middleware
-  return intlMiddleware(request)
+  return response;
 }
 
 export const config = {
-  // Matcher ignoring `/_next/` and `/api/`
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)', '/:locale/admin/:path*', '/:locale/admin', '/admin/:path*', '/admin']
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -8,15 +8,12 @@ import {
   HomeIcon,
   UsersIcon,
   GlobeIcon,
-  LogOutIcon,
   MenuIcon,
   LayoutDashboardIcon,
   SettingsIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
 
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
@@ -42,7 +39,7 @@ export default function Sidebar() {
               href="/admin"
               icon={<HomeIcon className="mr-2 h-4 w-4" />}
               onClick={closeSidebar}
-              active={pathname === "/"}
+              active={pathname === "/admin"}
             >
               Home
             </NavItem>
@@ -50,15 +47,15 @@ export default function Sidebar() {
               href="/admin/clients"
               icon={<UsersIcon className="mr-2 h-4 w-4" />}
               onClick={closeSidebar}
-              active={pathname === "/clients"}
+              active={pathname === "/admin/clients"}
             >
               Brands
             </NavItem>
             <NavItem
-              href="/settings"
+              href="/admin/settings"
               icon={<SettingsIcon className="mr-2 h-4 w-4" />}
               onClick={closeSidebar}
-              active={pathname === "/settings"}
+              active={pathname === "/admin/settings"}
             >
               Settings
             </NavItem>
@@ -78,7 +75,6 @@ export default function Sidebar() {
             </div>
           </div>
         </ScrollArea>
-
       </div>
     );
   };
@@ -130,8 +126,9 @@ function NavItem({
       onClick={onClick}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
-      className={`group flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200 ${active ? "bg-blue-500 text-white" : "text-gray-300 hover:bg-gray-700/50"
-        }`}
+      className={`group flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200 ${
+        active ? "bg-blue-500 text-white" : "text-gray-300 hover:bg-gray-700/50"
+      }`}
     >
       {icon}
       <span>{children}</span>
