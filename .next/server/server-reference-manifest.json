@@ -1,30 +1,5 @@
 {
-  "node": {
-    "86252f389be4160d4bbdd02f3011fa514db60829": {
-      "workers": {
-        "app/[locale]/admin/clients/page": "(action-browser)/./node_modules/.pnpm/next@14.2.5_@babel+core@7.24.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22D%3A%5C%5Cfoodstuffs%5C%5Capp%5C%5C%5Blocale%5D%5C%5Cactions%5C%5CclientActions.ts%22%2C%5B%22editClient%22%2C%22deleteClient%22%5D%5D%5D&__client_imported__=true!"
-      },
-      "layer": {
-        "app/[locale]/admin/clients/page": "action-browser"
-      }
-    },
-    "e4963f4502c0814750352096a882710b49b9bd71": {
-      "workers": {
-        "app/[locale]/admin/clients/page": "(action-browser)/./node_modules/.pnpm/next@14.2.5_@babel+core@7.24.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22D%3A%5C%5Cfoodstuffs%5C%5Capp%5C%5C%5Blocale%5D%5C%5Cactions%5C%5CclientActions.ts%22%2C%5B%22editClient%22%2C%22deleteClient%22%5D%5D%5D&__client_imported__=true!"
-      },
-      "layer": {
-        "app/[locale]/admin/clients/page": "action-browser"
-      }
-    },
-    "c423d898c73ae896db22e859a87657b867b7c918": {
-      "workers": {
-        "app/[locale]/admin/clients/add/page": "(action-browser)/./node_modules/.pnpm/next@14.2.5_@babel+core@7.24.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22D%3A%5C%5Cfoodstuffs%5C%5Capp%5C%5C%5Blocale%5D%5C%5Cactions%5C%5CaddClient.ts%22%2C%5B%22addClient%22%5D%5D%5D&__client_imported__=true!"
-      },
-      "layer": {
-        "app/[locale]/admin/clients/add/page": "action-browser"
-      }
-    }
-  },
+  "node": {},
   "edge": {},
-  "encryptionKey": "OFXeYO1/dkZaNGtTLKGjoebwFeAZUSaSFLIK4ic8E/Y="
+  "encryptionKey": "zi2xXmQhBz/+xuw9AX83qFN2yqY3frX6jzT6dBlsM+s="
 }

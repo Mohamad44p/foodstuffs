@@ -58,9 +58,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://juneidi.ps",
   },
-  icons: {
-    icon: "/Logo.png",
-  },
 };
 
 interface RootLayoutProps {
