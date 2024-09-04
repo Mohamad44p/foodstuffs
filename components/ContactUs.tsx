@@ -18,6 +18,7 @@ import { SendIcon } from "lucide-react";
 import { useToast } from "./ui/use-toast";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
+import emailjs from '@emailjs/browser';
 
 interface FormState {
   name: string;
@@ -54,24 +55,27 @@ export default function ContactUs() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    try {
-      const response = await fetch("/api/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formState),
-      });
+    emailjs.init("NMXOw8212tJjSG-LG");
 
-      if (response.ok) {
+    try {
+      const response = await emailjs.send(
+        "service_ws4z793",
+        "template_js4uojn",
+        {
+          from_name: formState.name,
+          from_email: formState.email,
+          message: formState.message,
+        }
+      );
+
+      if (response.status === 200) {
         toast({
           title: t("successTitle"),
           description: t("successDescription"),
         });
         setFormState({ name: "", email: "", message: "" });
       } else {
-        const errorData = await response.json();
-        throw new Error(errorData.message || t("errorDefault"));
+        throw new Error(t("errorDefault"));
       }
     } catch (error) {
       toast({
@@ -108,9 +112,8 @@ export default function ContactUs() {
   return (
     <section
       ref={ref}
-      className={`py-24 bg-gradient-to-br from-background to-secondary ${
-        locale === "ar" ? "rtl" : "ltr"
-      }`}
+      className={`py-24 bg-gradient-to-br from-background to-secondary ${locale === "ar" ? "rtl" : "ltr"
+        }`}
     >
       <motion.div
         className="container mx-auto px-4"
@@ -172,9 +175,8 @@ export default function ContactUs() {
                 </div>
                 <Button
                   type="submit"
-                  className={`w-full ${
-                    locale === "ar" ? "flex-row-reverse" : ""
-                  }`}
+                  className={`w-full ${locale === "ar" ? "flex-row-reverse" : ""
+                    }`}
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? t("sendingButton") : t("sendButton")}
