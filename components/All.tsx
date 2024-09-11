@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSlider/Hero";
 import SectionLoader from "@/components/SectionLoader";
+import HeaderSection from "./HeaderSection";
 
 const SecSec = lazy(() => import("@/components/SecSec"));
 const Timeline = lazy(() => import("@/components/Timeline"));
@@ -19,9 +20,8 @@ export default function AllSections({
 }) {
   return (
     <main>
-      <header id="home" className="bg-background relative z-10">
-        <Navbar />
-        <HeroSection />
+      <header id="home">
+        <HeaderSection/>
       </header>
 
       <Suspense fallback={<SectionLoader title="Loading About Section" />}>

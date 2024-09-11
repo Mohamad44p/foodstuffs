@@ -85,17 +85,20 @@ export default function Navbar() {
   }
 
   return (
-    <header
-      className={`flex items-center justify-between relative top-0 left-0 right-0 z-[1000] px-4 sm:px-6 py-4 bg-white shadow-md ${
+    <motion.header
+      className={`flex items-center justify-between relative top-0 left-0 right-0 z-[1000] px-4 sm:px-6 py-4 ${
         locale === "ar" ? "rtl" : "ltr"
       }`}
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
     >
       <div className="flex items-center justify-between w-full lg:w-auto">
         <Button
           variant="ghost"
           size="icon"
           onClick={toggleMenu}
-          className="lg:hidden text-black hover:text-gray-600 transition-colors duration-300"
+          className="lg:hidden text-white hover:text-gray-200 transition-colors duration-300"
           aria-label={t("openMenu")}
         >
           <AlignLeft className="h-6 w-6" aria-hidden="true" />
@@ -106,7 +109,7 @@ export default function Navbar() {
             <Link
               key={label}
               href={href}
-              className="text-black hover:text-gray-600 transition-colors duration-300"
+              className="text-white hover:text-gray-200 transition-colors duration-300"
               target="_blank"
               rel="noopener noreferrer"
               aria-label={label}
@@ -128,12 +131,12 @@ export default function Navbar() {
               key={item.name}
               href={`#${item.href}`}
               onClick={smoothScroll}
-              className={`text-black font-medium hover:text-gray-600 transition-colors duration-300 relative group ${
-                activeSection === item.href ? "text-primary" : ""
+              className={`text-white font-medium hover:text-gray-200 transition-colors duration-300 relative group ${
+                activeSection === item.href ? "text-white font-bold" : ""
               }`}
             >
               {item.name}
-              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-black transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
+              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-white transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
             </a>
           ))}
         </nav>
@@ -156,12 +159,12 @@ export default function Navbar() {
               key={item.name}
               href={`#${item.href}`}
               onClick={smoothScroll}
-              className={`text-black font-medium hover:text-gray-600 transition-colors duration-300 relative group ${
-                activeSection === item.href ? "text-primary" : ""
+              className={`text-white font-medium hover:text-gray-200 transition-colors duration-300 relative group ${
+                activeSection === item.href ? "text-white font-bold" : ""
               }`}
             >
               {item.name}
-              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-black transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
+              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-white transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
             </a>
           ))}
         </nav>
@@ -170,7 +173,7 @@ export default function Navbar() {
       <div className={`flex items-center ${locale === "ar" ? "space-x-reverse space-x-6" : "space-x-6"}`}>
         <Button
           variant="outline"
-          className="hidden lg:flex bg-black text-white border-black hover:bg-white hover:text-black transition-colors duration-300"
+          className="hidden lg:flex bg-white text-[#86C353] border-white hover:bg-[#86C353] hover:text-white transition-colors duration-300"
         >
           <Link
             className={`flex items-center justify-center ${locale === "ar" ? "flex-row-reverse" : ""}`}
@@ -186,7 +189,7 @@ export default function Navbar() {
             />
           </Link>
         </Button>
-        <div className="hidden lg:block">
+        <div className="hidden lg:block text-white">
           <LocalSwitcher />
         </div>
         <Link href="/" className="relative group lg:hidden">
@@ -209,13 +212,13 @@ export default function Navbar() {
             animate="open"
             exit="closed"
             variants={menuVariants}
-            className="fixed inset-0 bg-black bg-opacity-90 z-50 lg:hidden flex items-center justify-center"
+            className="fixed inset-0 bg-gradient-to-br from-[#86C353] via-[#68A641] to-[#4A8A2F] bg-opacity-95 z-50 lg:hidden flex items-center justify-center"
           >
             <Button
               variant="ghost"
               size="icon"
               onClick={toggleMenu}
-              className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors duration-300"
+              className="absolute top-4 right-4 text-white hover:text-gray-200 transition-colors duration-300"
               aria-label={t("closeMenu")}
             >
               <X className="h-6 w-6" aria-hidden="true" />
@@ -229,8 +232,8 @@ export default function Navbar() {
                     smoothScroll(e)
                     toggleMenu()
                   }}
-                  className={`text-white text-2xl font-bold hover:text-gray-300 transition-colors duration-300 ${
-                    activeSection === item.href ? "text-primary" : ""
+                  className={`text-white text-2xl font-bold hover:text-gray-200 transition-colors duration-300 ${
+                    activeSection === item.href ? "text-white" : ""
                   }`}
                   variants={itemVariants}
                   transition={{ delay: index * 0.1 }}
@@ -247,7 +250,7 @@ export default function Navbar() {
                   <Link
                     key={label}
                     href={href}
-                    className="text-white hover:text-gray-300 transition-colors duration-300"
+                    className="text-white hover:text-gray-200 transition-colors duration-300"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
@@ -269,7 +272,7 @@ export default function Navbar() {
               >
                 <Button
                   variant="outline"
-                  className="mt-2 bg-white text-black border-white hover:bg-black hover:text-white transition-colors duration-300"
+                  className="mt-2 bg-white text-[#86C353] border-white hover:bg-[#86C353] hover:text-white transition-colors duration-300"
                 >
                   <Link
                     className={`flex items-center justify-center ${locale === "ar" ? "flex-row-reverse" : ""}`}
@@ -293,6 +296,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   )
 }
