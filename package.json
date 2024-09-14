@@ -28,6 +28,7 @@
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "food": "file:",
     "framer-motion": "^11.3.28",
     "gsap": "^3.12.5",
     "jsonwebtoken": "^9.0.2",

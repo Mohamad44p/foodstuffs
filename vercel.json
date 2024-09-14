@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "juneidi.ps"
+        }
+      ],
+      "destination": "https://www.juneidi.ps/en",
+      "permanent": true
+    }
+  ]
+}
