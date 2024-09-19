@@ -118,12 +118,10 @@ export default function ClientComponent({ clients }: ClientComponentProps) {
                     height={300}
                     className="w-3/4 h-auto absolute"
                     style={{
-                      transform: `translateY(${
-                        hoveredIndex === index ? -10 : 0
-                      }px)
-                                  rotateY(${
-                                    hoveredIndex === index ? 15 : 0
-                                  }deg) 
+                      transform: `translateY(${hoveredIndex === index ? -10 : 0
+                        }px)
+                                  rotateY(${hoveredIndex === index ? 15 : 0
+                        }deg) 
                                   scale(${hoveredIndex === index ? 1.1 : 1})`,
                       transition: "transform 0.3s spring",
                     }}
@@ -134,32 +132,7 @@ export default function ClientComponent({ clients }: ClientComponentProps) {
                     transition={{ duration: 0.3 }}
                   />
                 </motion.div>
-                <Link
-                  href={client.Link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-5 text-white font-bold py-3 px-8 rounded-full uppercase text-lg relative overflow-hidden"
-                  style={{
-                    backgroundColor: client.ButtonColor,
-                  }}
-                >
-                  <motion.div
-                    className={`flex items-center justify-center gap-x-3 ${isRTL ? 'flex-row-reverse' : ''}`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                   {locale === 'ar' && <ArrowRight size={24} className="rotate-180" />}
-                    {t('visit')}
-                    {locale === 'en' && <ArrowRight size={24} />}
-                  </motion.div>
-                  <motion.div
-                    className="absolute inset-0 bg-white"
-                    initial={{ x: "-100%" }}
-                    whileHover={{ x: "100%" }}
-                    transition={{ duration: 0.5 }}
-                    style={{ opacity: 0.3 }}
-                  />
-                </Link>
+
               </motion.div>
             ))}
           </motion.div>
