@@ -12,7 +12,6 @@ export default function HeaderSection() {
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-[#86C353] via-[#68A641] to-[#4A8A2F] z-0" />
       <div className="absolute inset-0 bg-black opacity-30 z-10" />
       <div className="relative z-20">
         <Navbar />

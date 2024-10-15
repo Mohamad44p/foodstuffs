@@ -86,9 +86,8 @@ export default function Navbar() {
 
   return (
     <motion.header
-      className={`flex items-center justify-between relative top-0 left-0 right-0 z-[1000] px-4 sm:px-6 py-4 ${
-        locale === "ar" ? "rtl" : "ltr"
-      }`}
+      className={`flex items-center bg-white justify-between relative top-0 left-0 right-0 z-[1000] px-4 sm:px-6 md:py-0 py-2 ${locale === "ar" ? "rtl" : "ltr"
+        }`}
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -98,7 +97,7 @@ export default function Navbar() {
           variant="ghost"
           size="icon"
           onClick={toggleMenu}
-          className="lg:hidden text-white hover:text-gray-200 transition-colors duration-300"
+          className="lg:hidden text-black hover:text-gray-800 transition-colors duration-300"
           aria-label={t("openMenu")}
         >
           <AlignLeft className="h-6 w-6" aria-hidden="true" />
@@ -109,7 +108,7 @@ export default function Navbar() {
             <Link
               key={label}
               href={href}
-              className="text-white hover:text-gray-200 transition-colors duration-300"
+              className="text-black transition-colors duration-300"
               target="_blank"
               rel="noopener noreferrer"
               aria-label={label}
@@ -131,12 +130,11 @@ export default function Navbar() {
               key={item.name}
               href={`#${item.href}`}
               onClick={smoothScroll}
-              className={`text-white font-medium hover:text-gray-200 transition-colors duration-300 relative group ${
-                activeSection === item.href ? "text-white font-bold" : ""
-              }`}
+              className={`text-black font-medium hover:text-gray-800 transition-colors duration-300 relative group ${activeSection === item.href ? "text-white font-bold" : ""
+                }`}
             >
               {item.name}
-              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-white transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
+              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-black transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
             </a>
           ))}
         </nav>
@@ -159,12 +157,11 @@ export default function Navbar() {
               key={item.name}
               href={`#${item.href}`}
               onClick={smoothScroll}
-              className={`text-white font-medium hover:text-gray-200 transition-colors duration-300 relative group ${
-                activeSection === item.href ? "text-white font-bold" : ""
-              }`}
+              className={`text-black font-medium hover:text-gray-800 transition-colors duration-300 relative group ${activeSection === item.href ? "text-black font-bold" : ""
+                }`}
             >
               {item.name}
-              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-white transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
+              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-black transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
             </a>
           ))}
         </nav>
@@ -173,7 +170,7 @@ export default function Navbar() {
       <div className={`flex items-center ${locale === "ar" ? "space-x-reverse space-x-6" : "space-x-6"}`}>
         <Button
           variant="outline"
-          className="hidden lg:flex bg-white text-[#86C353] border-white hover:bg-[#86C353] hover:text-white transition-colors duration-300"
+          className="hidden lg:flex bg-[#86C353] text-[#000] border-white hover:bg-[#000] hover:text-[#86C353] transition-colors duration-300"
         >
           <Link
             className={`flex items-center justify-center ${locale === "ar" ? "flex-row-reverse" : ""}`}
@@ -182,14 +179,13 @@ export default function Navbar() {
           >
             {t("contactUs")}
             <ArrowRightIcon
-              className={`${
-                locale === "ar" ? "ml-2 rotate-180" : "mr-2"
-              } h-4 w-4 animate-bounce`}
+              className={`${locale === "ar" ? "ml-2 rotate-180" : "mr-2"
+                } h-4 w-4 animate-bounce`}
               aria-hidden="true"
             />
           </Link>
         </Button>
-        <div className="hidden lg:block text-white">
+        <div className="hidden lg:block text-black">
           <LocalSwitcher />
         </div>
         <Link href="/" className="relative group lg:hidden">
@@ -218,7 +214,7 @@ export default function Navbar() {
               variant="ghost"
               size="icon"
               onClick={toggleMenu}
-              className="absolute top-4 right-4 text-white hover:text-gray-200 transition-colors duration-300"
+              className="absolute top-4 right-4 text-black hover:text-gray-800 transition-colors duration-300"
               aria-label={t("closeMenu")}
             >
               <X className="h-6 w-6" aria-hidden="true" />
@@ -232,9 +228,8 @@ export default function Navbar() {
                     smoothScroll(e)
                     toggleMenu()
                   }}
-                  className={`text-white text-2xl font-bold hover:text-gray-200 transition-colors duration-300 ${
-                    activeSection === item.href ? "text-white" : ""
-                  }`}
+                  className={`text-white text-2xl font-bold hover:text-gray-200 transition-colors duration-300 ${activeSection === item.href ? "text-white" : ""
+                    }`}
                   variants={itemVariants}
                   transition={{ delay: index * 0.1 }}
                 >
@@ -284,9 +279,8 @@ export default function Navbar() {
                   >
                     {t("contactUs")}
                     <ArrowRightIcon
-                      className={`${
-                        locale === "ar" ? "ml-2 rotate-180" : "mr-2"
-                      } h-4 w-4 animate-bounce`}
+                      className={`${locale === "ar" ? "ml-2 rotate-180" : "mr-2"
+                        } h-4 w-4 animate-bounce`}
                       aria-hidden="true"
                     />
                   </Link>
