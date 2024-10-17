@@ -170,7 +170,7 @@ export default function Navbar() {
       <div className={`flex items-center ${locale === "ar" ? "space-x-reverse space-x-6" : "space-x-6"}`}>
         <Button
           variant="outline"
-          className="hidden lg:flex bg-[#86C353] text-[#000] border-white hover:bg-[#000] hover:text-[#86C353] transition-colors duration-300"
+          className="hidden lg:flex bg-[#86C353] text-[#fff] border-white hover:bg-[#64933e] hover:text-[#000] transition-colors duration-300"
         >
           <Link
             className={`flex items-center justify-center ${locale === "ar" ? "flex-row-reverse" : ""}`}
