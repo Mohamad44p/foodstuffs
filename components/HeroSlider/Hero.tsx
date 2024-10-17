@@ -25,7 +25,7 @@ export default function HeroSection() {
         />
       </motion.div>
       <div
-        className="absolute inset-0 bg-black/50"
+        className="absolute inset-0 bg-black/25"
       />
       <motion.div
         className="absolute left-4 top-0 bottom-0 flex items-center"
