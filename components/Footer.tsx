@@ -157,7 +157,7 @@ export default function AnimatedFooter() {
               </p>
               <p className="flex items-center gap-x-3">
                 <Phone size={20} aria-hidden="true" />
-                <a href="tel:+97259-994-0285">+972 59-994-0285</a>
+                <a href="tel:+97259-994-0285">+972 2 222 60 39</a>
               </p>
               <p className="flex items-center gap-x-3">
                 <MailSearch size={20} aria-hidden="true" />
