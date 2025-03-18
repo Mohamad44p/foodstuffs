@@ -21,11 +21,11 @@ import LocalSwitcher from "./local-switcher"
 const socialLinks = [
   {
     Icon: Facebook,
-    href: "https://www.facebook.com/people/%D8%B4%D8%B1%D9%83%D8%A9-%D8%A3%D8%AF%D9%8A%D8%A8-%D8%A7%D9%84%D8%AC%D9%86%D9%8A%D8%AF%D9%8A-%D9%88%D8%B4%D8%B1%D9%83%D8%A7%D8%A6%D9%87-%D9%84%D8%AA%D8%AC%D8%A7%D8%B1%D8%A9-%D8%A7%D9%84%D9%85%D9%88%D8%A7%D8%AF-%D8%A7%D9%84%D8%BA%D8%B0%D8%A7%D8%A6%D9%8A%D8%A9/100057638731643",
+    href: "https://www.facebook.com/profile.php?id=61573896994735",
     label: "Facebook",
   },
   { Icon: X, href: "https://x.com/?lang=en", label: "Twitter" },
-  { Icon: Instagram, href: "https://www.instagram.com", label: "Instagram" },
+  { Icon: Instagram, href: "https://www.instagram.com/juneidi_pal", label: "Instagram" },
   { Icon: Linkedin, href: "https://www.linkedin.com/feed", label: "LinkedIn" },
 ]
 
